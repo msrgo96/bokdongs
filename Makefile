@@ -1,0 +1,38 @@
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+NAME = minishell
+NAME_H = minishell.h
+LIBFT = libft.a
+LIBFT_DIR = Libft
+LIBFT_H = $(LIBFT_DIR)/libft.h
+SRC = main.c
+OBJ = $(SRC:%.c=%.o)
+
+all : $(NAME)
+
+# Everytime MUST have to make all LIB_SUBDIR
+$(NAME) :
+	make -C $(LIBFT_DIR)
+ifneq ($(shell find . -name $(NAME) | wc -l | tr -d ' '), 0)
+	mv $(NAME) $(NAME).tmp
+endif
+	make $(NAME).tmp
+	mv $(NAME).tmp $(NAME)
+
+# Includes LIB_SUBDIR.TARGET makes LIB_SUBDIR-update
+$(NAME).tmp : $(NAME_H) $(OBJ) $(LIBFT_DIR)/$(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_DIR)/$(LIBFT) -lreadline -o $(NAME).tmp
+
+clean :
+	rm -f $(OBJ)
+	make -C $(LIBFT_DIR) clean
+
+fclean : clean
+	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
+
+re : 
+	make fclean
+	make all
+
+.PHONY : all clean fclean re $(NAME)
