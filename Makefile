@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = minishell
 NAME_H = minishell.h
 LIBFT = libft.a
-LIBFT_DIR = Libft
-LIBFT_H = $(LIBFT_DIR)/libft.h
+LIBFT_DIR = libft
+LIBFT_H = libft.h
 SRC = main.c
 OBJ = $(SRC:%.c=%.o)
 
@@ -31,7 +31,7 @@ fclean : clean
 	rm -f $(NAME)
 	make -C $(LIBFT_DIR) fclean
 
-re : 
+re :
 	make fclean
 	make all
 

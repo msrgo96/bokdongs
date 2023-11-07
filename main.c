@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/07 15:38:43 by moson            ###   ########.fr       */
+/*   Updated: 2023/11/07 17:15:28 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	main(void)
 		str = readline("$> ");
 		if (ft_strncmp(str, "exit", 5) == 0)
 		{
-			ft_free((void **)&str);
+			//ft_free((void **)&str);
 			break ;
 		}
 		if (str != NULL)
 		{
-			printf("stdin:%s\n", str);
+			ft_printf("stdin:%s\n", str);
 			add_history(str);
-			ft_free((void **)&str);
+			//ft_free((void **)&str);
 		}
 	}
 	return (0);

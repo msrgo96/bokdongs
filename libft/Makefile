@@ -1,6 +1,6 @@
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror
-INC = ../includes
+INC = ../
 SRCS_DIR = sources
 OBJS_DIR = obj
 
