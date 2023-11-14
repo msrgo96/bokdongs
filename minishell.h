@@ -92,6 +92,11 @@ typedef struct s_envp
 	char	*value;
 }	t_envp;
 
+typedef struct s_sh_data
+{
+	t_list	*envp_list;
+}	t_sh_data;
+
 # pragma endregion
 
 #endif
