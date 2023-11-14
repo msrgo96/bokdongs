@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 16:58:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/09 22:40:41 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/09 19:55:10 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/14 19:46:24 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+// ls -al > a.txt | echo -n"test |><<<" > test.txt
+
+// (ls -al > a.txt) (|) (echo -n"test |><<<" > test.txt)
+
+// (ls -al) (>) (a.txt) (|) (echo -n"test |><<<") (>) (test.txt)
+
+// (ls) (-al) (>) (a.txt) (|) (echo) (-n"test |><<<") (>) (test.txt)
+
+// input null_pointer 체크는 밖의 main에서
+t_list	*tokenizer(char *input)
 {
-	t_node	*last;
 
-	if (!lst)
-		return ;
-	last = ft_lstlast(*lst);
-	if (last == 0)
-		(*lst = new);
-	else
-	{
-		last->next = new;
-		new->prv = last;
-		new->next = NULL;
-	}
 }

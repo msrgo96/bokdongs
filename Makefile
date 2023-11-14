@@ -1,11 +1,12 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
 NAME = minishell
 NAME_H = minishell.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = main.c
+SRC = jooahn.c
+# SRC = main.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)
