@@ -1,12 +1,13 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Wno-unknown-pragmas
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
-NAME_H = minishell.h
+NAME_H = minishell.h builtins/builtins.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = main.c
+BUILTINS_SRC = builtins/echo_builtin.c builtins/builtins.c
+SRC = main.c $(BUILTINS_SRC)
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

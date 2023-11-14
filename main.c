@@ -11,11 +11,14 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins/builtins.h"
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 
+	if (0 && argc && argv && envp)
+		return (FT_FALSE);
 	while (1)
 	{
 		str = readline("$> ");
@@ -27,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str != NULL)
 		{
-			// execute();
+			echo_builtin();	// execute();
 			add_history(str);
 			free(str);
 			str = NULL;
