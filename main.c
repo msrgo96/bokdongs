@@ -12,29 +12,25 @@
 
 #include "minishell.h"
 
-void	checkleak(void)
-{
-	system("leaks minishell");
-}
-
 int	main(void)
 {
 	char	*str;
 
-	atexit(checkleak);
 	while (1)
 	{
 		str = readline("$> ");
 		if (ft_strncmp(str, "exit", 5) == 0)
 		{
-			//ft_free((void **)&str);
+			free(str);
+			str = NULL;
 			break ;
 		}
 		if (str != NULL)
 		{
-			ft_printf("stdin:%s\n", str);
+			// execute();
 			add_history(str);
-			//ft_free((void **)&str);
+			free(str);
+			str = NULL;
 		}
 	}
 	return (0);

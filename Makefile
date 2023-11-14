@@ -1,12 +1,12 @@
 CC = cc
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
+LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = jooahn.c
-# SRC = main.c
+SRC = main.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)
@@ -22,7 +22,7 @@ endif
 
 # Includes LIB_SUBDIR.TARGET makes LIB_SUBDIR-update
 $(NAME).tmp : $(NAME_H) $(OBJ) $(LIBFT_DIR)/$(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_DIR)/$(LIBFT) -lreadline -o $(NAME).tmp
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(LIBREADLINEFLAGS) -o $(NAME).tmp
 
 clean :
 	rm -f $(OBJ)
