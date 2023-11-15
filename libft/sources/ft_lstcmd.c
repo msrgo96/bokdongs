@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 17:21:41 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/21 16:55:47 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/15 14:06:09 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_node	*lst_poll(t_list *list)
 
 void	lst_add(t_list *list, t_node *new)
 {
-	if (!(list->tail))
+	if (!(list->tail) || !(list->head))
 	{
 		new->prv = 0;
 		new->next = 0;
@@ -38,10 +38,12 @@ void	lst_add(t_list *list, t_node *new)
 		list->tail = new;
 		return ;
 	}
-	ft_lstadd_back(&(list->tail), new);
+	list->tail->next = new;
+	new->prv = list->tail;
+	new->next = 0;
 	list->tail = new;
-	if (ft_lstsize(list->head) == 1)
-		list->head = new;
+	// if (ft_lstsize(list->head) == 1)
+	// 	list->head = new;
 }
 
 int	lst_is_empty(t_list *list)

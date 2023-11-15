@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/25 00:59:55 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/15 14:14:59 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -100,7 +101,8 @@ int		ft_intlen(int n);
 int		ft_ullen(size_t n, int base);
 char	*ft_tohex(size_t n, int is_upper);
 
-t_node	*ft_lstnew(void *content);
+t_list	*ft_newlist(void);
+t_node	*ft_newnode(void *content);
 void	ft_lstadd_front(t_node **lst, t_node *new);
 int		ft_lstsize(t_node *lst);
 t_node	*ft_lstlast(t_node *lst);

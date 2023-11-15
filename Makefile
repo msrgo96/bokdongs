@@ -1,12 +1,13 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = main.c
+SRC = main.c \
+tokenizer.c tokenizer_util.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)
