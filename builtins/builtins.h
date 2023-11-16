@@ -17,8 +17,8 @@
 
 # pragma region PROTOTYPES
 
+int	echo_builtin(t_proc *proc);
 
 # pragma endregion
 
 #endif
-
