@@ -12,42 +12,39 @@
 
 #include "libft.h"
 
-static void	ft_replace_node_with_list_util(t_list *base, t_list *insert, t_node *node);
+static void	link_list_at_node(t_list *base, t_list *sub, t_node *node);
 
-void	ft_replace_node_with_list(t_list *base, t_list *insert, int at)
+void	ft_replace_node_with_list(t_list *base, t_list *sub, t_node *node)
 {
-	t_node	*node;
-
-	if (!base || !insert)
+	if (!base || !sub)
 		return ;
-	if (ft_list_is_empty(insert))
+	if (ft_list_is_empty(sub))
 	{
-		free(insert);
+		free(sub);
 		return ;
 	}
 	if (ft_list_is_empty(base))
 	{
-		base->head = insert->head;
-		base->tail = insert->tail;
-		free(insert);
+		base->head = sub->head;
+		base->tail = sub->tail;
+		free(sub);
 		return ;
 	}
-	node = ft_listget(base, at);
-	ft_replace_node_with_list_util(base, insert, node);
+	link_list_at_node(base, sub, node);
 	ft_del_node(node, free);
-	free(insert);
+	free(sub);
 }
 
-static void	ft_replace_node_with_list_util(t_list *base, t_list *insert, t_node *node)
+static void	link_list_at_node(t_list *base, t_list *sub, t_node *node)
 {
-	insert->head->prv = node->prv;
-	insert->tail->next = node->next;
+	sub->head->prv = node->prv;
+	sub->tail->next = node->next;
 	if (node->prv)
-		node->prv->next = insert->head;
+		node->prv->next = sub->head;
 	if (node->next)
-		node->next->prv = insert->tail;
-	if (insert->head->prv == 0)
-		base->head = insert->head;
-	if (insert->tail->next == 0)
-		base->tail = insert->tail;
+		node->next->prv = sub->tail;
+	if (sub->head->prv == 0)
+		base->head = sub->head;
+	if (sub->tail->next == 0)
+		base->tail = sub->tail;
 }

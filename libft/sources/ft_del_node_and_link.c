@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_del_node_link.c                                 :+:      :+:    :+:   */
+/*   ft_del_node_and_link.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	ft_del_node_link(t_list *list, t_node *target, void (*del)(void *))
+void	ft_del_node_and_link(t_list *list, t_node *target, void (*del)(void *))
 {
 	t_node	*node;
 

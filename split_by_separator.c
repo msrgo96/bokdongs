@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-#define SINGLE 0
-#define DOUBLE 1
 static void	init_data(int *i, int *start, int *in_quotes);
 
 // "",''안의 separator 무시, list로 반환, 구분자 포함 : char *
@@ -24,7 +22,7 @@ t_list	*split_with_separator(char *s, const char *sep)
 	int		start;
 	int		in_quotes[2];
 
-	list = ft_newlist();
+	list = ft_new_list();
 	init_data(&i, &start, in_quotes);
 	while (s[++i])
 	{
@@ -37,14 +35,14 @@ t_list	*split_with_separator(char *s, const char *sep)
 		if (ft_strncmp(s + i, sep, ft_strlen(sep)) == 0)
 		{
 			if (start != i)
-				ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
-			ft_list_append(list, ft_newnode(ft_strdup(sep)));
+				ft_list_append(list, ft_new_node(ft_substr(s, start, i - start)));
+			ft_list_append(list, ft_new_node(ft_strdup(sep)));
 			i += (ft_strlen(sep) - 1);
 			start = i + 1;
 		}
 	}
 	if (start != i)
-		ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
+		ft_list_append(list, ft_new_node(ft_substr(s, start, i - start)));
 	return (list);
 }
 
@@ -56,7 +54,7 @@ t_list	*split_without_separator(char *s)
 	int		start;
 	int		in_quotes[2];
 
-	list = ft_newlist();
+	list = ft_new_list();
 	init_data(&i, &start, in_quotes);
 	while (s[++i])
 	{
@@ -69,7 +67,7 @@ t_list	*split_without_separator(char *s)
 		if (ft_isspace(s[i]))
 		{
 			if (start != i)
-				ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
+				ft_list_append(list, ft_new_node(ft_substr(s, start, i - start)));
 			while (s[i] && ft_isspace(s[i]))
 				i++;
 			start = i;
@@ -77,7 +75,7 @@ t_list	*split_without_separator(char *s)
 		}
 	}
 	if (start != i)
-		ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
+		ft_list_append(list, ft_new_node(ft_substr(s, start, i - start)));
 	return (list);
 }
 

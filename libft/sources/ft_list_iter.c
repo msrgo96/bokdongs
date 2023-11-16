@@ -27,16 +27,17 @@ void	ft_list_iter(t_list *list, void (*f)(void *))
 }
 
 // content에 f()를 적용시킨 결과를 content에 재대입
-void	ft_list_iter_reassign(t_list *list, void *(*f)(void *))
+t_list	*ft_list_iter_reassign(t_list *list, void *(*f)(void *))
 {
 	t_node	*node;
 
 	if (!list)
-		return ;
+		return (list);
 	node = list->head;
 	while (node)
 	{
 		node->content = f(node->content);
 		node = node->next;
 	}
+	return (list);
 }

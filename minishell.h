@@ -33,6 +33,12 @@
 
 # pragma region ENUMS
 
+enum	e_quotes_type
+{
+	SINGLE = 0,
+	DOUBLE = 1
+};
+
 enum	e_redir_type
 {
 	I_REDIR = 0,
@@ -99,10 +105,14 @@ typedef struct s_sh_data
 
 # pragma endregion
 
+t_token *ft_new_token(void);
+t_token	*wrap_in_token(void *content);
+
+t_list	*tokenizer(char *input);
 t_list	*split_with_separator(char *s, const char *sep);
 t_list	*split_without_separator(char *s);
-void	print_content(void *content);
-t_list	*tokenizer(char *input);
-void	split_list(t_list *base_list, const char *separator);
 
+void	print_content(void *content);
+void	print_token(void *content);
+char	*get_type(int type);
 #endif

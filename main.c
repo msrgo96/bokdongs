@@ -26,15 +26,15 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		// jooahn_test
-		argc++;
-		argv++;
-		envp++;
-		//ft_list_iter(tokenizer(str), print_content);
+		(void)argc;
+		(void)argv;
+		(void)envp;
 		if (str != NULL)
 		{
 			// execute();
 			add_history(str);
-			tokenizer(str);
+			//tokenizer(str);
+			ft_list_iter(tokenizer(str), print_token);
 			//free(str);
 			str = NULL;
 		}
@@ -47,5 +47,25 @@ void	print_content(void *content)
 	if (!content)
 		printf("content is empty\n");
 	else
-		printf("content : %s\n", (char *)content);
+		printf("content : %s$\n", (char *)content);
+}
+
+void	print_token(void *content)
+{
+	if (!content)
+		printf("content is empty\n");
+	else
+	{
+		printf("token's value : %s, ", ((t_token *)content)->value);
+		printf("type : %s\n", get_type(((t_token *)content)->type));
+	}
+}
+
+char	*get_type(int type)
+{
+	const char	*types[7] = {"in redirection", "out redirection", "add redirection", "heredoc", "pipe", "cmd", 0};
+
+	if (type < 0 || type > 6)
+		return (0);
+	return ((char *)types[type]);
 }

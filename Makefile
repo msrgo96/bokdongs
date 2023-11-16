@@ -7,7 +7,7 @@ LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
 SRC = main.c \
-tokenizer.c tokenizer_util.c
+token.c tokenizer.c split_by_separator.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

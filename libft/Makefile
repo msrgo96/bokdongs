@@ -13,11 +13,11 @@ ft_memchr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 ft_isspace.c ft_intlen.c ft_strtol.c \
 ft_puthex_fd.c ft_putptr_fd.c ft_ullen.c ft_putunbr_fd.c \
 \
-ft_newnode.c ft_list_append.c ft_listsize.c ft_listlast.c \
+ft_new_node.c ft_list_append.c ft_listsize.c ft_listlast.c \
 ft_list_iter.c ft_listclear.c\
-ft_listget.c ft_free_list.c ft_newlist.c\
+ft_listget.c ft_free_list.c ft_new_list.c\
 ft_list_is_empty.c ft_list_pop.c \
-ft_del_node.c ft_del_node_link.c \
+ft_del_node.c ft_del_node_and_link.c \
 ft_get_node_idx.c ft_insert_list_at.c \
 ft_replace_node_with_list.c \
 \

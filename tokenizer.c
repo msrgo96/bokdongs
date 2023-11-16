@@ -12,58 +12,68 @@
 
 #include "minishell.h"
 
-// |ls   can  i<split>>?||
+static void		split_list_by_separator(t_list *base_list, const char *separator);
+static t_list	*split_str_to_list(char *str, const char *separator);
+static void		insert_list_at_node(t_list *base, t_list *sub, t_node *node);
+static t_list	*wrap_in_token_list(t_list *string_list);
 
-// 초기 데이터를 리스트로 만들고 넘기기
-// 리스트를 받아서 노드 순회하며 안의 str들을 분리
-// 첫번째애와 마지막 애를 기억해뒀다가 분리된 애들을 노드에 담아서 앞뒤로 연결
-// 각 delimiter 기준으로 반복
+// readline으로 받은 문자열을 리스트로 만들기
+// 리스트안의 각 노드들의 content를 separator 기준으로 분리
+// 여러 separator에 대해 반복
 t_list	*tokenizer(char *input)
 {
-	t_list		*base_list;
 	const char	*separators[7] = {"|", "<<", ">>", "<", ">", " ", 0};
+	t_list		*string_list;
+	t_list		*token_list;
 	int			i;
 
-	base_list = ft_newlist();
-	ft_list_append(base_list, ft_newnode(input));
 	i = 0;
+	string_list = ft_new_list();
+	ft_list_append(string_list, ft_new_node(input));
 	while (separators[i])
-	{
-		split_list(base_list, separators[i]);
-		i++;
-	}
-	return (base_list);
+		split_list_by_separator(string_list, separators[i++]);
+	token_list = wrap_in_token_list(string_list);
+	return (token_list);
 }
 
-void	split_list(t_list *base_list, const char *separator)
+static void	split_list_by_separator(t_list *base_list, const char *separator)
 {
 	t_list	*sub_list;
 	t_node	*node;
 	t_node	*next;
-	int		i;
 
 	node = base_list->head;
-	i = 0;
 	while (node)
 	{
-		next = node->next;
-		if (!ft_str_is_same(node->content, "<<") && !ft_str_is_same(node->content, ">>"))
+		if (ft_str_is_same(node->content, "<<") \
+		|| ft_str_is_same(node->content, ">>"))
 		{
-			if (ft_str_is_same((char *)separator, " "))
-				sub_list = split_without_separator(node->content);
-			else
-				sub_list = split_with_separator(node->content, separator);
-			if (ft_list_is_empty(sub_list))
-			{
-				ft_del_node_link(base_list, node, free);
-				node = next;
-				continue ;
-			}
-			int	size = ft_listsize(sub_list);
-			ft_replace_node_with_list(base_list, sub_list, i);
-			i += (size - 1);
+			node = node->next;
+			continue ;
 		}
+		next = node->next;
+		sub_list = split_str_to_list(node->content, separator);
+		insert_list_at_node(base_list, sub_list, node);
 		node = next;
-		i++;
 	}
+}
+
+static t_list	*split_str_to_list(char *str, const char *separator)
+{
+	if (ft_str_is_same((char *)separator, " "))
+		return (split_without_separator(str));
+	return (split_with_separator(str, separator));
+}
+
+static void	insert_list_at_node(t_list *base, t_list *sub, t_node *node)
+{
+	if (ft_list_is_empty(sub))
+		ft_del_node_and_link(base, node, free);
+	else
+		ft_replace_node_with_list(base, sub, node);
+}
+
+static t_list	*wrap_in_token_list(t_list *string_list)
+{
+	return (ft_list_iter_reassign(string_list, (void *)wrap_in_token));
 }
