@@ -17,7 +17,6 @@
 
 # pragma region PROTOTYPES
 
-int	echo_builtin(void);
 
 # pragma endregion
 

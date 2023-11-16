@@ -13,7 +13,7 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-int	exec_builtin(t_proc *proc)
+int	exec_builtin(t_proc *proc, int *builtin(t_proc *))
 {
-
+	
 }

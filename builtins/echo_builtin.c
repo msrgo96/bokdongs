@@ -13,7 +13,7 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-int	echo_builtin(char *str)
+int	echo_builtin(t_proc *proc)
 {
 	
 }

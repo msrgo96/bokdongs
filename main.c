@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (str != NULL)
 		{
-			echo_builtin();	// execute();
+			// execute();
 			add_history(str);
 			free(str);
 			str = NULL;
