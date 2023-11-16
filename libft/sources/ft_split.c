@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:45:19 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:46:34 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/16 12:37:28 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**ft_split(char const *s, char c)
 	return (result);
 }
 
-void	split_free(char **s)
+void	ft_split_free(char **s)
 {
 	int	idx;
 

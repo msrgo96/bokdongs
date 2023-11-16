@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/15 23:16:34 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:26:08 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,60 +20,50 @@
 // 각 delimiter 기준으로 반복
 t_list	*tokenizer(char *input)
 {
-	t_list		*split_list;
-	t_list		*sub_list;
-	const char	*separators[5] = {"|", "<<", ">>", "<", ">"};
+	t_list		*base_list;
+	const char	*separators[7] = {"|", "<<", ">>", "<", ">", " ", 0};
+	int			i;
 
-	split_list = ft_newlist();
-	lst_add(split_list, ft_newnode(input));
-	for (int i = 0; i < 6; i++)
+	base_list = ft_newlist();
+	ft_list_append(base_list, ft_newnode(input));
+	i = 0;
+	while (separators[i])
 	{
-		t_node *node = split_list->head;
-		while (node)
-		{
-			if (str_is_same(node->content, "|") || \
-			str_is_same(node->content, "<<") || \
-			str_is_same(node->content, ">>"))
-			{
-				node = node->next;
-				continue ;
-			}
-			if (i == 5)
-				sub_list = ft_split3(node->content);
-			else
-				sub_list = ft_split2(node->content, separators[i]);
-			// if (node->prv)
-			// {
-			// 	sub_list->head->prv = node->prv;
-			// 	node->prv->next = sub_list->head;
-			// }
-			// else
-			// 	split_list->head = sub_list->head;
-			// if (node->next)
-			// {
-			// 	sub_list->tail->next = node->next;
-			// 	node->next->prv = sub_list->tail;
-			// }
-			// else
-			// 	split_list->tail = sub_list->tail;
-			free(sub_list);
-			node = node->next;
-		}
+		split_list(base_list, separators[i]);
+		i++;
 	}
-	return (split_list);
+	return (base_list);
 }
 
-// t_list	*list_split(t_list *list, char *separator)
-// {
-// 	t_node	*head;
-// 	t_node	*tail;
-// 	t_node	*node;
+void	split_list(t_list *base_list, const char *separator)
+{
+	t_list	*sub_list;
+	t_node	*node;
+	t_node	*next;
+	int		i;
 
-// 	head = list->head;
-// 	tail = list->tail;
-// 	node = head;
-// 	while (node)
-// 	{
-// 		node = node->next;
-// 	}
-// }
+	node = base_list->head;
+	i = 0;
+	while (node)
+	{
+		next = node->next;
+		if (!ft_str_is_same(node->content, "<<") && !ft_str_is_same(node->content, ">>"))
+		{
+			if (ft_str_is_same((char *)separator, " "))
+				sub_list = split_without_separator(node->content);
+			else
+				sub_list = split_with_separator(node->content, separator);
+			if (ft_list_is_empty(sub_list))
+			{
+				ft_del_node_link(base_list, node, free);
+				node = next;
+				continue ;
+			}
+			int	size = ft_listsize(sub_list);
+			ft_replace_node_with_list(base_list, sub_list, i);
+			i += (size - 1);
+		}
+		node = next;
+		i++;
+	}
+}

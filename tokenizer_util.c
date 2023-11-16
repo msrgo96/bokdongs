@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:53:38 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/15 23:16:32 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:24:04 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void	init_data(int *i, int *start, int *in_quotes);
 
 // "",''안의 separator 무시, list로 반환, 구분자 포함 : char *
-t_list	*ft_split2(char *s, const char *sep)
+t_list	*split_with_separator(char *s, const char *sep)
 {
 	t_list	*list;
 	int		i;
@@ -37,19 +37,19 @@ t_list	*ft_split2(char *s, const char *sep)
 		if (ft_strncmp(s + i, sep, ft_strlen(sep)) == 0)
 		{
 			if (start != i)
-				lst_add(list, ft_newnode(ft_substr(s, start, i - start)));
-			lst_add(list, ft_newnode(ft_strdup(sep)));
+				ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
+			ft_list_append(list, ft_newnode(ft_strdup(sep)));
 			i += (ft_strlen(sep) - 1);
 			start = i + 1;
 		}
 	}
 	if (start != i)
-		lst_add(list, ft_newnode(ft_substr(s, start, i - start)));
+		ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
 	return (list);
 }
 
 // "",''안의 separator 무시, list로 반환, 구분자 무시
-t_list	*ft_split3(char *s)
+t_list	*split_without_separator(char *s)
 {
 	t_list	*list;
 	int		i;
@@ -69,7 +69,7 @@ t_list	*ft_split3(char *s)
 		if (ft_isspace(s[i]))
 		{
 			if (start != i)
-				lst_add(list, ft_newnode(ft_substr(s, start, i - start)));
+				ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
 			while (s[i] && ft_isspace(s[i]))
 				i++;
 			start = i;
@@ -77,7 +77,7 @@ t_list	*ft_split3(char *s)
 		}
 	}
 	if (start != i)
-		lst_add(list, ft_newnode(ft_substr(s, start, i - start)));
+		ft_list_append(list, ft_newnode(ft_substr(s, start, i - start)));
 	return (list);
 }
 
@@ -87,9 +87,4 @@ static void	init_data(int *i, int *start, int *in_quotes)
 	*start = 0;
 	in_quotes[SINGLE] = 0;
 	in_quotes[DOUBLE] = 0;
-}
-
-void	print_content(void *content)
-{
-	printf("content : @%s@\n", (char *)content);
 }

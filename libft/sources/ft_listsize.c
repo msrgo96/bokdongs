@@ -1,42 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_listsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 16:59:25 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/25 01:49:39 by jooahn           ###   ########.fr       */
+/*   Created: 2023/03/18 00:43:05 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/16 11:52:40 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_node	*ft_lstmap(t_node *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_listsize(t_list *list)
 {
-	t_node	*head;
+	int		size;
 	t_node	*node;
 
-	if (!lst)
+	if (!list)
 		return (0);
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
-		return (0);
-	head = node;
-	while (lst->next)
+	size = 0;
+	node = list->head;
+	while (node)
 	{
-		node->content = f(lst->content);
-		node->next = (t_node *)malloc(sizeof(t_node));
-		if (!(node->next))
-		{
-			ft_lstclear(&head, del);
-			return (0);
-		}
-		lst = lst->next;
 		node = node->next;
+		size++;
 	}
-	node->content = f(lst->content);
-	node->next = 0;
-	return (head);
+	return (size);
 }

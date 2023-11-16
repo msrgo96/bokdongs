@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfree.c                                       :+:      :+:    :+:   */
+/*   ft_listget.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 00:58:12 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/25 01:14:52 by jooahn           ###   ########.fr       */
+/*   Created: 2023/10/18 19:23:22 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/16 11:51:57 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_lstfree(t_node *lst)
+// i가 리스트 크기보다 크면 마지막 node 반환
+// i가 음수면 첫 번째 node 반환
+// 첫 번째 요소가 0
+t_node	*ft_listget(t_list *list, int i)
 {
 	t_node	*node;
-	t_node	*temp;
 
-	node = lst;
-	while (node)
-	{
-		temp = node->next;
-		free(node);
-		node = temp;
-	}
+	if (!list)
+		return (0);
+	if (i >= ft_listsize(list))
+		return (list->tail);
+	node = list->head;
+	while (node && i-- > 0)
+		node = node->next;
+	return (node);
 }

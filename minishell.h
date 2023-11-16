@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/15 20:31:43 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/16 16:26:22 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ typedef struct s_sh_data
 
 # pragma endregion
 
-t_list	*ft_split2(char *s, const char *sep);
-t_list	*ft_split3(char *s);
+t_list	*split_with_separator(char *s, const char *sep);
+t_list	*split_without_separator(char *s);
 void	print_content(void *content);
 t_list	*tokenizer(char *input);
+void	split_list(t_list *base_list, const char *separator);
 
 #endif

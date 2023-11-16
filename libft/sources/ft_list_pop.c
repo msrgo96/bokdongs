@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_listcmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 16:58:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/09 22:40:41 by jooahn           ###   ########.fr       */
+/*   Created: 2023/10/20 17:21:41 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/15 14:06:09 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+t_node	*ft_list_pop(t_list *list)
 {
-	t_node	*last;
+	t_node	*target;
 
-	if (!lst)
-		return ;
-	last = ft_lstlast(*lst);
-	if (last == 0)
-		(*lst = new);
+	if (ft_list_is_empty(list))
+		return (NULL);
+	target = list->head;
+	list->head = list->head->next;
+	if (list->head)
+		list->head->prv = NULL;
 	else
-	{
-		last->next = new;
-		new->prv = last;
-		new->next = NULL;
-	}
+		list->tail = NULL;
+	target->next = NULL;
+	return (target);
 }
+
+

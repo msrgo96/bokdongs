@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/15 14:14:59 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/16 15:20:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(char *s1, char *s2);
-int		str_is_same(char *s1, char *s2);
+int		ft_str_is_same(char *s1, char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_strrchr(const char *s, int c);
 int		ft_tolower(int c);
@@ -103,23 +103,27 @@ char	*ft_tohex(size_t n, int is_upper);
 
 t_list	*ft_newlist(void);
 t_node	*ft_newnode(void *content);
-void	ft_lstadd_front(t_node **lst, t_node *new);
-int		ft_lstsize(t_node *lst);
-t_node	*ft_lstlast(t_node *lst);
-void	ft_lstadd_back(t_node **lst, t_node *new);
-void	ft_lstdelone(t_node *lst, void (*del)(void *));
-void	ft_lstclear(t_node **lst, void (*del)(void *));
-void	ft_lstiter(t_node *lst, void (*f)(void *));
-t_node	*ft_lstmap(t_node *lst, void *(*f)(void *), void (*del)(void *));
-t_node	*ft_lstget(t_node *lst, int i);
-t_node	*lst_poll(t_list *list);
-void	lst_add(t_list *list, t_node *new);
-int		lst_is_empty(t_list *list);
-void	ft_lstfree(t_node *lst);
+int		ft_listsize(t_list *list);
+t_node	*ft_listlast(t_list *list);
+void	ft_listclear(t_node **list, void (*del)(void *));
+void	ft_list_iter(t_list *list, void (*f)(void *));
+void	ft_list_iter_reassign(t_list *list, void *(*f)(void *));
+t_node	*ft_listget(t_list *list, int i);
+t_node	*ft_list_pop(t_list *list);
+void	ft_list_append(t_list *list, t_node *new);
+void	ft_list_append_front(t_list *list, t_node *new);
+int		ft_list_is_empty(t_list *list);
+void	ft_del_node(t_node *node, void (*del)(void *));
+void	ft_del_node_link(t_list *list, t_node *target, void (*del)(void *));
+void	ft_free_list(t_list *list);
+void	ft_free_list_with_content(t_list *list);
+int		ft_get_node_idx(t_list *list, t_node *target);
+void	ft_insert_list_at(t_list *base, t_list *insert, int at);
+void	ft_replace_node_with_list(t_list *base, t_list *insert, int at);
 
 int		ft_printf(const char *format, ...);
 int		ft_isnum(char *input);
-void	split_free(char **s);
+void	ft_split_free(char **s);
 
 double	absolute(double x);
 double	sqrt(double n);
