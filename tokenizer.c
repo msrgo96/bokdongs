@@ -6,13 +6,14 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/16 16:26:08 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/17 16:01:33 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		split_list_by_separator(t_list *base_list, const char *separator);
+static void		split_list_by_separator(t_list *base_list,
+					const char *separator);
 static t_list	*split_str_to_list(char *str, const char *separator);
 static void		insert_list_at_node(t_list *base, t_list *sub, t_node *node);
 static t_list	*wrap_in_token_list(t_list *string_list);
@@ -22,18 +23,16 @@ static t_list	*wrap_in_token_list(t_list *string_list);
 // 여러 separator에 대해 반복
 t_list	*tokenizer(char *input)
 {
-	const char	*separators[7] = {"|", "<<", ">>", "<", ">", " ", 0};
 	t_list		*string_list;
-	t_list		*token_list;
 	int			i;
+	const char	*separators[7] = {"|", "<<", ">>", "<", ">", " ", 0};
 
 	i = 0;
 	string_list = ft_new_list();
 	ft_list_append(string_list, ft_new_node(input));
 	while (separators[i])
 		split_list_by_separator(string_list, separators[i++]);
-	token_list = wrap_in_token_list(string_list);
-	return (token_list);
+	return (wrap_in_token_list(string_list));
 }
 
 static void	split_list_by_separator(t_list *base_list, const char *separator)
@@ -45,8 +44,8 @@ static void	split_list_by_separator(t_list *base_list, const char *separator)
 	node = base_list->head;
 	while (node)
 	{
-		if (ft_str_is_same(node->content, "<<") \
-		|| ft_str_is_same(node->content, ">>"))
+		if (ft_str_is_same(node->content, "<<") || ft_str_is_same(node->content,
+				">>"))
 		{
 			node = node->next;
 			continue ;
@@ -61,8 +60,8 @@ static void	split_list_by_separator(t_list *base_list, const char *separator)
 static t_list	*split_str_to_list(char *str, const char *separator)
 {
 	if (ft_str_is_same((char *)separator, " "))
-		return (split_without_separator(str));
-	return (split_with_separator(str, separator));
+		return (split_exclude_separator(str));
+	return (split_include_separator(str, separator));
 }
 
 static void	insert_list_at_node(t_list *base, t_list *sub, t_node *node)
