@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/17 15:42:13 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 00:22:08 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # pragma region INCLUDES
 
 # include "libft.h"
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -28,6 +28,8 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
+# define QUOTES_ERROR_MSG "quotes error!"
+# define SYNTAX_ERROR_MSG "syntax error!"
 
 # pragma endregion
 
@@ -54,6 +56,14 @@ enum		e_token_type
 	CMD = 5
 };
 
+//	error code
+enum		e_error_code
+{
+	VALID = 0,
+	QUOTES_ERROR = 1,
+	SYNTAX_ERROR = 2
+};
+
 enum		e_fd_type
 {
 	FDTYPE_STD = 0,
@@ -78,9 +88,9 @@ typedef struct s_proc
 {
 	int		default_fdtype[2];
 	t_list	*redir_list;
-	char	*absolute_path;
+	char	*absolute_path; // open해서 받아오기
 	char	**args;
-	t_list	*envp_list;
+	t_list	*env_list; // 이건 프로세스마다 가질 필요 없이 따로 main에서 실행부로 바로 넘겨주는게 나을듯
 }			t_proc;
 
 //	(void *)list->content
@@ -92,21 +102,25 @@ typedef struct s_redir
 }			t_redir;
 
 //	(void *)list->content
-typedef struct s_envp
+typedef struct s_env
 {
 	char	*key;
 	char	*value;
-}			t_envp;
+}			t_env;
 
 typedef struct s_sh_data
 {
-	t_list	*envp_list;
+	t_list	*env_list;
 }			t_sh_data;
 
 # pragma endregion
 
 t_token		*ft_new_token(void);
+void		ft_del_token(void *token);
 t_token		*wrap_in_token(void *content);
+
+t_env		*ft_new_env(void);
+t_list		*create_env_list(char **envp);
 
 t_list		*tokenizer(char *input);
 t_list		*split_include_separator(char *s, const char *sep);
@@ -115,7 +129,15 @@ int			is_in_quotes(char c, int in_quotes[2]);
 void		add_sep_in_list(t_list *list, const char *sep, int *i);
 void		add_word_in_list(t_list *list, char *s, int i, int *start);
 
+int			check_quotes(char *input);
+int			check_syntax(t_list	*token_list);
+
+t_proc		*ft_new_proc(void);
+
+char		*get_error_msg(int error_code);
+void		print_error(int error_code);
 void		print_content(void *content);
+void		print_env(void *content);
 void		print_token(void *content);
 char		*get_type(int type);
 #endif

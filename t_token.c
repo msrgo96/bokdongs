@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   t_token.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:54:30 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 15:03:11 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 00:06:57 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ t_token	*ft_new_token(void)
 	token->value = 0;
 	token->type = -1;
 	return (token);
+}
+
+void	ft_del_token(void *token)
+{
+	if (!token)
+		return ;
+	free(((t_token *)token)->value);
+	((t_token *)token)->value = 0;
+	free(token);
+	token = 0;
 }
 
 t_token	*wrap_in_token(void *content)

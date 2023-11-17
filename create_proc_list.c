@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listclear.c                                     :+:      :+:    :+:   */
+/*   create_proc_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 16:03:43 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 16:03:45 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 23:15:26 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/17 23:30:41 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_listclear(t_node **list, void (*del)(void *))
+t_list	*create_proc_list(t_list *token_list)
 {
+	t_list	*proc_list;
+	t_proc	*proc;
 	t_node	*node;
-	t_node	*temp;
 
-	if (list == 0)
+	if (!token_list)
 		return ;
-	node = *list;
+	proc_list = ft_new_list();
+	node = token_list->head;
 	while (node)
 	{
-		temp = node->next;
-		del(node->content);
-		free(node);
-		node = temp;
+
+		node = node->next;
 	}
-	*list = 0;
 }

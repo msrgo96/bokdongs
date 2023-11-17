@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:53:38 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 15:57:50 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/17 16:31:57 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ void	add_word_in_list(t_list *list, char *s, int i, int *start)
 	word_len = i - *start;
 	if (word_len < 1)
 		return ;
-	ft_list_append(list, ft_new_node(ft_substr(s, start, word_len)));
+	ft_list_append(list, ft_new_node(ft_substr(s, *start, word_len)));
 	*start += word_len;
 }

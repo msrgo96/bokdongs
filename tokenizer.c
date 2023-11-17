@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 16:01:33 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/17 22:52:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	split_list_by_separator(t_list *base_list, const char *separator)
 	node = base_list->head;
 	while (node)
 	{
-		if (ft_str_is_same(node->content, "<<") || ft_str_is_same(node->content,
-				">>"))
+		if (ft_str_is_same(node->content, "<<") \
+		|| ft_str_is_same(node->content, ">>"))
 		{
 			node = node->next;
 			continue ;
@@ -67,7 +67,10 @@ static t_list	*split_str_to_list(char *str, const char *separator)
 static void	insert_list_at_node(t_list *base, t_list *sub, t_node *node)
 {
 	if (ft_list_is_empty(sub))
+	{
 		ft_del_node_and_link(base, node, free);
+		free(sub);
+	}
 	else
 		ft_replace_node_with_list(base, sub, node);
 }

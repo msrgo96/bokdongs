@@ -13,7 +13,10 @@
 		"unordered_map": "c",
 		"utility": "c",
 		"vector": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"stdio.h": "c",
+		"readline.h": "c",
+		"history.h": "c"
 	},
 	// "[c]": {
 	// 	"editor.defaultFormatter": "keyhr.42-c-format"

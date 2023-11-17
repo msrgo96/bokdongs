@@ -6,18 +6,26 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/16 16:24:22 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 00:30:59 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void leaks_test(void) {
+    system("leaks -q minishell");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 
+	//atexit(leaks_test);
 	while (1)
 	{
+		// t_list *env_list = create_env_list(envp);
+		// ft_list_iter(env_list, print_env);
+		// return (0);
 		str = readline("$> ");
 		if (ft_strncmp(str, "exit", 5) == 0)
 		{
@@ -28,17 +36,44 @@ int	main(int argc, char **argv, char **envp)
 		// jooahn_test
 		(void)argc;
 		(void)argv;
-		(void)envp;
 		if (str != NULL)
 		{
 			// execute();
 			add_history(str);
 			//tokenizer(str);
-			ft_list_iter(tokenizer(str), print_token);
+			int error_code = check_quotes(str);
+			if (error_code != VALID)
+			{
+				print_error(error_code);
+				free(str);
+				continue ;
+			}
+			t_list *token_list = tokenizer(str);
+			if (check_syntax(token_list) != VALID)
+				print_error(SYNTAX_ERROR);
+			else
+				printf("syntax ok\n");
+			ft_list_clear(token_list, ft_del_token);
+			//ft_list_iter(tokenizer(str), print_token);
 			//free(str);
 			str = NULL;
 		}
 	}
+	return (0);
+}
+
+void	print_error(int error_code)
+{
+	printf("%s\n", get_error_msg(error_code));
+	//exit(EXIT_FAILURE);
+}
+
+char	*get_error_msg(int error_code)
+{
+	if (error_code == QUOTES_ERROR)
+		return (QUOTES_ERROR_MSG);
+	if (error_code == SYNTAX_ERROR)
+		return (SYNTAX_ERROR_MSG);
 	return (0);
 }
 
@@ -58,6 +93,17 @@ void	print_token(void *content)
 	{
 		printf("token's value : %s, ", ((t_token *)content)->value);
 		printf("type : %s\n", get_type(((t_token *)content)->type));
+	}
+}
+
+void	print_env(void *content)
+{
+	if (!content)
+		printf("content is empty\n");
+	else
+	{
+		printf("env's key : %s, ", ((t_env *)content)->key);
+		printf("value : %s\n", ((t_env *)content)->value);
 	}
 }
 

@@ -7,7 +7,11 @@ LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
 SRC = main.c \
-token.c tokenizer.c split_by_separator.c
+t_token.c tokenizer.c \
+t_env.c create_env_list.c \
+split_str_to_list.c split_str_to_list_util.c \
+syntax_checker.c \
+t_proc.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/16 15:20:23 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 00:19:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
+int		ft_str_find_chr(char *str, char c);
+
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
 int		ft_putendl_fd(char *s, int fd);
@@ -105,7 +107,7 @@ t_list	*ft_new_list(void);
 t_node	*ft_new_node(void *content);
 int		ft_listsize(t_list *list);
 t_node	*ft_listlast(t_list *list);
-void	ft_listclear(t_node **list, void (*del)(void *));
+void	ft_list_clear(t_list *list, void (*del)(void *));
 void	ft_list_iter(t_list *list, void (*f)(void *));
 t_list	*ft_list_iter_reassign(t_list *list, void *(*f)(void *));
 t_node	*ft_listget(t_list *list, int i);
