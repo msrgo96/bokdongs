@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_listlast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 23:13:45 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:56:15 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 16:04:17 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/17 16:04:18 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_node	*ft_lstnew(void *content)
+t_node	*ft_listlast(t_list *list)
 {
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
-		exit(EXIT_FAILURE);
-	node->content = content;
-	node->next = 0;
-	node->prv = 0;
-	return (node);
+	if (!list)
+		return (0);
+	return (list->tail);
 }

@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_str_find_chr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 23:33:56 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/16 12:37:08 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 23:52:00 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/18 00:19:01 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_strcmp(char *s1, char *s2)
+int	ft_str_find_chr(char *str, char c)
 {
-	int	idx;
+	int	i;
 
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (1);
-	idx = 0;
-	while (s1[idx])
+	i = 0;
+	while (str[i])
 	{
-		if (s1[idx] != s2[idx])
-			return (1);
-		idx++;
+		if (str[i] == c)
+			return (i);
+		i++;
 	}
-	return (0);
-}
-
-int	ft_str_is_same(char *s1, char *s2)
-{
-	if (ft_strcmp(s1, s2) == 0)
-		return (1);
-	return (0);
+	return (-1);
 }

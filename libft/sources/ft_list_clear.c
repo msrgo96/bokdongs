@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_list_clear.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 16:58:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/09 22:40:41 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 16:03:43 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/17 16:03:45 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_node **lst, t_node *new)
+void	ft_list_clear(t_list *list, void (*del)(void *))
 {
-	t_node	*last;
+	t_node	*node;
+	t_node	*temp;
 
-	if (!lst)
+	if (list == 0)
 		return ;
-	last = ft_lstlast(*lst);
-	if (last == 0)
-		(*lst = new);
-	else
+	node = list->head;
+	while (node)
 	{
-		last->next = new;
-		new->prv = last;
-		new->next = NULL;
+		temp = node->next;
+		del(node->content);
+		free(node);
+		node = temp;
 	}
+	free(list);
+	list = 0;
 }

@@ -87,11 +87,11 @@ typedef struct s_redir
 }	t_redir;
 
 //	(void *)list->content
-typedef struct s_envp
+typedef struct s_env
 {
 	char	*key;
 	char	*value;
-}	t_envp;
+}	t_env;
 
 typedef struct s_sh_data
 {

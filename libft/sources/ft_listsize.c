@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfree.c                                       :+:      :+:    :+:   */
+/*   ft_listsize.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 00:58:12 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/25 01:14:52 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 16:04:25 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/17 16:04:26 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-void	ft_lstfree(t_node *lst)
+int	ft_listsize(t_list *list)
 {
+	int		size;
 	t_node	*node;
-	t_node	*temp;
 
-	node = lst;
+	if (!list)
+		return (0);
+	size = 0;
+	node = list->head;
 	while (node)
 	{
-		temp = node->next;
-		free(node);
-		node = temp;
+		node = node->next;
+		size++;
 	}
+	return (size);
 }

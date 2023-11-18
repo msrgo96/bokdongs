@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_get_node_idx.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 16:58:54 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:56:06 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/16 13:51:26 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/16 14:14:38 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstdelone(t_node *lst, void (*del)(void *))
+int	ft_get_node_idx(t_list *list, t_node *target)
 {
-	if (lst == 0)
-		return ;
-	del(lst->content);
-	free(lst);
+	t_node	*node;
+	int		idx;
+
+	if (!list)
+		return (-1);
+	node = list->head;
+	idx = 0;
+	while (node)
+	{
+		if (node == target)
+			return (idx);
+		node = node->next;
+		idx++;
+	}
+	return (-1);
 }

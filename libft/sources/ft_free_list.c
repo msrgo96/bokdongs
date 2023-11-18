@@ -1,30 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_free_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 04:04:18 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:56:00 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/17 16:05:16 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/17 16:05:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_lstclear(t_node **lst, void (*del)(void *))
+void	ft_free_list(t_list *list)
 {
 	t_node	*node;
 	t_node	*temp;
 
-	if (lst == 0)
+	if (!list)
 		return ;
-	node = *lst;
+	node = list->head;
 	while (node)
 	{
 		temp = node->next;
-		ft_lstdelone(node, del);
+		free(node);
 		node = temp;
 	}
-	*lst = 0;
+}
+
+void	ft_free_list_with_content(t_list *list)
+{
+	t_node	*node;
+	t_node	*temp;
+
+	if (!list)
+		return ;
+	node = list->head;
+	while (node)
+	{
+		temp = node->next;
+		free(node->content);
+		free(node);
+		node = temp;
+	}
 }
