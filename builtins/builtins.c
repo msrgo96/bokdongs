@@ -40,5 +40,9 @@ int	exec_builtin(t_proc *proc)
 	int	(*builtin)(t_proc *);
 
 	builtin = get_builtin_ptr(proc);
-
+	
+	//	TEMP
+	if (builtin)
+		return (0);
+	return (0);
 }

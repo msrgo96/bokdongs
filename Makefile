@@ -6,7 +6,7 @@ NAME_H = minishell.h builtins/builtins.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-BUILTINS_SRC = builtins/echo_builtin.c builtins/builtins.c
+BUILTINS_SRC = builtins/echo_builtin.c builtins/builtins.c builtins/cd_builtin.c builtins/pwd_builtin.c
 SRC = main.c $(BUILTINS_SRC)
 OBJ = $(SRC:%.c=%.o)
 
