@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/18 00:30:59 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 22:56:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 		// jooahn_test
 		(void)argc;
 		(void)argv;
+		(void)envp;
 		if (str != NULL)
 		{
 			// execute();
@@ -48,13 +49,17 @@ int	main(int argc, char **argv, char **envp)
 				free(str);
 				continue ;
 			}
+			/* syntax checker test
 			t_list *token_list = tokenizer(str);
 			if (check_syntax(token_list) != VALID)
 				print_error(SYNTAX_ERROR);
 			else
 				printf("syntax ok\n");
+			*/
+			/* token_list clear test
 			ft_list_clear(token_list, ft_del_token);
-			//ft_list_iter(tokenizer(str), print_token);
+			*/
+			ft_list_iter(tokenizer(str), print_token);
 			//free(str);
 			str = NULL;
 		}
@@ -71,9 +76,9 @@ void	print_error(int error_code)
 char	*get_error_msg(int error_code)
 {
 	if (error_code == QUOTES_ERROR)
-		return (QUOTES_ERROR_MSG);
+		return (FT_QUOTES_ERROR_MSG);
 	if (error_code == SYNTAX_ERROR)
-		return (SYNTAX_ERROR_MSG);
+		return (FT_SYNTAX_ERROR_MSG);
 	return (0);
 }
 

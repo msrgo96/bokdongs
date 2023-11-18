@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 22:52:14 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 13:11:39 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*tokenizer(char *input)
 {
 	t_list		*string_list;
 	int			i;
-	const char	*separators[7] = {"|", "<<", ">>", "<", ">", " ", 0};
+	const char	*separators[7] = {" ", "|", "<<", ">>", "<", ">", 0};
 
 	i = 0;
 	string_list = ft_new_list();

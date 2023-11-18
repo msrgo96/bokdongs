@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/18 00:22:08 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/18 22:56:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
-# define QUOTES_ERROR_MSG "quotes error!"
-# define SYNTAX_ERROR_MSG "syntax error!"
+# define FT_QUOTES_ERROR_MSG "quotes error!"
+# define FT_SYNTAX_ERROR_MSG "syntax error!"
 
 # pragma endregion
 
@@ -90,7 +90,6 @@ typedef struct s_proc
 	t_list	*redir_list;
 	char	*absolute_path; // open해서 받아오기
 	char	**args;
-	t_list	*env_list; // 이건 프로세스마다 가질 필요 없이 따로 main에서 실행부로 바로 넘겨주는게 나을듯
 }			t_proc;
 
 //	(void *)list->content
