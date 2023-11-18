@@ -75,7 +75,6 @@ typedef struct s_proc
 	t_list	*redir_list;
 	char	*absolute_path;
 	char	**args;
-	t_list	*envp_list;
 }	t_proc;
 
 //	(void *)list->content
