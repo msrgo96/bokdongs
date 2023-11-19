@@ -28,7 +28,6 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
-# define DEFAULT_EXIT 0
 
 # pragma endregion
 

@@ -13,14 +13,15 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-//	If error return ERR_CODE (const)
+//	Return ECHO_EXIT_CODE
 //	Note that: proc->args is NOT NULL, 
 //	and proc->args[0] implies the command is "builtin-echo"
-int	echo_builtin(t_proc *proc)
+int	echo_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	int	cnt;
 	int	is_option;
 
+	sh_data++;
 	cnt = 0;
 	is_option = FT_FALSE;
 	if (proc->args[1] != NULL && \
@@ -33,5 +34,5 @@ int	echo_builtin(t_proc *proc)
 		ft_printf("%s\n", proc->args[cnt]);
 	if (is_option == FT_FALSE)
 		ft_printf("\n");
-	return (DEFAULT_EXIT);
+	return (ECHO_SUCCESS);
 }

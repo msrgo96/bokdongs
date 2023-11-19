@@ -35,14 +35,14 @@ static void	*get_builtin_ptr(t_proc *proc)
 	return (NULL);
 }
 
-int	exec_builtin(t_proc *proc)
+int	exec_builtin(t_sh_data *sh_data, t_proc *proc)
 {
-	int	(*builtin)(t_proc *);
+	int	(*builtin)(t_sh_data *, t_proc *);
 
 	builtin = get_builtin_ptr(proc);
 	
-	//	TEMP
-	if (builtin)
+	//	TEMP: WERROR
+	if (0 && builtin && sh_data)
 		return (0);
 	return (0);
 }
