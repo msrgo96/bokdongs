@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 23:06:52 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/18 23:33:15 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 16:47:34 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 static char	*ft_str_append(char *s, char c);
 
-char	*expand_env(char *str)
+char	*expand_env(t_list *env_list, char *str)
 {
 	int		in_quotes[2];
 	char	*new_str;
 	int		i;
-	int		j;
+	int		start;
 
 	in_quotes[SINGLE] = 0;
 	in_quotes[DOUBLE] = 0;
 	i = -1;
-	j = 0;
 	new_str = (char *)malloc(sizeof(char) * 1);
 	if (!new_str)
 		exit(EXIT_FAILURE);
@@ -41,12 +40,40 @@ char	*expand_env(char *str)
 			in_quotes[DOUBLE] ^= 1;
 			continue ;
 		}
-		if (str[i] == '$' && !in_quotes[SINGLE])
-			//
+		if (str[i] == '$' && str[i + 1] && !in_quotes[SINGLE])
+		{
+			i++;
+			start = i;
+			char *temp;
+			if (ft_isalnum(str[i]))
+				while (str[i] && ft_isalnum(str[i]))
+					i++;
+			else
+				i++;
+			temp = get_env_value(env_list, ft_substr(str, start, i - start));
+			new_str = ft_strjoin(new_str, temp);
+			i--;
+		}
 		else
-			ft_str_append(new_str, str[j]);
-		j++;
+			new_str = ft_str_append(new_str, str[i]);
 	}
+	return (new_str);
+}
+
+char	*get_env_value(t_list *env_list, char *key)
+{
+	t_node	*node;
+
+	if (!env_list || !key)
+		return (0);
+	node = env_list->head;
+	while (node)
+	{
+		if (ft_str_is_same(((t_env *)node->content)->key, key))
+			return (((t_env *)node->content)->value);
+		node = node->next;
+	}
+	return (0);
 }
 
 static char	*ft_str_append(char *s, char c)
@@ -58,13 +85,13 @@ static char	*ft_str_append(char *s, char c)
 	if (!new_str)
 		exit(EXIT_FAILURE);
 	i = 0;
-	while (*s)
+	while (s[i])
 	{
-		new_str[i++] = s[i];
-		s++;
+		new_str[i] = s[i];
+		i++;
 	}
 	new_str[i++] = c;
 	new_str[i] = 0;
-	free(s);
+	//free(s);
 	return (new_str);
 }

@@ -11,6 +11,7 @@ t_token.c tokenizer.c \
 t_env.c create_env_list.c \
 split_str_to_list.c split_str_to_list_util.c \
 syntax_checker.c \
+expand_env.c \
 t_proc.c
 OBJ = $(SRC:%.c=%.o)
 

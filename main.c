@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/18 22:56:23 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 16:02:55 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,18 @@ int	main(int argc, char **argv, char **envp)
 		{
 			// execute();
 			add_history(str);
+			// char *value = get_env_value(create_env_list(envp), str);
+			// printf("%s\n", value);
+			char *extended_str = expand_env(create_env_list(envp), str);
+			printf("%s\n", extended_str);
 			//tokenizer(str);
-			int error_code = check_quotes(str);
-			if (error_code != VALID)
-			{
-				print_error(error_code);
-				free(str);
-				continue ;
-			}
+			// int error_code = check_quotes(str);
+			// if (error_code != VALID)
+			// {
+			// 	print_error(error_code);
+			// 	free(str);
+			// 	continue ;
+			// }
 			/* syntax checker test
 			t_list *token_list = tokenizer(str);
 			if (check_syntax(token_list) != VALID)
@@ -59,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 			/* token_list clear test
 			ft_list_clear(token_list, ft_del_token);
 			*/
-			ft_list_iter(tokenizer(str), print_token);
+			//ft_list_iter(tokenizer(str), print_token);
 			//free(str);
 			str = NULL;
 		}

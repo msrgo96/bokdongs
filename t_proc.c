@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:54:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/18 00:08:56 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:20:56 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_proc	*ft_new_proc(void)
 	proc->default_fdtype[1] = 0;
 	proc->absolute_path = 0;
 	proc->args = 0;
-	proc->env_list = 0;
 	proc->redir_list = 0;
 	return (proc);
 }
