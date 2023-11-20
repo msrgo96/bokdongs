@@ -136,5 +136,6 @@ char	*ft_strcat(char *s, char *buffer, ssize_t size);
 ssize_t	ft_strchr_idx(char *s, char c, size_t offset);
 
 void	two_d_free(void **p);
+void	ft_free(void **ptr);
 
 #endif

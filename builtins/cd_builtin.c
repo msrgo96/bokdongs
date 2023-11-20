@@ -13,39 +13,39 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-//	Return arguments length
-static int	get_args_len(char **args)
-{
-	int	len;
+int	get_args_len(char **args);
 
-	if (args == NULL)
-		return (0);
-	len = 0;
-	while (args[len] != NULL)
-		len++;
-	return (len);
+//	Return errno_chdir
+static int	print_cd_err(const int errno_chdir)
+{
+	char	*str;
+
+	str = strerror(errno_chdir);
+	ft_putstr_fd("cd: ", STDERR_FILENO);
+	ft_putendl_fd(str, STDERR_FILENO);
+	return (errno_chdir);
 }
 
-//	Return CD_EXIT_CODE
-//	Error message -> STDERR
+//	Return exit code of chdir()
 int	cd_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	int	args_len;
+	int	errno_chdir;
 
+	sh_data++;
 	args_len = get_args_len(proc->args);
-	if (args_len == 0)
+	if (args_len == 0 || args_len == 1)
+		errno_chdir = 0;
+	else if (1 < args_len)
 	{
-		
+		errno_chdir = 0;
+		if (chdir(proc->args[1]) == -1)
+		{
+			errno_chdir = errno;
+			errno_chdir = print_cd_err(errno_chdir);
+		}
 	}
-	else if (args_len == 1)
-	{
-
-	}
-	else	// TOO MANY ARGS
-	{
-
-	}
-
-	if (access(proc->args))
+	else
+		errno_chdir = print_cd_err(EINVAL);
+	return (errno_chdir);
 }
-

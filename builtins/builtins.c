@@ -20,10 +20,10 @@ static void	*get_builtin_ptr(t_proc *proc)
 {
 	if (ft_strncmp("echo", proc->args[0], 5) == 0)
 		return (echo_builtin);
-	// else if (ft_strncmp("cd", proc->args[0], 3) == 0)
-
-	// else if (ft_strncmp("pwd", proc->args[0], 4) == 0)
-
+	else if (ft_strncmp("cd", proc->args[0], 3) == 0)
+		return (cd_builtin);
+	else if (ft_strncmp("pwd", proc->args[0], 4) == 0)
+		return (pwd_builtin);
 	// else if (ft_strncmp("export", proc->args[0], 7) == 0)
 
 	// else if (ft_strncmp("unset", proc->args[0], 6) == 0)
