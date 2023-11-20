@@ -16,7 +16,8 @@
 		"minishell.h": "c",
 		"stdio.h": "c",
 		"readline.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"sstream": "c"
 	},
 	// "[c]": {
 	// 	"editor.defaultFormatter": "keyhr.42-c-format"

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:45:41 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/20 16:47:28 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 20:38:03 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,20 @@ t_env	*ft_new_env(void)
 	env->key = 0;
 	env->value = 0;
 	return (env);
+}
+
+char	*get_env_value(t_list *env_list, char *key)
+{
+	t_node	*node;
+
+	if (!env_list || !key)
+		return (0);
+	node = env_list->head;
+	while (node)
+	{
+		if (ft_str_is_same(((t_env *)node->content)->key, key))
+			return (((t_env *)node->content)->value);
+		node = node->next;
+	}
+	return (0);
 }

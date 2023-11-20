@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/20 15:43:14 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 20:06:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void		add_word_in_list(t_list *list, char *s, int i, int *start);
 int			check_quotes(char *input);
 int			check_syntax(t_list	*token_list);
 
-char		*expand_env(t_list *env_list, char *str);
+char		*expand_string(t_list *env_list, char *str);
 char		*get_env_value(t_list *env_list, char *key);
 
 t_proc		*ft_new_proc(void);

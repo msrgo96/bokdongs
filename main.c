@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/20 16:02:55 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/20 20:56:29 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 			// char *value = get_env_value(create_env_list(envp), str);
 			// printf("%s\n", value);
-			char *extended_str = expand_env(create_env_list(envp), str);
-			printf("%s\n", extended_str);
+			char *expanded_str = expand_string(create_env_list(envp), str);
+			printf("%s\n", expanded_str);
 			//tokenizer(str);
 			// int error_code = check_quotes(str);
 			// if (error_code != VALID)

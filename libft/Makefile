@@ -9,6 +9,8 @@ ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_calloc.c ft_strlcpy.c \
 ft_striteri.c ft_memcmp.c ft_strnstr.c ft_atoi.c ft_memmove.c ft_strdup.c \
 ft_strlcat.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 ft_substr.c ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c \
+ft_new_str.c ft_str_append.c \
+\
 ft_memchr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 ft_isspace.c ft_intlen.c ft_strtol.c ft_str_find_chr.c \
 ft_puthex_fd.c ft_putptr_fd.c ft_ullen.c ft_putunbr_fd.c \
