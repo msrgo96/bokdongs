@@ -119,6 +119,9 @@ void		ft_del_token(void *token);
 t_token		*wrap_in_token(void *content);
 
 t_env		*ft_new_env(void);
+void		ft_del_env(void *env);
+char		*get_env_value(t_list *env_list, char *key);
+
 t_list		*create_env_list(char **envp);
 
 t_list		*tokenizer(char *input);
@@ -132,7 +135,6 @@ int			check_quotes(char *input);
 int			check_syntax(t_list	*token_list);
 
 char		*expand_string(t_list *env_list, char *str);
-char		*get_env_value(t_list *env_list, char *key);
 
 t_proc		*ft_new_proc(void);
 

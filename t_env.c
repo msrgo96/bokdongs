@@ -24,6 +24,15 @@ t_env	*ft_new_env(void)
 	return (env);
 }
 
+void	ft_del_env(void *env)
+{
+	if (!env)
+		return ;
+	free(((t_env *)env)->key);
+	free(((t_env *)env)->value);
+	free(env);
+}
+
 char	*get_env_value(t_list *env_list, char *key)
 {
 	t_node	*node;

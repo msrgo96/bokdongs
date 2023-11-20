@@ -13,7 +13,8 @@
 #include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2, \
+void (*del_s1)(void *), void (*del_s2)(void *))
 {
 	char	*new_str;
 	size_t	s1_len;
@@ -38,5 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	new_str[s1_len + s2_len] = 0;
+	del_s1(s1);
+	del_s2(s2);
 	return (new_str);
 }

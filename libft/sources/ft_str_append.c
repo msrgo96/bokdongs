@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_str_append(char *s, char c)
+char	*ft_str_append(char *s, char c, void (*del)(void *))
 {
 	char	*new_str;
 	int		i;
@@ -26,5 +26,6 @@ char	*ft_str_append(char *s, char c)
 	}
 	new_str[i++] = c;
 	new_str[i] = 0;
+	del(s);
 	return (new_str);
 }

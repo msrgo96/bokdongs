@@ -25,7 +25,9 @@ ft_replace_node_with_list.c \
 \
 ft_printf.c ft_strcmp.c ft_isnum.c ft_math.c \
 get_next_line.c get_next_line_utils.c \
-ft_free.c
+ft_free.c \
+\
+ft_none.c
 OBJS_FILE = $(SRCS_FILE:.c=.o)
 
 SRCS = $(addprefix $(SRCS_DIR)/, $(SRCS_FILE))

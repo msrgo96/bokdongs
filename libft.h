@@ -83,7 +83,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_isspace(int c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2, void (*del_s1)(void *), void (*del_s2)(void *));
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
@@ -91,7 +91,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 int		ft_str_find_chr(char *str, char c);
 char	*ft_new_str(int size);
-char	*ft_str_append(char *s, char c);
+char	*ft_str_append(char *s, char c, void (*del)(void *));
 
 int		ft_putchar_fd(char c, int fd);
 int		ft_putstr_fd(char *s, int fd);
@@ -138,5 +138,7 @@ char	*ft_strcat(char *s, char *buffer, ssize_t size);
 ssize_t	ft_strchr_idx(char *s, char c, size_t offset);
 
 void	two_d_free(void **p);
+
+void    ft_none(void *p);
 
 #endif

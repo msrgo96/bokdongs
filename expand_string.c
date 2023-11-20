@@ -29,9 +29,10 @@ char	*expand_string(t_list *env_list, char *str)
 		if (has_skip_quote(in_quotes, str[i]))
 			continue ;
 		if (find_env(str + i, in_quotes))
-			expanded_str = ft_strjoin(expanded_str, expand_env(env_list, str, &i));
+			expanded_str = ft_strjoin(expanded_str, \
+			expand_env(env_list, str, &i), free, ft_none);
 		else
-			expanded_str = ft_str_append(expanded_str, str[i]);
+			expanded_str = ft_str_append(expanded_str, str[i], free);
 	}
 	return (expanded_str);
 }
@@ -69,6 +70,7 @@ static int	find_env(char *str, int in_quotes[2])
 static char	*expand_env(t_list *env_list, char *str, int *i)
 {
 	char	*env_value;
+	char	*key;
 	int		start;
 
 	if (!env_list || !str || !i || str[*i] != '$')
@@ -79,7 +81,9 @@ static char	*expand_env(t_list *env_list, char *str, int *i)
 			(*i)++;
 	else
 		(*i)++;
-	env_value = get_env_value(env_list, ft_substr(str, start, *i - start));
+	key = ft_substr(str, start, *i - start);
+	env_value = get_env_value(env_list, key);
+	free(key);
 	(*i)--;
 	return (env_value);
 }
