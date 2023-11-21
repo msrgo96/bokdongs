@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/20 20:56:29 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/21 20:42:54 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@ int	main(int argc, char **argv, char **envp)
 	char	*str;
 
 	//atexit(leaks_test);
+	(void)argc;
+	(void)argv;
 	while (1)
 	{
-		// t_list *env_list = create_env_list(envp);
-		// ft_list_iter(env_list, print_env);
-		// return (0);
 		str = readline("$> ");
 		if (ft_strncmp(str, "exit", 5) == 0)
 		{
@@ -33,42 +32,72 @@ int	main(int argc, char **argv, char **envp)
 			str = NULL;
 			break ;
 		}
-		// jooahn_test
-		(void)argc;
-		(void)argv;
-		(void)envp;
 		if (str != NULL)
 		{
-			// execute();
 			add_history(str);
-			// char *value = get_env_value(create_env_list(envp), str);
-			// printf("%s\n", value);
-			char *expanded_str = expand_string(create_env_list(envp), str);
-			printf("%s\n", expanded_str);
-			//tokenizer(str);
-			// int error_code = check_quotes(str);
-			// if (error_code != VALID)
-			// {
-			// 	print_error(error_code);
-			// 	free(str);
-			// 	continue ;
-			// }
-			/* syntax checker test
+			if (check_quotes(str) != VALID)
+			{
+				print_error(QUOTES_ERROR);
+				free(str);
+				continue;
+			}
 			t_list *token_list = tokenizer(str);
 			if (check_syntax(token_list) != VALID)
 				print_error(SYNTAX_ERROR);
 			else
-				printf("syntax ok\n");
-			*/
-			/* token_list clear test
-			ft_list_clear(token_list, ft_del_token);
-			*/
-			//ft_list_iter(tokenizer(str), print_token);
+			{
+				t_list *env_list = create_env_list(envp);
+				expand_token_list(token_list, env_list);
+				//ft_list_iter(token_list, print_token);
+				t_list *proc_list = create_proc_list(token_list);
+				ft_list_iter(proc_list, print_proc);
+				// ft_list_clear(token_list, ft_del_token);
+				// ft_list_clear(env_list, ft_del_env);
+			}
 			//free(str);
 			str = NULL;
 		}
 	}
 	return (0);
+}
+
+void	print_proc(void *content)
+{
+	t_proc *proc = ((t_proc *)content);
+
+	if (!content)
+		printf("content is empty\n");
+	else
+	{
+		printf("\n--- process --- \n");
+		printf("read_fd : %d\n", proc->default_fdtype[READ_FD]);
+		printf("write_fd : %d\n", proc->default_fdtype[WRITE_FD]);
+		printf("args : ");
+		char **args = proc->args;
+		while (*args)
+		{
+			printf("[%s], ", *args);
+			args++;
+		}
+		printf("\n");
+		printf("redir_list : ");
+		ft_list_iter(proc->redir_list, print_redir);
+		printf("\n");
+		printf("--- ------- --- \n");
+	}
+}
+
+void	print_redir(void *content)
+{
+	t_redir *redir = ((t_redir *)content);
+
+	if (!content)
+		printf("content is empty\n");
+	else
+	{
+		printf("(type : %d, ", redir->redir_type);
+		printf("file name : %s), ", redir->filename);
+	}
 }
 
 void	print_error(int error_code)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 00:53:17 by jooahn            #+#    #+#             */
-/*   Updated: 2023/08/11 23:52:00 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/21 20:22:57 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void (*del_s1)(void *), void (*del_s2)(void *))
 		i++;
 	}
 	new_str[s1_len + s2_len] = 0;
-	del_s1(s1);
-	del_s2(s2);
+	del_s1((void *)s1);
+	del_s2((void *)s2);
 	return (new_str);
 }

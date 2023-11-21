@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/20 20:06:05 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/21 20:23:54 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ enum		e_error_code
 	VALID = 0,
 	QUOTES_ERROR = 1,
 	SYNTAX_ERROR = 2
+};
+
+enum		e_fd_rw
+{
+	READ_FD = 0,
+	WRITE_FD = 1
 };
 
 enum		e_fd_type
@@ -124,6 +130,8 @@ char		*get_env_value(t_list *env_list, char *key);
 
 t_list		*create_env_list(char **envp);
 
+t_list		*create_proc_list(t_list *token_list);
+
 t_list		*tokenizer(char *input);
 t_list		*split_include_separator(char *s, const char *sep);
 t_list		*split_exclude_separator(char *s);
@@ -134,10 +142,17 @@ void		add_word_in_list(t_list *list, char *s, int i, int *start);
 int			check_quotes(char *input);
 int			check_syntax(t_list	*token_list);
 
-char		*expand_string(t_list *env_list, char *str);
+char		*expand_string(t_list *env_list, char *str, void (*del)(void *));
+void		expand_token_list(t_list *token_list, t_list *env_list);
+
+t_redir		*ft_new_redir(void);
+int			get_redir_type(char *value);
+int			is_redirection(int type);
 
 t_proc		*ft_new_proc(void);
 
+void		print_redir(void *content);
+void		print_proc(void *content);
 char		*get_error_msg(int error_code);
 void		print_error(int error_code);
 void		print_content(void *content);

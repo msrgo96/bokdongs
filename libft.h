@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/20 20:36:16 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/21 18:55:31 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void	ft_free_list_with_content(t_list *list);
 int		ft_get_node_idx(t_list *list, t_node *target);
 void	ft_insert_list_at(t_list *base, t_list *insert, int at);
 void	ft_replace_node_with_list(t_list *base, t_list *sub, t_node *node);
+void	**ft_list_to_ptr(t_list *list, void (*del)(void *));
 
 int		ft_printf(const char *format, ...);
 int		ft_isnum(char *input);

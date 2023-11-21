@@ -17,7 +17,7 @@ static int	has_skip_quote(int in_quotes[2], char c);
 static int	find_env(char *str, int in_quotes[2]);
 static char	*expand_env(t_list *env_list, char *str, int *i);
 
-char	*expand_string(t_list *env_list, char *str)
+char	*expand_string(t_list *env_list, char *str, void (*del)(void *))
 {
 	int		in_quotes[2];
 	char	*expanded_str;
@@ -34,6 +34,7 @@ char	*expand_string(t_list *env_list, char *str)
 		else
 			expanded_str = ft_str_append(expanded_str, str[i], free);
 	}
+	del(str);
 	return (expanded_str);
 }
 

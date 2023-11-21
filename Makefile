@@ -11,8 +11,10 @@ t_token.c tokenizer.c \
 t_env.c create_env_list.c \
 split_str_to_list.c split_str_to_list_util.c \
 syntax_checker.c \
-expand_string.c \
-t_proc.c
+expand_string.c expand_token_list.c \
+t_redir.c \
+t_proc.c \
+create_proc_list.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

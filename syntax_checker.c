@@ -6,15 +6,15 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:35:30 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 22:31:31 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/21 20:07:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	get_node_type(t_node *node);
-static int	is_redirection(int type);
 
+// return : VALID or QUOTES_ERROR
 int	check_quotes(char *input)
 {
 	int	i;
@@ -36,6 +36,7 @@ int	check_quotes(char *input)
 	return (VALID);
 }
 
+// return : VALID or SYNTAX_ERROR
 int	check_syntax(t_list	*token_list)
 {
 	t_node	*cur;
@@ -65,17 +66,4 @@ int	check_syntax(t_list	*token_list)
 static int	get_node_type(t_node *node)
 {
 	return (((t_token *)(node->content))->type);
-}
-
-static int	is_redirection(int type)
-{
-	if (type == I_REDIR)
-		return (1);
-	if (type == O_REDIR)
-		return (1);
-	if (type == A_REDIR)
-		return (1);
-	if (type == HEREDOC)
-		return (1);
-	return (0);
 }

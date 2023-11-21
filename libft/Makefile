@@ -22,6 +22,7 @@ ft_list_is_empty.c ft_list_pop.c \
 ft_del_node.c ft_del_node_and_link.c \
 ft_get_node_idx.c ft_insert_list_at.c \
 ft_replace_node_with_list.c \
+ft_list_to_ptr.c \
 \
 ft_printf.c ft_strcmp.c ft_isnum.c ft_math.c \
 get_next_line.c get_next_line_utils.c \

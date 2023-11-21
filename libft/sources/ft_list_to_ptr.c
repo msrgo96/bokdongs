@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_proc.c                                           :+:      :+:    :+:   */
+/*   ft_list_to_ptr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 14:54:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/21 20:31:36 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/21 18:50:03 by jooahn            #+#    #+#             */
+/*   Updated: 2023/11/21 18:55:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_proc	*ft_new_proc(void)
+void	**ft_list_to_ptr(t_list *list, void (*del)(void *))
 {
-	t_proc	*proc;
+	void	**ptr;
+	int		size;
+	t_node	*node;
+	int		i;
 
-	proc = (t_proc *)malloc(sizeof(t_proc));
-	if (!proc)
+	size = ft_listsize(list);
+	ptr = (void **)malloc(sizeof(void *) * (size + 1));
+	if (!ptr)
 		exit(EXIT_FAILURE);
-	proc->default_fdtype[READ_FD] = FDTYPE_STD;
-	proc->default_fdtype[WRITE_FD] = FDTYPE_STD;
-	proc->absolute_path = 0;
-	proc->args = 0;
-	proc->redir_list = 0;
-	return (proc);
+	ptr[size] = 0;
+	node = list->head;
+	i = 0;
+	while (node)
+	{
+		ptr[i++] = node->content;
+		node = node->next;
+	}
+	ft_list_clear(list, del);
+	return (ptr);
 }
