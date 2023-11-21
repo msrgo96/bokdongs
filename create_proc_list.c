@@ -12,19 +12,29 @@
 
 #include "minishell.h"
 
-t_list	*create_proc_list(t_list *token_list)
+t_proc	*create_proc(t_list *token_list)
 {
-	t_list	*proc_list;
 	t_proc	*proc;
 	t_node	*node;
+	t_token	*token;
 
 	if (!token_list)
 		return ;
-	proc_list = ft_new_list();
+	proc = ft_new_proc();
 	node = token_list->head;
-	while (node)
+	while (!ft_list_is_empty(token_list))
 	{
+		node = ft_list_pop(token_list);
+		token = ((t_token *)node->content);
+		if (token->type == PIPE)
+		{
+			ft_del_node(node, ft_del_token);
+			break ;
+		}
+		if (token->type == CMD)
 
-		node = node->next;
 	}
+	return (proc);
 }
+
+void	
