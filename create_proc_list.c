@@ -13,6 +13,7 @@
 #include "minishell.h"
 
 static t_proc	*create_proc(t_list *sub_token_list);
+static void	set_fd_type(t_list *sub_token_list, t_proc *proc);
 
 t_list	*create_proc_list(t_list *token_list)
 {
@@ -51,10 +52,7 @@ static t_proc	*create_proc(t_list *sub_token_list)
 	t_list	*redir_list;
 
 	proc = ft_new_proc();
-	if (((t_token *)sub_token_list->head->content)->type == PIPE)
-		proc->default_fdtype[READ_FD] = FDTYPE_PIPE;
-	if (((t_token *)sub_token_list->tail->content)->type == PIPE)
-		proc->default_fdtype[WRITE_FD] = FDTYPE_PIPE;
+	set_fd_type(sub_token_list, proc);
 	arg_list = ft_new_list();
 	redir_list = ft_new_list();
 	node = sub_token_list->head;
@@ -63,19 +61,25 @@ static t_proc	*create_proc(t_list *sub_token_list)
 		token = ((t_token *)node->content);
 		if (token->type == CMD)
 			ft_list_append(arg_list, ft_new_node(token->value));
-		else if (is_redirection(token->type))
-		{
-			t_redir *redir = ft_new_redir();
-			redir->redir_type = get_redir_type(token->value);
-			node = node->next;
-			if (!node)
-				break ;
-			redir->filename = ((t_token *)node->content)->value;
-			ft_list_append(redir_list, ft_new_node(redir));
-		}
+		else if (is_redirection(token->type) && node->next)
+			ft_list_append(redir_list, ft_new_node(ft_new_redir_init(\
+			(t_token *)(node->next->content)->value, get_redir_type(token->value))));
 		node = node->next;
 	}
 	proc->args = (char **)ft_list_to_ptr(arg_list, ft_none);
 	proc->redir_list = redir_list;
 	return (proc);
+}
+
+static void	set_fd_type(t_list *sub_token_list, t_proc *proc)
+{
+	t_token	*head_token;
+	t_token	*tail_token;
+
+	head_token = ((t_token *)sub_token_list->head->content);
+	tail_token = ((t_token *)sub_token_list->tail->content);
+	if (head_token->type == PIPE)
+		proc->default_fdtype[READ_FD] = FDTYPE_PIPE;
+	if (tail_token->type == PIPE)
+		proc->default_fdtype[WRITE_FD] = FDTYPE_PIPE;
 }

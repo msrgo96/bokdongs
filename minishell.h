@@ -146,6 +146,7 @@ char		*expand_string(t_list *env_list, char *str, void (*del)(void *));
 void		expand_token_list(t_list *token_list, t_list *env_list);
 
 t_redir		*ft_new_redir(void);
+t_redir	*ft_new_redir_init(char *filename, int redir_type);
 int			get_redir_type(char *value);
 int			is_redirection(int type);
 

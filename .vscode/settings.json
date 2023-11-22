@@ -1,25 +1,26 @@
 {
-	"files.associations": {
-		"libft.h": "c",
-		"__node_handle": "c",
-		"__hash_table": "c",
-		"__split_buffer": "c",
-		"array": "c",
-		"bitset": "c",
-		"initializer_list": "c",
-		"iterator": "c",
-		"string": "c",
-		"string_view": "c",
-		"unordered_map": "c",
-		"utility": "c",
-		"vector": "c",
-		"minishell.h": "c",
-		"stdio.h": "c",
-		"readline.h": "c",
-		"history.h": "c",
-		"sstream": "c"
-	},
-	// "[c]": {
-	// 	"editor.defaultFormatter": "keyhr.42-c-format"
-	// }
+  "files.associations": {
+    "libft.h": "c",
+    "__node_handle": "c",
+    "__hash_table": "c",
+    "__split_buffer": "c",
+    "array": "c",
+    "bitset": "c",
+    "initializer_list": "c",
+    "iterator": "c",
+    "string": "c",
+    "string_view": "c",
+    "unordered_map": "c",
+    "utility": "c",
+    "vector": "c",
+    "minishell.h": "c",
+    "stdio.h": "c",
+    "readline.h": "c",
+    "history.h": "c",
+    "sstream": "c"
+  },
+  "C_Cpp.errorSquiggles": "Disabled"
+  // "[c]": {
+  // 	"editor.defaultFormatter": "keyhr.42-c-format"
+  // }
 }

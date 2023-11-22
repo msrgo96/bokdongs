@@ -24,6 +24,18 @@ t_redir	*ft_new_redir(void)
 	return (redir);
 }
 
+t_redir	*ft_new_redir_init(char *filename, int redir_type)
+{
+	t_redir	*redir;
+
+	redir = (t_redir *)malloc(sizeof(t_redir));
+	if (!redir)
+		exit(EXIT_FAILURE);
+	redir->filename = filename;
+	redir->redir_type = redir_type;
+	return (redir);
+}
+
 int	get_redir_type(char *value)
 {
 	if (ft_str_is_same(value, "<"))
