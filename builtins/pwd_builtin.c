@@ -13,25 +13,6 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-//	Return errno_getcwd
-/*	TEMP..
-// if (errno_getcwd == EACCES)
-	// 	str = 
-	// else if (errno_getcwd == EFAULT)
-	// 	str = 
-	// else if (errno_getcwd == EINVAL)
-	// 	str = 
-	// else if (errno_getcwd == ELOOP)
-	// 	str = 
-	// else if (errno_getcwd == ENAMETOOLONG)
-	// 	str = 
-	// else if (errno_getcwd == ENOENT)
-	// 	str = 
-	// else if (errno_getcwd == ERANGE)
-	// 	str = 
-	// else
-	// 	str = 
-*/
 static int	print_pwd_err(const int errno_getcwd)
 {
 	char	*str;
