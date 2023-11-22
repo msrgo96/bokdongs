@@ -1,20 +1,20 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = main.c \
-t_token.c tokenizer.c \
-t_env.c create_env_list.c \
-split_str_to_list.c split_str_to_list_util.c \
-syntax_checker.c \
+SRC = \
+create_env_list.c \
+create_proc_list.c \
 expand_string.c expand_token_list.c \
-t_redir.c \
-t_proc.c \
-create_proc_list.c
+main.c \
+split_str_to_list_util.c split_str_to_list.c \
+syntax_checker.c \
+t_env.c t_proc.c t_redir.c t_token.c \
+tokenizer.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

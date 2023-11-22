@@ -17,10 +17,10 @@
 
 # include "libft.h"
 # include <stdio.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
 
 # pragma endregion
 
@@ -147,10 +147,12 @@ void		expand_token_list(t_list *token_list, t_list *env_list);
 
 t_redir		*ft_new_redir(void);
 t_redir	*ft_new_redir_init(char *filename, int redir_type);
+void	ft_del_redir(void *content);
 int			get_redir_type(char *value);
 int			is_redirection(int type);
 
 t_proc		*ft_new_proc(void);
+void	ft_del_proc(void *content);
 
 void		print_redir(void *content);
 void		print_proc(void *content);

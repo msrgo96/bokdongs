@@ -26,3 +26,13 @@ t_proc	*ft_new_proc(void)
 	proc->redir_list = 0;
 	return (proc);
 }
+
+void	ft_del_proc(void *content)
+{
+	t_proc	*proc;
+
+	proc = (t_proc *)content;
+	two_d_free((void **)(proc->args));
+	ft_list_clear(proc->redir_list, ft_del_redir);
+	free(proc);
+}

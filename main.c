@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 
-	//atexit(leaks_test);
+	atexit(leaks_test);
 	(void)argc;
 	(void)argv;
 	while (1)
@@ -41,20 +41,27 @@ int	main(int argc, char **argv, char **envp)
 				free(str);
 				continue;
 			}
+			
 			t_list *token_list = tokenizer(str);
 			if (check_syntax(token_list) != VALID)
 				print_error(SYNTAX_ERROR);
 			else
 			{
 				t_list *env_list = create_env_list(envp);
+
 				expand_token_list(token_list, env_list);
-				//ft_list_iter(token_list, print_token);
+
+				ft_list_clear(env_list, ft_del_env);
+				
 				t_list *proc_list = create_proc_list(token_list);
+				
 				ft_list_iter(proc_list, print_proc);
-				// ft_list_clear(token_list, ft_del_token);
-				// ft_list_clear(env_list, ft_del_env);
+
+				ft_list_iter(proc_list, ft_del_proc);
 			}
 			//free(str);
+			ft_list_clear(token_list, ft_del_token);
+			
 			str = NULL;
 		}
 	}

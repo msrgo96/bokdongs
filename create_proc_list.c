@@ -32,14 +32,14 @@ t_list	*create_proc_list(t_list *token_list)
 		if (((t_token *)node->content)->type == PIPE)
 		{
 			ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
-			//ft_list_clear(sub_token_list, ft_del_token);
+			free(sub_token_list);
 			sub_token_list = ft_new_list();
 			ft_list_append(sub_token_list, ft_new_node(node->content));
 		}
 		node = node->next;
 	}
 	ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
-	//ft_list_clear(sub_token_list, ft_del_token);
+	free(sub_token_list);
 	return (proc_list);
 }
 
@@ -49,25 +49,26 @@ static t_proc	*create_proc(t_list *sub_token_list)
 	t_node	*node;
 	t_token	*token;
 	t_list	*arg_list;
-	t_list	*redir_list;
 
 	proc = ft_new_proc();
 	set_fd_type(sub_token_list, proc);
 	arg_list = ft_new_list();
-	redir_list = ft_new_list();
+	proc->redir_list = ft_new_list();
 	node = sub_token_list->head;
 	while (node)
 	{
 		token = ((t_token *)node->content);
 		if (token->type == CMD)
-			ft_list_append(arg_list, ft_new_node(token->value));
+			ft_list_append(arg_list, ft_new_node(ft_strdup(token->value)));
 		else if (is_redirection(token->type) && node->next)
-			ft_list_append(redir_list, ft_new_node(ft_new_redir_init(\
-			((t_token *)node->next->content)->value, get_redir_type(token->value))));
+		{
+			node = node->next;
+			ft_list_append(proc->redir_list, ft_new_node(ft_new_redir_init(\
+			ft_strdup(((t_token *)node->content)->value), get_redir_type(token->value))));
+		}
 		node = node->next;
 	}
 	proc->args = (char **)ft_list_to_ptr(arg_list, ft_none);
-	proc->redir_list = redir_list;
 	return (proc);
 }
 
