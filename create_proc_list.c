@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:15:26 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/21 21:13:46 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 16:20:38 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_proc	*create_proc(t_list *sub_token_list)
 			ft_list_append(arg_list, ft_new_node(token->value));
 		else if (is_redirection(token->type) && node->next)
 			ft_list_append(redir_list, ft_new_node(ft_new_redir_init(\
-			(t_token *)(node->next->content)->value, get_redir_type(token->value))));
+			((t_token *)node->next->content)->value, get_redir_type(token->value))));
 		node = node->next;
 	}
 	proc->args = (char **)ft_list_to_ptr(arg_list, ft_none);
