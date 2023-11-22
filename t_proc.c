@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:54:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/21 20:31:36 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 22:45:52 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_proc	*ft_new_proc(void)
 	proc->default_fdtype[WRITE_FD] = FDTYPE_STD;
 	proc->absolute_path = 0;
 	proc->args = 0;
-	proc->redir_list = 0;
+	proc->redir_list = ft_new_list();
 	return (proc);
 }
 

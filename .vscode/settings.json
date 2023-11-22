@@ -17,7 +17,20 @@
     "stdio.h": "c",
     "readline.h": "c",
     "history.h": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "__bit_reference": "c",
+    "__functional_base": "c",
+    "algorithm": "c",
+    "chrono": "c",
+    "__memory": "c",
+    "functional": "c",
+    "limits": "c",
+    "memory": "c",
+    "optional": "c",
+    "ratio": "c",
+    "system_error": "c",
+    "tuple": "c",
+    "type_traits": "c"
   },
   "C_Cpp.errorSquiggles": "Disabled"
   // "[c]": {

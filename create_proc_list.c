@@ -6,14 +6,14 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:15:26 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 16:20:38 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 23:20:30 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static t_proc	*create_proc(t_list *sub_token_list);
-static void	set_fd_type(t_list *sub_token_list, t_proc *proc);
+static void		set_fd_type(t_list *sub_token_list, t_proc *proc);
 
 t_list	*create_proc_list(t_list *token_list)
 {
@@ -32,14 +32,14 @@ t_list	*create_proc_list(t_list *token_list)
 		if (((t_token *)node->content)->type == PIPE)
 		{
 			ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
-			free(sub_token_list);
+			ft_list_clear(sub_token_list, ft_none);
 			sub_token_list = ft_new_list();
 			ft_list_append(sub_token_list, ft_new_node(node->content));
 		}
 		node = node->next;
 	}
 	ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
-	free(sub_token_list);
+	ft_list_clear(sub_token_list, ft_none);
 	return (proc_list);
 }
 
@@ -53,22 +53,22 @@ static t_proc	*create_proc(t_list *sub_token_list)
 	proc = ft_new_proc();
 	set_fd_type(sub_token_list, proc);
 	arg_list = ft_new_list();
-	proc->redir_list = ft_new_list();
 	node = sub_token_list->head;
 	while (node)
 	{
-		token = ((t_token *)node->content);
+		token = (t_token *)(node->content);
 		if (token->type == CMD)
 			ft_list_append(arg_list, ft_new_node(ft_strdup(token->value)));
 		else if (is_redirection(token->type) && node->next)
 		{
 			node = node->next;
-			ft_list_append(proc->redir_list, ft_new_node(ft_new_redir_init(\
-			ft_strdup(((t_token *)node->content)->value), get_redir_type(token->value))));
+			ft_list_append(proc->redir_list, ft_new_node(\
+			ft_new_redir_init(ft_strdup((t_token *)(node->content)->value) \
+			, get_redir_type(token->value))));
 		}
 		node = node->next;
 	}
-	proc->args = (char **)ft_list_to_ptr(arg_list, ft_none);
+	proc->args = (char **)ft_list_to_ptr(arg_list, free);
 	return (proc);
 }
 

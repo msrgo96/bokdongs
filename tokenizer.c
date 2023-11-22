@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/18 13:11:39 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 21:48:52 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_list	*tokenizer(char *input)
 	int			i;
 	const char	*separators[7] = {" ", "|", "<<", ">>", "<", ">", 0};
 
+	if (!input)
+		return (0);
 	i = 0;
 	string_list = ft_new_list();
 	ft_list_append(string_list, ft_new_node(input));
@@ -77,5 +79,10 @@ static void	insert_list_at_node(t_list *base, t_list *sub, t_node *node)
 
 static t_list	*wrap_in_token_list(t_list *string_list)
 {
+	if (ft_list_is_empty(string_list))
+	{
+		free(string_list);
+		return (0);
+	}
 	return (ft_list_iter_reassign(string_list, (void *)wrap_in_token));
 }

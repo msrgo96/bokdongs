@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/21 20:42:54 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 21:59:09 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@ int	main(int argc, char **argv, char **envp)
 		if (str != NULL)
 		{
 			add_history(str);
+
 			if (check_quotes(str) != VALID)
 			{
 				print_error(QUOTES_ERROR);
 				free(str);
-				continue;
+				continue ;
 			}
-			
+
 			t_list *token_list = tokenizer(str);
 			if (check_syntax(token_list) != VALID)
 				print_error(SYNTAX_ERROR);
@@ -52,17 +53,18 @@ int	main(int argc, char **argv, char **envp)
 				expand_token_list(token_list, env_list);
 
 				ft_list_clear(env_list, ft_del_env);
-				
+
 				t_list *proc_list = create_proc_list(token_list);
-				
+
 				ft_list_iter(proc_list, print_proc);
 
-				ft_list_iter(proc_list, ft_del_proc);
+				ft_list_clear(proc_list, ft_del_proc);
 			}
 			//free(str);
 			ft_list_clear(token_list, ft_del_token);
-			
+
 			str = NULL;
+			(void)envp;
 		}
 	}
 	return (0);

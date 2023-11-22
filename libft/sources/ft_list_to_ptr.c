@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 18:50:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/21 18:55:05 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/22 21:09:37 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	**ft_list_to_ptr(t_list *list, void (*del)(void *))
 	i = 0;
 	while (node)
 	{
-		ptr[i++] = node->content;
+		ptr[i++] = ft_strdup(node->content);
 		node = node->next;
 	}
 	ft_list_clear(list, del);
