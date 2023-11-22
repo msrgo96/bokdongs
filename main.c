@@ -36,35 +36,24 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(str);
 
-			if (check_quotes(str) != VALID)
+			if (check_quote(str) != VALID)
 			{
-				print_error(QUOTES_ERROR);
+				print_error(quote_ERROR);
 				free(str);
 				continue ;
 			}
 
+			t_list *env_list = convert_envp_to_env_list(envp);
 			t_list *token_list = tokenizer(str);
-			if (check_syntax(token_list) != VALID)
-				print_error(SYNTAX_ERROR);
-			else
-			{
-				t_list *env_list = create_env_list(envp);
+			ft_list_iter_reassign_two_param(token_list, expand_string(env_list), free);
+			//expand_string(token_list, env_list);
 
-				expand_token_list(token_list, env_list);
+			t_list *proc_list = parser(token_list);
+			ft_list_iter(proc_list, print_proc);
 
-				ft_list_clear(env_list, ft_del_env);
-
-				t_list *proc_list = create_proc_list(token_list);
-
-				ft_list_iter(proc_list, print_proc);
-
-				ft_list_clear(proc_list, ft_del_proc);
-			}
-			//free(str);
 			ft_list_clear(token_list, ft_del_token);
-
-			str = NULL;
-			(void)envp;
+			ft_list_clear(env_list, ft_del_env);
+			ft_list_clear(proc_list, ft_del_proc);
 		}
 	}
 	return (0);
@@ -117,8 +106,8 @@ void	print_error(int error_code)
 
 char	*get_error_msg(int error_code)
 {
-	if (error_code == QUOTES_ERROR)
-		return (FT_QUOTES_ERROR_MSG);
+	if (error_code == quote_ERROR)
+		return (FT_quote_ERROR_MSG);
 	if (error_code == SYNTAX_ERROR)
 		return (FT_SYNTAX_ERROR_MSG);
 	return (0);

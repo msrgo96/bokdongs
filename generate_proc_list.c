@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_proc_list.c                                 :+:      :+:    :+:   */
+/*   generate_proc_list.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,10 +12,14 @@
 
 #include "minishell.h"
 
-static t_proc	*create_proc(t_list *sub_token_list);
+static t_proc	*generate_proc(t_list *sub_token_list);
 static void		set_fd_type(t_list *sub_token_list, t_proc *proc);
 
-t_list	*create_proc_list(t_list *token_list)
+/* 
+generate process list from token list
+return : process list
+*/
+t_list	*generate_proc_list(t_list *token_list)
 {
 	t_list	*proc_list;
 	t_list	*sub_token_list;
@@ -31,19 +35,19 @@ t_list	*create_proc_list(t_list *token_list)
 		ft_list_append(sub_token_list, ft_new_node(node->content));
 		if (((t_token *)node->content)->type == PIPE)
 		{
-			ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
+			ft_list_append(proc_list, ft_new_node(generate_proc(sub_token_list)));
 			ft_list_clear(sub_token_list, ft_none);
 			sub_token_list = ft_new_list();
 			ft_list_append(sub_token_list, ft_new_node(node->content));
 		}
 		node = node->next;
 	}
-	ft_list_append(proc_list, ft_new_node(create_proc(sub_token_list)));
+	ft_list_append(proc_list, ft_new_node(generate_proc(sub_token_list)));
 	ft_list_clear(sub_token_list, ft_none);
 	return (proc_list);
 }
 
-static t_proc	*create_proc(t_list *sub_token_list)
+static t_proc	*generate_proc(t_list *sub_token_list)
 {
 	t_proc	*proc;
 	t_node	*node;
@@ -63,7 +67,7 @@ static t_proc	*create_proc(t_list *sub_token_list)
 		{
 			node = node->next;
 			ft_list_append(proc->redir_list, ft_new_node(\
-			ft_new_redir_init(ft_strdup((t_token *)(node->content)->value) \
+			ft_new_redir_init(ft_strdup(((t_token *)node->content)->value) \
 			, get_redir_type(token->value))));
 		}
 		node = node->next;

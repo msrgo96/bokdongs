@@ -14,29 +14,35 @@
 
 static int	get_node_type(t_node *node);
 
-// return : VALID or QUOTES_ERROR
-int	check_quotes(char *input)
+/* 
+split str and wrap in token list
+return : VALID or quote_ERROR
+*/
+int	check_quote(char *input)
 {
 	int	i;
-	int	in_quotes[2];
+	int	in_quote[2];
 
 	i = 0;
-	in_quotes[SINGLE] = 0;
-	in_quotes[DOUBLE] = 0;
+	in_quote[SINGLE] = 0;
+	in_quote[DOUBLE] = 0;
 	while (input[i])
 	{
-		if (input[i] == '\'' && !in_quotes[DOUBLE])
-			in_quotes[SINGLE] ^= 1;
-		else if (input[i] == '\"' && !in_quotes[SINGLE])
-			in_quotes[DOUBLE] ^= 1;
+		if (input[i] == '\'' && !in_quote[DOUBLE])
+			in_quote[SINGLE] ^= 1;
+		else if (input[i] == '\"' && !in_quote[SINGLE])
+			in_quote[DOUBLE] ^= 1;
 		i++;
 	}
-	if (in_quotes[SINGLE] || in_quotes[DOUBLE])
-		return (QUOTES_ERROR);
+	if (in_quote[SINGLE] || in_quote[DOUBLE])
+		return (quote_ERROR);
 	return (VALID);
 }
 
-// return : VALID or SYNTAX_ERROR
+/* 
+check syntax like "pipe comes first or last"
+return : VALID or SYNTAX_ERROR 
+*/
 int	check_syntax(t_list	*token_list)
 {
 	t_node	*cur;

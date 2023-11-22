@@ -12,13 +12,13 @@
 
 #include "minishell.h"
 
-int	is_in_quotes(char c, int in_quotes[2])
+int	is_in_quote(char c, int in_quote[2])
 {
 	if (c == '\'')
-		in_quotes[SINGLE] ^= 1;
+		in_quote[SINGLE] ^= 1;
 	else if (c == '\"')
-		in_quotes[DOUBLE] ^= 1;
-	if (in_quotes[SINGLE] || in_quotes[DOUBLE])
+		in_quote[DOUBLE] ^= 1;
+	if (in_quote[SINGLE] || in_quote[DOUBLE])
 		return (1);
 	return (0);
 }

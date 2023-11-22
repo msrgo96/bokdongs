@@ -112,6 +112,8 @@ t_node	*ft_listlast(t_list *list);
 void	ft_list_clear(t_list *list, void (*del)(void *));
 void	ft_list_iter(t_list *list, void (*f)(void *));
 t_list	*ft_list_iter_reassign(t_list *list, void *(*f)(void *));
+t_list	*ft_list_iter_reassign_two_param(\
+t_list *list, void *(*f)(void *data, void *), void (*del)(void *));
 t_node	*ft_listget(t_list *list, int i);
 t_node	*ft_list_pop(t_list *list);
 void	ft_list_append(t_list *list, t_node *new);

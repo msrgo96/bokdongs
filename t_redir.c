@@ -24,15 +24,6 @@ t_redir	*ft_new_redir(void)
 	return (redir);
 }
 
-void	ft_del_redir(void *content)
-{
-	t_redir	*redir;
-
-	redir = (t_redir *)content;
-	free(redir->filename);
-	free(content);
-}
-
 t_redir	*ft_new_redir_init(char *filename, int redir_type)
 {
 	t_redir	*redir;
@@ -43,6 +34,15 @@ t_redir	*ft_new_redir_init(char *filename, int redir_type)
 	redir->filename = filename;
 	redir->redir_type = redir_type;
 	return (redir);
+}
+
+void	ft_del_redir(void *content)
+{
+	t_redir	*redir;
+
+	redir = (t_redir *)content;
+	free(redir->filename);
+	free(content);
 }
 
 int	get_redir_type(char *value)

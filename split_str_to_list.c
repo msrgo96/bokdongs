@@ -12,21 +12,24 @@
 
 #include "minishell.h"
 
-static void	init_data(int *i, int *start, int *in_quotes);
+static void	init_data(int *i, int *start, int *in_quote);
 
-// "",''안의 separator 무시, list로 반환, 구분자 포함 : char *
+/* 
+split str to list include separator & ignore separator in quote
+return : string list
+*/
 t_list	*split_include_separator(char *s, const char *sep)
 {
 	t_list	*list;
 	int		i;
 	int		start;
-	int		in_quotes[2];
+	int		in_quote[2];
 
 	list = ft_new_list();
-	init_data(&i, &start, in_quotes);
+	init_data(&i, &start, in_quote);
 	while (s[++i])
 	{
-		if (is_in_quotes(s[i], in_quotes))
+		if (is_in_quote(s[i], in_quote))
 			continue ;
 		if (ft_strncmp(s + i, sep, ft_strlen(sep)))
 			continue ;
@@ -38,19 +41,22 @@ t_list	*split_include_separator(char *s, const char *sep)
 	return (list);
 }
 
-// "",''안의 separator 무시, list로 반환, 구분자 무시
+/*
+split str to list exclude separator & ignore separator in quote
+return : string list
+*/
 t_list	*split_exclude_separator(char *s)
 {
 	t_list	*list;
 	int		i;
 	int		start;
-	int		in_quotes[2];
+	int		in_quote[2];
 
 	list = ft_new_list();
-	init_data(&i, &start, in_quotes);
+	init_data(&i, &start, in_quote);
 	while (s[++i])
 	{
-		if (is_in_quotes(s[i], in_quotes) || !ft_isspace(s[i]))
+		if (is_in_quote(s[i], in_quote) || !ft_isspace(s[i]))
 			continue ;
 		add_word_in_list(list, s, i, &start);
 		while (s[i] && ft_isspace(s[i]))
@@ -62,10 +68,10 @@ t_list	*split_exclude_separator(char *s)
 	return (list);
 }
 
-static void	init_data(int *i, int *start, int *in_quotes)
+static void	init_data(int *i, int *start, int *in_quote)
 {
 	*i = -1;
 	*start = 0;
-	in_quotes[SINGLE] = 0;
-	in_quotes[DOUBLE] = 0;
+	in_quote[SINGLE] = 0;
+	in_quote[DOUBLE] = 0;
 }

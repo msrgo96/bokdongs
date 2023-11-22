@@ -41,3 +41,22 @@ t_list	*ft_list_iter_reassign(t_list *list, void *(*f)(void *))
 	}
 	return (list);
 }
+
+t_list	*ft_list_iter_reassign_two_param(\
+t_list *list, void *(*f)(void *data, void *), void (*del)(void *))
+{
+	t_node	*node;
+	void	*temp;
+
+	if (!list)
+		return (list);
+	node = list->head;
+	while (node)
+	{
+		temp = node->content;
+		node->content = f(data, node->content);
+		del(temp);
+		node = node->next;
+	}
+	return (list);
+}

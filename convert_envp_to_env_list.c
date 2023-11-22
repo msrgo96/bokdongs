@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env_list.c                                  :+:      :+:    :+:   */
+/*   convert_envp_to_env_list.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-t_list	*create_env_list(char **envp)
+// return : env list
+t_list	*convert_envp_to_env_list(char **envp)
 {
 	t_list	*env_list;
 	t_env	*env;

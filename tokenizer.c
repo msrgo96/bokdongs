@@ -18,9 +18,10 @@ static t_list	*split_str_to_list(char *str, const char *separator);
 static void		insert_list_at_node(t_list *base, t_list *sub, t_node *node);
 static t_list	*wrap_in_token_list(t_list *string_list);
 
-// readline으로 받은 문자열을 리스트로 만들기
-// 리스트안의 각 노드들의 content를 separator 기준으로 분리
-// 여러 separator에 대해 반복
+/* 
+split str and wrap in token list
+return : token list
+*/
 t_list	*tokenizer(char *input)
 {
 	t_list		*string_list;

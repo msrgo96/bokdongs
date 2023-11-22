@@ -28,14 +28,14 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
-# define FT_QUOTES_ERROR_MSG "quotes error!"
+# define FT_quote_ERROR_MSG "quote error!"
 # define FT_SYNTAX_ERROR_MSG "syntax error!"
 
 # pragma endregion
 
 # pragma region ENUMS
 
-enum		e_quotes_type
+enum		e_quote_type
 {
 	SINGLE = 0,
 	DOUBLE = 1
@@ -60,7 +60,7 @@ enum		e_token_type
 enum		e_error_code
 {
 	VALID = 0,
-	QUOTES_ERROR = 1,
+	quote_ERROR = 1,
 	SYNTAX_ERROR = 2
 };
 
@@ -123,27 +123,29 @@ typedef struct s_sh_data
 t_token		*ft_new_token(void);
 void		ft_del_token(void *token);
 t_token		*wrap_in_token(void *content);
+void	set_token_type(t_token *token);
+int	get_token_type(char *str);
 
 t_env		*ft_new_env(void);
 void		ft_del_env(void *env);
 char		*get_env_value(t_list *env_list, char *key);
 
-t_list		*create_env_list(char **envp);
+t_list		*convert_envp_to_env_list(char **envp);
 
-t_list		*create_proc_list(t_list *token_list);
+t_list		*generate_proc_list(t_list *token_list);
 
 t_list		*tokenizer(char *input);
 t_list		*split_include_separator(char *s, const char *sep);
 t_list		*split_exclude_separator(char *s);
-int			is_in_quotes(char c, int in_quotes[2]);
+int			is_in_quote(char c, int in_quote[2]);
 void		add_sep_in_list(t_list *list, const char *sep, int *i);
 void		add_word_in_list(t_list *list, char *s, int i, int *start);
 
-int			check_quotes(char *input);
+int			check_quote(char *input);
 int			check_syntax(t_list	*token_list);
 
-char		*expand_string(t_list *env_list, char *str, void (*del)(void *));
-void		expand_token_list(t_list *token_list, t_list *env_list);
+char		*expand_string(t_list *env_list, char *str);
+void		expand_string(t_list *token_list, t_list *env_list);
 
 t_redir		*ft_new_redir(void);
 t_redir	*ft_new_redir_init(char *filename, int redir_type);
@@ -153,6 +155,8 @@ int			is_redirection(int type);
 
 t_proc		*ft_new_proc(void);
 void	ft_del_proc(void *content);
+
+t_list  *parser(t_list *token_list);
 
 void		print_redir(void *content);
 void		print_proc(void *content);
