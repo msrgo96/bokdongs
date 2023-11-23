@@ -32,8 +32,8 @@
     "tuple": "c",
     "type_traits": "c"
   },
-  "C_Cpp.errorSquiggles": "Disabled"
+  "C_Cpp.errorSquiggles": "Disabled",
   // "[c]": {
-  // 	"editor.defaultFormatter": "keyhr.42-c-format"
+  //   "editor.defaultFormatter": "keyhr.42-c-format"
   // }
 }

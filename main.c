@@ -6,19 +6,23 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/22 21:59:09 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/23 21:19:26 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void leaks_test(void) {
-    system("leaks -q minishell");
+void	leaks_test(void)
+{
+	system("leaks -q minishell");
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
+	t_list	*env_list;
+	t_list	*token_list;
+	t_list	*proc_list;
 
 	atexit(leaks_test);
 	(void)argc;
@@ -35,22 +39,18 @@ int	main(int argc, char **argv, char **envp)
 		if (str != NULL)
 		{
 			add_history(str);
-
 			if (check_quote(str) != VALID)
 			{
 				print_error(quote_ERROR);
 				free(str);
 				continue ;
 			}
-
-			t_list *env_list = convert_envp_to_env_list(envp);
-			t_list *token_list = tokenizer(str);
-			ft_list_iter_reassign_two_param(token_list, expand_string(env_list), free);
-			//expand_string(token_list, env_list);
-
-			t_list *proc_list = parser(token_list);
+			env_list = convert_envp_to_env_list(envp);
+			token_list = tokenizer(str);
+			expand_string_iter(token_list, env_list, expand_string, free);
+			// expand_string(token_list, env_list);
+			proc_list = parser(token_list);
 			ft_list_iter(proc_list, print_proc);
-
 			ft_list_clear(token_list, ft_del_token);
 			ft_list_clear(env_list, ft_del_env);
 			ft_list_clear(proc_list, ft_del_proc);
@@ -61,8 +61,10 @@ int	main(int argc, char **argv, char **envp)
 
 void	print_proc(void *content)
 {
-	t_proc *proc = ((t_proc *)content);
+	t_proc	*proc;
+	char	**args;
 
+	proc = ((t_proc *)content);
 	if (!content)
 		printf("content is empty\n");
 	else
@@ -71,7 +73,7 @@ void	print_proc(void *content)
 		printf("read_fd : %d\n", proc->default_fdtype[READ_FD]);
 		printf("write_fd : %d\n", proc->default_fdtype[WRITE_FD]);
 		printf("args : ");
-		char **args = proc->args;
+		args = proc->args;
 		while (*args)
 		{
 			printf("[%s], ", *args);
@@ -87,8 +89,9 @@ void	print_proc(void *content)
 
 void	print_redir(void *content)
 {
-	t_redir *redir = ((t_redir *)content);
+	t_redir	*redir;
 
+	redir = ((t_redir *)content);
 	if (!content)
 		printf("content is empty\n");
 	else
@@ -101,7 +104,7 @@ void	print_redir(void *content)
 void	print_error(int error_code)
 {
 	printf("%s\n", get_error_msg(error_code));
-	//exit(EXIT_FAILURE);
+	// exit(EXIT_FAILURE);
 }
 
 char	*get_error_msg(int error_code)
@@ -145,8 +148,8 @@ void	print_env(void *content)
 
 char	*get_type(int type)
 {
-	const char	*types[7] = {"in redirection", "out redirection", "add redirection", "heredoc", "pipe", "cmd", 0};
-
+	const char *types[7] = {"in redirection", "out redirection",
+		"add redirection", "heredoc", "pipe", "cmd", 0};
 	if (type < 0 || type > 6)
 		return (0);
 	return ((char *)types[type]);

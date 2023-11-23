@@ -14,7 +14,6 @@
 
 static void	init_data(int in_quote[2], char **expanded_str, int *i);
 static int	quote_need_remove(int in_quote[2], char c);
-static int	env_found(char *str, int in_quote[2]);
 static char	*expand_env(t_list *env_list, char *str, int *i);
 
 /*
@@ -34,13 +33,33 @@ char	*expand_string(t_list *env_list, char *str)
 	{
 		if (quote_need_remove(in_quote, str[i]))
 			continue ;
-		if (env_found(str + i, in_quote))
+		if (*str == '$' && *(str + 1) && !in_quote[SINGLE])
 			expanded_str = ft_strjoin(expanded_str, \
 			expand_env(env_list, str, &i), free, ft_none);
 		else
 			expanded_str = ft_str_append(expanded_str, str[i], free);
 	}
 	return (expanded_str);
+}
+
+void	expand_string_iter(t_list *token_list, t_list *env_list, \
+char *(*expand_string)(t_list *, char *), void (*del)(void *))
+{
+	t_node	*node;
+	t_token	*token;
+	char	*temp;
+
+	if (!token_list)
+		return ;
+	node = token_list->head;
+	while (node)
+	{
+		token = (t_token *)(node->content);
+		temp = token->value;
+		token->value = expand_string(env_list, token->value);
+		del(temp);
+		node = node->next;
+	}
 }
 
 static void	init_data(int in_quote[2], char **expanded_str, int *i)
@@ -63,13 +82,6 @@ static int	quote_need_remove(int in_quote[2], char c)
 		in_quote[DOUBLE] ^= 1;
 		return (1);
 	}
-	return (0);
-}
-
-static int	env_found(char *str, int in_quote[2])
-{
-	if (*str == '$' && *(str + 1) && !in_quote[SINGLE])
-		return (1);
 	return (0);
 }
 

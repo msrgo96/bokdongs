@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/21 20:23:54 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/23 21:00:30 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ typedef struct s_sh_data
 t_token		*ft_new_token(void);
 void		ft_del_token(void *token);
 t_token		*wrap_in_token(void *content);
-void	set_token_type(t_token *token);
-int	get_token_type(char *str);
+void		set_token_type(t_token *token);
+int			get_token_type(char *str);
 
 t_env		*ft_new_env(void);
 void		ft_del_env(void *env);
@@ -145,18 +145,19 @@ int			check_quote(char *input);
 int			check_syntax(t_list	*token_list);
 
 char		*expand_string(t_list *env_list, char *str);
-void		expand_string(t_list *token_list, t_list *env_list);
+void		expand_string_iter(t_list *token_list, t_list *env_list, \
+char *(*expand_string)(t_list *, char *), void (*del)(void *));
 
 t_redir		*ft_new_redir(void);
-t_redir	*ft_new_redir_init(char *filename, int redir_type);
-void	ft_del_redir(void *content);
+t_redir		*ft_new_redir_init(char *filename, int redir_type);
+void		ft_del_redir(void *content);
 int			get_redir_type(char *value);
 int			is_redirection(int type);
 
 t_proc		*ft_new_proc(void);
-void	ft_del_proc(void *content);
+void		ft_del_proc(void *content);
 
-t_list  *parser(t_list *token_list);
+t_list  	*parser(t_list *token_list);
 
 void		print_redir(void *content);
 void		print_proc(void *content);

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 21:10:03 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/23 18:15:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	ft_list_clear(t_list *list, void (*del)(void *));
 void	ft_list_iter(t_list *list, void (*f)(void *));
 t_list	*ft_list_iter_reassign(t_list *list, void *(*f)(void *));
 t_list	*ft_list_iter_reassign_two_param(\
-t_list *list, void *(*f)(void *data, void *), void (*del)(void *));
+t_list *list, void *data, void *(*f)(void *, void *), void (*del)(void *));
 t_node	*ft_listget(t_list *list, int i);
 t_node	*ft_list_pop(t_list *list);
 void	ft_list_append(t_list *list, t_node *new);

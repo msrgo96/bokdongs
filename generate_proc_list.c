@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:15:26 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 23:20:30 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/23 21:07:53 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_proc	*generate_proc(t_list *sub_token_list);
 static void		set_fd_type(t_list *sub_token_list, t_proc *proc);
 
-/* 
+/*
 generate process list from token list
 return : process list
 */
@@ -35,7 +35,8 @@ t_list	*generate_proc_list(t_list *token_list)
 		ft_list_append(sub_token_list, ft_new_node(node->content));
 		if (((t_token *)node->content)->type == PIPE)
 		{
-			ft_list_append(proc_list, ft_new_node(generate_proc(sub_token_list)));
+			ft_list_append(proc_list, \
+			ft_new_node(generate_proc(sub_token_list)));
 			ft_list_clear(sub_token_list, ft_none);
 			sub_token_list = ft_new_list();
 			ft_list_append(sub_token_list, ft_new_node(node->content));
