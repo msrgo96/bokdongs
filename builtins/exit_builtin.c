@@ -1,34 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.c                                          :+:      :+:    :+:   */
+/*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
+/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 23:44:25 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:46:36 by jooahn           ###   ########.fr       */
+/*   Created: 2023/11/18 16:35:08 by moson             #+#    #+#             */
+/*   Updated: 2023/11/18 16:35:09 by moson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 
-void	ft_free(void **ptr)
-{
-	if (*ptr != NULL)
-		free(*ptr);
-	*ptr = NULL;
-	return ;
-}
-
-void	two_d_free(void **p)
-{
-	int	idx;
-
-	idx = 0;
-	while (p[idx])
-	{
-		free(p[idx]);
-		idx++;
-	}
-	free(p);
-}

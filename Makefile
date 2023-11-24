@@ -1,16 +1,18 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -Wno-unknown-pragmas
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
-NAME_H = minishell.h
+NAME_H = minishell.h builtins/builtins.h
 LIBFT = libft.a
 LIBFT_DIR = libft
 LIBFT_H = libft.h
-SRC = \
+BUILTINS_SRC = builtins/builtins.c builtins/builtins_util.c \
+builtins/echo_builtin.c builtins/cd_builtin.c builtins/pwd_builtin.c \
+builtins/env_builtin.c builtins/exit_builtin.c builtins/export_builtin.c builtins/unset_builtin.c
+SRC = main.c $(BUILTINS_SRC) \
 convert_envp_to_env_list.c \
 generate_proc_list.c \
 expand_string.c \
-main.c \
 parser.c \
 split_str_to_list_util.c split_str_to_list.c \
 syntax_checker.c \
