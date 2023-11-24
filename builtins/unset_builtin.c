@@ -15,6 +15,21 @@
 
 int	*search_env_content(t_list *env_list, char *key, t_node	**res);
 
+static int	print_unset_err(const int errno_unset)
+{
+	char	*str;
+
+	if (errno_unset == UNSET_NULPTR)
+		str = UNSET_NULPTR_MSG;
+	else if (errno_unset == UNSET_UNKNOWN)
+		str = UNSET_UNKNOWN_MSG;
+	else
+		str = UNKNOWN_MSG;
+	ft_putstr_fd("unset: ", STDERR_FILENO);
+	ft_putendl_fd(str, STDERR_FILENO);
+	return (errno_unset);
+}
+
 //	Return exit code one of below:
 //	EXIT_SUCCESS 0
 //	UNSET_NOTEXIST 0
@@ -26,13 +41,12 @@ int	unset_builtin(t_sh_data *sh_data, t_proc *proc)
 	int		search_res;
 
 	if (sh_data == NULL || sh_data->envp_list == NULL)
-		return (UNSET_UNKNOWN);
+		return (print_unset_err(UNSET_NULPTR));
 	search_res = search_env_content(sh_data->envp_list, proc->args[1], &node);
 	if 	(search_res == FT_FALSE)
-		return (UNSET_UNKNOWN);
+		return (print_unset_err(UNSET_UNKNOWN));
 	if (node == NULL)
 		return (UNSET_NOTEXIST);
-	//	SUCCESS
-	ft_del_node_and_link(sh_data->envp_list, node, ft_del_env);
+	// ft_del_node_and_link(sh_data->envp_list, node, ft_del_env);
 	return (EXIT_SUCCESS);
 }
