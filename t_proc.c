@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:54:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 22:45:52 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/24 15:02:24 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_del_proc(void *content)
 {
 	t_proc	*proc;
 
+	if (!content)
+		return ;
 	proc = (t_proc *)content;
 	two_d_free((void **)(proc->args));
 	ft_list_clear(proc->redir_list, ft_del_redir);

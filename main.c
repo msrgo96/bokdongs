@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/24 14:48:17 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/24 15:02:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	main(int argc, char **argv, char **envp)
 			env_list = convert_envp_to_env_list(envp);
 			token_list = tokenizer(str);
 			expand_string_iter(token_list, env_list, expand_string, free);
-			// expand_string(token_list, env_list);
 			proc_list = parser(token_list);
 			ft_list_iter(proc_list, print_proc);
 			ft_list_clear(token_list, ft_del_token);
