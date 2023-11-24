@@ -28,7 +28,7 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
-# define FT_quote_ERROR_MSG "quote error!"
+# define FT_QUOTE_ERROR_MSG "quote error!"
 # define FT_SYNTAX_ERROR_MSG "syntax error!"
 
 # pragma endregion
@@ -60,7 +60,7 @@ enum		e_token_type
 enum		e_error_code
 {
 	VALID = 0,
-	quote_ERROR = 1,
+	QUOTE_ERROR = 1,
 	SYNTAX_ERROR = 2
 };
 
@@ -94,7 +94,7 @@ typedef struct s_proc
 {
 	int		default_fdtype[2];
 	t_list	*redir_list;
-	char	*absolute_path; // open해서 받아오기
+	char	*absolute_path;
 	char	**args;
 }			t_proc;
 
@@ -157,7 +157,7 @@ int			is_redirection(int type);
 t_proc		*ft_new_proc(void);
 void		ft_del_proc(void *content);
 
-t_list  	*parser(t_list *token_list);
+t_list		*parser(t_list *token_list);
 
 void		print_redir(void *content);
 void		print_proc(void *content);

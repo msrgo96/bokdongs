@@ -36,7 +36,6 @@
 # define EXPORT_UNKNOWN 2
 # define EXPORT_UNKNOWN_MSG "unknown error"
 
-
 # pragma endregion
 
 # pragma region PROTOTYPES

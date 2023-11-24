@@ -16,7 +16,7 @@ static int	get_node_type(t_node *node);
 
 /* 
 split str and wrap in token list
-return : VALID or quote_ERROR
+return : VALID or QUOTE_ERROR
 */
 int	check_quote(char *input)
 {
@@ -35,7 +35,7 @@ int	check_quote(char *input)
 		i++;
 	}
 	if (in_quote[SINGLE] || in_quote[DOUBLE])
-		return (quote_ERROR);
+		return (QUOTE_ERROR);
 	return (VALID);
 }
 

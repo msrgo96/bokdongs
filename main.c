@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(str);
 			if (check_quote(str) != VALID)
 			{
-				print_error(quote_ERROR);
+				print_error(QUOTE_ERROR);
 				free(str);
 				continue ;
 			}
@@ -108,8 +108,8 @@ void	print_error(int error_code)
 
 char	*get_error_msg(int error_code)
 {
-	if (error_code == quote_ERROR)
-		return (FT_quote_ERROR_MSG);
+	if (error_code == QUOTE_ERROR)
+		return (FT_QUOTE_ERROR_MSG);
 	if (error_code == SYNTAX_ERROR)
 		return (FT_SYNTAX_ERROR_MSG);
 	return (0);

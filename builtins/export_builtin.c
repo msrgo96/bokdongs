@@ -13,7 +13,7 @@
 #include "../minishell.h"
 #include "builtins.h"
 
-int	*search_env_content(t_list *env_list, char *key, t_node	**res);
+int	search_env_content(t_list *env_list, char *key, t_node	**res);
 
 static int	print_export_err(const int errno_export)
 {
@@ -35,10 +35,10 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 	t_node	*node;
 	int		search_res;
 
-	if (sh_data == NULL || sh_data->envp_list == NULL)
+	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_export_err(EXPORT_NULPTR));
-	search_res = search_env_content(sh_data->envp_list, proc->args[1], &node);
-	if 	(search_res == FT_FALSE)
+	search_res = search_env_content(sh_data->env_list, proc->args[1], &node);
+	if (search_res == FT_FALSE)
 		return (print_export_err(EXPORT_UNKNOWN));
 	if (node != NULL)
 	{

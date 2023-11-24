@@ -35,9 +35,9 @@ int	env_builtin(t_sh_data *sh_data, t_proc *proc)
 	t_env	*content;
 
 	proc++;
-	if (sh_data == NULL || sh_data->envp_list == NULL)
+	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_env_err(ENV_NULPTR));
-	node = sh_data->envp_list->head;
+	node = sh_data->env_list->head;
 	while (node != NULL)
 	{
 		content = (t_env *)node->content;

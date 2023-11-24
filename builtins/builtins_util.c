@@ -32,7 +32,7 @@ int	get_args_len(char **args)
 //	If not exist			|	FT_TRUE			|	NULL
 //	If searched				|	FT_TRUE			|	address
 //	Dup check: NO
-int	*search_env_content(t_list *env_list, char *key, t_node	**res)
+int	search_env_content(t_list *env_list, char *key, t_node	**res)
 {
 	t_node	*node;
 	t_env	*content;

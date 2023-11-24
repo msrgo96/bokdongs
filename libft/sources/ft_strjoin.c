@@ -23,9 +23,7 @@ void (*del_s1)(void *), void (*del_s2)(void *))
 
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	new_str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
-	if (!new_str)
-		return (0);
+	new_str = ft_new_str(s1_len + s2_len + 1);
 	i = 0;
 	while (i < s1_len)
 	{
