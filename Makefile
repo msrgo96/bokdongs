@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h
@@ -15,7 +15,7 @@ parser.c \
 split_str_to_list_util.c split_str_to_list.c \
 syntax_checker.c \
 t_env.c t_proc.c t_redir.c t_token.c \
-tokenizer.c 
+tokenizer.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

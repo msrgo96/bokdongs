@@ -6,16 +6,16 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/23 21:19:26 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/24 14:48:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	leaks_test(void)
-{
-	system("leaks -q minishell");
-}
+// void	leaks_test(void)
+// {
+// 	system("leaks -q minishell");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*token_list;
 	t_list	*proc_list;
 
-	atexit(leaks_test);
+	//atexit(leaks_test);
 	(void)argc;
 	(void)argv;
 	while (1)
