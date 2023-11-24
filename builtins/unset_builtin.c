@@ -47,6 +47,6 @@ int	unset_builtin(t_sh_data *sh_data, t_proc *proc)
 		return (print_unset_err(UNSET_UNKNOWN));
 	if (node == NULL)
 		return (UNSET_NOTEXIST);
-	// ft_del_node_and_link(sh_data->envp_list, node, ft_del_env);
+	ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
 	return (EXIT_SUCCESS);
 }

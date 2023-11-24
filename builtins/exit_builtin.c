@@ -10,4 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
+#include "builtins.h"
 
+// int	exit_builtin(t_sh_data *sh_data, t_proc *proc)
+// {
+	
+// }

@@ -23,6 +23,8 @@ static int	print_export_err(const int errno_export)
 		str = EXPORT_NULPTR_MSG;
 	else if (errno_export == EXPORT_UNKNOWN)
 		str = EXPORT_UNKNOWN_MSG;
+	else if (errno_export == EXPORT_FORMAT)
+		str = EXPORT_FORMAT_MSG;
 	else
 		str = UNKNOWN_MSG;
 	ft_putstr_fd("export: ", STDERR_FILENO);
@@ -33,7 +35,10 @@ static int	print_export_err(const int errno_export)
 int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	t_node	*node;
+	t_env	*env;
 	int		search_res;
+	int		separator_idx;
+	int		value_len;
 
 	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_export_err(EXPORT_NULPTR));
@@ -41,11 +46,14 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 	if (search_res == FT_FALSE)
 		return (print_export_err(EXPORT_UNKNOWN));
 	if (node != NULL)
-	{
-		//	already exist: free node
-	}
-	//	ex) proc.args[1] = "TEST=asdf=123"
-	//	key:	"TEST"
-	//	value:	"asdf=123"
+		ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
+	env = ft_new_env();
+	separator_idx = ft_str_find_chr(proc->args[1], '=');
+	if (separator_idx < 0)
+		return (print_export_err(EXPORT_FORMAT));
+	value_len = ft_strlen(proc->args[1]) - (separator_idx + 1);
+	env->key = ft_substr(proc->args[1], 0, separator_idx);
+	env->value = ft_substr(proc->args[1], separator_idx + 1, value_len);
+	ft_list_append(sh_data->env_list, ft_new_node(env));
 	return (EXIT_SUCCESS);
 }

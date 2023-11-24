@@ -90,6 +90,7 @@ typedef struct s_token
 
 //	(void *)list->content
 //	default_fdtype = e_fd_type
+//	After parse, absolute_path is NULL
 typedef struct s_proc
 {
 	int		default_fdtype[2];

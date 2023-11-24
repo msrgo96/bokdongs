@@ -49,7 +49,10 @@ int	main(int argc, char **argv, char **envp)
 			token_list = tokenizer(str);
 			expand_string_iter(token_list, env_list, expand_string, free);
 			proc_list = parser(token_list);
-			ft_list_iter(proc_list, print_proc);
+
+			//	FUNC
+
+			//	ft_list_iter(proc_list, print_proc);
 			ft_list_clear(token_list, ft_del_token);
 			ft_list_clear(env_list, ft_del_env);
 			ft_list_clear(proc_list, ft_del_proc);

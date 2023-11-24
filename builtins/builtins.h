@@ -35,6 +35,9 @@
 # define EXPORT_NULPTR_MSG "null pointer exception"
 # define EXPORT_UNKNOWN 2
 # define EXPORT_UNKNOWN_MSG "unknown error"
+# define EXPORT_FORMAT 3
+# define EXPORT_FORMAT_MSG "format error"
+
 
 # pragma endregion
 

@@ -14,6 +14,8 @@ int	ft_str_find_chr(char *str, char c)
 {
 	int	i;
 
+	if (!str)
+		return (-1);
 	i = 0;
 	while (str[i])
 	{
