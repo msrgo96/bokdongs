@@ -31,10 +31,10 @@ static int	print_unset_err(const int errno_unset)
 }
 
 //	Return exit code one of below:
-//	EXIT_SUCCESS 0
-//	UNSET_NOTEXIST 0
-//	UNSET_NULPTR 1
-//	UNSET_UNKNOWN 2
+//	SUCCESS
+//	UNSET_NOTEXIST
+//	UNSET_NULPTR
+//	UNSET_UNKNOWN
 int	unset_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	t_node	*node;
@@ -48,5 +48,5 @@ int	unset_builtin(t_sh_data *sh_data, t_proc *proc)
 	if (node == NULL)
 		return (UNSET_NOTEXIST);
 	ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

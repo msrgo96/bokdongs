@@ -27,7 +27,7 @@ static int	print_env_err(const int errno_env)
 }
 
 //	Return exit code one of below:
-//	EXIT_SUCCESS
+//	SUCCESS
 //	ENV_NULPTR
 int	env_builtin(t_sh_data *sh_data, t_proc *proc)
 {
@@ -46,5 +46,5 @@ int	env_builtin(t_sh_data *sh_data, t_proc *proc)
 		ft_printf("%s=%s\n", content->key, content->value);
 		node = node->next;
 	}
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }

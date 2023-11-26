@@ -16,15 +16,13 @@
 # include "../libft.h"
 # include <errno.h>
 
-# pragma region ERROR
-
-# define EXIT_SUCCESS 0
+# define NOT_A_BUILTIN -1
+# define SUCCESS 0
 # define UNKNOWN_MSG "unknown error"
 
 # define ENV_NULPTR 1
 # define ENV_NULPTR_MSG "null pointer exception"
 
-//	NOTEXIST = SUCCESS
 # define UNSET_NOTEXIST 0
 # define UNSET_NULPTR 1
 # define UNSET_NULPTR_MSG "null pointer exception"
@@ -38,10 +36,10 @@
 # define EXPORT_FORMAT 3
 # define EXPORT_FORMAT_MSG "format error"
 
+# define EXIT_NAN 255
+# define EXIT_NAN_MSG "argument is not a number"
 
-# pragma endregion
-
-# pragma region PROTOTYPES
+int	exec_builtin(t_sh_data *sh_data, t_proc *proc);
 
 int	echo_builtin(t_sh_data *sh_data, t_proc *proc);
 int	pwd_builtin(t_sh_data *sh_data, t_proc *proc);
@@ -49,7 +47,6 @@ int	cd_builtin(t_sh_data *sh_data, t_proc *proc);
 int	env_builtin(t_sh_data *sh_data, t_proc *proc);
 int	unset_builtin(t_sh_data *sh_data, t_proc *proc);
 int	export_builtin(t_sh_data *sh_data, t_proc *proc);
-
-# pragma endregion
+int	exit_builtin(t_sh_data *sh_data, t_proc *proc);
 
 #endif

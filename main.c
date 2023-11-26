@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "builtins/builtins.h"
 
 // void	leaks_test(void)
 // {
@@ -19,23 +20,23 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*str;
-	t_list	*env_list;
-	t_list	*token_list;
-	t_list	*proc_list;
+	char		*str;
+	t_list		*token_list;
+	t_list		*proc_list;
+	t_sh_data	*sh_data;
 
 	//atexit(leaks_test);
 	(void)argc;
 	(void)argv;
+
+	sh_data = (t_sh_data *)malloc(sizeof(t_sh_data) * 1);
+	if (sh_data == NULL)
+		return (1);
+	sh_data->env_list = convert_envp_to_env_list(envp);
+
 	while (1)
 	{
 		str = readline("$> ");
-		if (ft_strncmp(str, "exit", 5) == 0)
-		{
-			free(str);
-			str = NULL;
-			break ;
-		}
 		if (str != NULL)
 		{
 			add_history(str);
@@ -45,19 +46,25 @@ int	main(int argc, char **argv, char **envp)
 				free(str);
 				continue ;
 			}
-			env_list = convert_envp_to_env_list(envp);
 			token_list = tokenizer(str);
-			expand_string_iter(token_list, env_list, expand_string, free);
+			expand_string_iter(token_list, sh_data->env_list, expand_string, free);
 			proc_list = parser(token_list);
 
 			//	FUNC
+			t_node	*proc_node = proc_list->head;
+			while (proc_node != NULL)
+			{
+				exec_builtin(sh_data, (t_proc *)proc_node->content);
+				proc_node = proc_node->next;
+			}
 
 			//	ft_list_iter(proc_list, print_proc);
 			ft_list_clear(token_list, ft_del_token);
-			ft_list_clear(env_list, ft_del_env);
 			ft_list_clear(proc_list, ft_del_proc);
 		}
 	}
+	ft_list_clear(sh_data->env_list, ft_del_env);
+	ft_free((void **)&sh_data);
 	return (0);
 }
 

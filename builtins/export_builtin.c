@@ -32,6 +32,11 @@ static int	print_export_err(const int errno_export)
 	return (errno_export);
 }
 
+//	Return exit code one of below:
+//	SUCCESS
+//	EXPORT_NULPTR
+//	EXPORT_UNKNOWN
+//	EXPORT_FORMAT
 int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	t_node	*node;
@@ -55,5 +60,5 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 	env->key = ft_substr(proc->args[1], 0, separator_idx);
 	env->value = ft_substr(proc->args[1], separator_idx + 1, value_len);
 	ft_list_append(sh_data->env_list, ft_new_node(env));
-	return (EXIT_SUCCESS);
+	return (SUCCESS);
 }
