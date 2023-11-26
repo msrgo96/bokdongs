@@ -39,6 +39,11 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("$> ");
 		if (str != NULL)
 		{
+			if (str[0] == '\0')
+			{
+				ft_free((void *)&str);
+				continue ;
+			}
 			add_history(str);
 			if (check_quote(str) != VALID)
 			{

@@ -47,11 +47,6 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 
 	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_export_err(EXPORT_NULPTR));
-	search_res = search_env_content(sh_data->env_list, proc->args[1], &node);
-	if (search_res == FT_FALSE)
-		return (print_export_err(EXPORT_UNKNOWN));
-	if (node != NULL)
-		ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
 	env = ft_new_env();
 	separator_idx = ft_str_find_chr(proc->args[1], '=');
 	if (separator_idx < 0)
@@ -59,6 +54,14 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 	value_len = ft_strlen(proc->args[1]) - (separator_idx + 1);
 	env->key = ft_substr(proc->args[1], 0, separator_idx);
 	env->value = ft_substr(proc->args[1], separator_idx + 1, value_len);
+	search_res = search_env_content(sh_data->env_list, env->key, &node);
+	if (search_res == FT_FALSE)
+	{
+		ft_del_env(env);
+		return (print_export_err(EXPORT_UNKNOWN));
+	}
+	if (node != NULL)
+		ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
 	ft_list_append(sh_data->env_list, ft_new_node(env));
 	return (SUCCESS);
 }
