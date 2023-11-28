@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 				proc_node = proc_node->next;
 			}
 
-			//	ft_list_iter(proc_list, print_proc);
+			ft_list_iter(proc_list, print_proc);
 			ft_list_clear(token_list, ft_del_token);
 			ft_list_clear(proc_list, ft_del_proc);
 		}
