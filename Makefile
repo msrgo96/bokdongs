@@ -9,7 +9,8 @@ LIBFT_H = libft.h
 BUILTINS_SRC = builtins/builtins.c builtins/builtins_util.c \
 builtins/echo_builtin.c builtins/cd_builtin.c builtins/pwd_builtin.c \
 builtins/env_builtin.c builtins/exit_builtin.c builtins/export_builtin.c builtins/unset_builtin.c
-SRC = main.c $(BUILTINS_SRC) \
+# $(BUILTINS_SRC)
+SRC = main.c \
 convert_envp_to_env_list.c \
 generate_proc_list.c \
 expand_string.c \
@@ -17,7 +18,8 @@ parser.c \
 split_str_to_list_util.c split_str_to_list.c \
 syntax_checker.c \
 t_env.c t_proc.c t_redir.c t_token.c \
-tokenizer.c
+tokenizer.c \
+heredoc.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

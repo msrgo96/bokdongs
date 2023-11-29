@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_util.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 04:10:46 by moson             #+#    #+#             */
-/*   Updated: 2023/11/21 04:10:47 by moson            ###   ########.fr       */
+/*   Updated: 2023/11/28 22:59:39 by ahn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	search_env_content(t_list *env_list, char *key, t_node	**res)
 		content = (t_env *)node->content;
 		if (content == NULL || content->key == NULL)
 			return (FT_FALSE);
-		if (strncmp(content->key, key, ft_strlen(key) + 1) == 0)
+		if (ft_strncmp(content->key, key, ft_strlen(key) + 1) == 0)
 		{
 			*res = node;
 			return (FT_TRUE);

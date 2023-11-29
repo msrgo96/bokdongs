@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 23:04:26 by moson             #+#    #+#             */
-/*   Updated: 2023/11/16 23:04:27 by moson            ###   ########.fr       */
+/*   Updated: 2023/11/28 23:00:14 by ahn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cd_builtin(t_sh_data *sh_data, t_proc *proc)
 	int	args_len;
 	int	errno_chdir;
 
-	sh_data++;
+	(void)sh_data;
 	args_len = get_args_len(proc->args);
 	if (args_len == 0 || args_len == 1)
 		errno_chdir = 0;

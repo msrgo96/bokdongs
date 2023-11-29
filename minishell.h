@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/23 21:00:30 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/11/28 22:58:36 by ahn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # pragma region INCLUDES
 
 # include "libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <readline/history.h>
-# include <readline/readline.h>
 
 # pragma endregion
 
@@ -143,11 +143,11 @@ void		add_sep_in_list(t_list *list, const char *sep, int *i);
 void		add_word_in_list(t_list *list, char *s, int i, int *start);
 
 int			check_quote(char *input);
-int			check_syntax(t_list	*token_list);
+int			check_syntax(t_list *token_list);
 
 char		*expand_string(t_list *env_list, char *str);
-void		expand_string_iter(t_list *token_list, t_list *env_list, \
-char *(*expand_string)(t_list *, char *), void (*del)(void *));
+void		expand_string_iter(t_list *token_list, t_list *env_list,
+				char *(*expand_string)(t_list *, char *), void (*del)(void *));
 
 t_redir		*ft_new_redir(void);
 t_redir		*ft_new_redir_init(char *filename, int redir_type);
@@ -160,7 +160,9 @@ void		ft_del_proc(void *content);
 
 t_list		*parser(t_list *token_list);
 
-void		print_redir(void *content);
+void		heredoc(t_list *proc_list);
+
+void 		print_redir(void *content);
 void		print_proc(void *content);
 char		*get_error_msg(int error_code);
 void		print_error(int error_code);
