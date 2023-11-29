@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/11/29 21:39:32 by ahn              ###   ########.fr       */
+/*   Updated: 2023/11/29 22:17:39 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <fcntl.h>
 
-void	heredoc_input(t_list *redir_list);
-char	*create_filename(void);
-void	heredoc_to_file(t_redir *redir);
+static void	heredoc_input(t_list *redir_list);
+static void	heredoc_to_file(t_redir *redir);
+static char	*create_filename(void);
 
-	void heredoc(t_list *proc_list)
+void	heredoc(t_list *proc_list)
 {
 	t_node	*node;
 	t_list	*redir_list;
@@ -31,7 +31,30 @@ void	heredoc_to_file(t_redir *redir);
 	}
 }
 
-void	heredoc_input(t_list *redir_list)
+void	heredoc_clear(t_list *proc_list)
+{
+	t_node	*node;
+	t_node	*node_redir;
+	t_list	*redir_list;
+	t_redir	*redir;
+
+	node = proc_list->head;
+	while (node)
+	{
+		redir_list = ((t_proc *)node->content)->redir_list;
+		node_redir = redir_list->head;
+		while (node_redir)
+		{
+			redir = ((t_redir *)node_redir->content);
+			if (redir->redir_type == HEREDOC)
+				unlink(redir->filename);
+			node_redir = node_redir->next;
+		}
+		node = node->next;
+	}
+}
+
+static void	heredoc_input(t_list *redir_list)
 {
 	int		status;
 	int		pid;
@@ -56,25 +79,26 @@ void	heredoc_input(t_list *redir_list)
 	}
 }
 
-void	heredoc_to_file(t_redir *redir)
+static void	heredoc_to_file(t_redir *redir)
 {
-	int		fd;
-	char	*delimiter;
-	char	*filename;
-	char	*line;
+	int			fd;
+	char		*delimiter;
+	char		*filename;
+	char		*line;
+	const char	*heredoc_msg = "heredoc> ";
 
 	filename = create_filename();
 	fd = open(filename, O_WRONLY | O_CREAT, 0644);
 	if (fd < 0)
 		exit(EXIT_FAILURE);
 	delimiter = redir->filename;
-	line = readline("heredoc> ");
+	line = readline(heredoc_msg);
 	while (!ft_str_is_same(line, delimiter))
 	{
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
-		line = readline("heredoc> ");
+		line = readline(heredoc_msg);
 	}
 	free(line);
 	free(redir->filename);
@@ -82,11 +106,11 @@ void	heredoc_to_file(t_redir *redir)
 	close(fd);
 }
 
-char	*create_filename(void)
+static char	*create_filename(void)
 {
-	const char *filename_form = ".tmp_";
-	static int cnt;
-	char *filename;
+	const char	*filename_form = ".tmp_";
+	static int	cnt;
+	char		*filename;
 
 	filename = ft_strjoin(filename_form, ft_itoa(cnt++), ft_none, free);
 	while (access(filename, F_OK) != -1)
