@@ -13,6 +13,14 @@
 #include "minishell.h"
 #include "builtins/builtins.h"
 
+#pragma region PROTOTYPES
+
+int		set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list);
+void	clear_proc_sh_data(t_sh_data *sh_data);
+int		executor(t_sh_data *sh_data, t_list *proc_list);
+
+#pragma endregion
+
 // void	leaks_test(void)
 // {
 // 	system("leaks -q minishell");
@@ -29,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
+	//	INIT t_sh_data
 	sh_data = (t_sh_data *)malloc(sizeof(t_sh_data) * 1);
 	if (sh_data == NULL)
 		return (1);
@@ -55,15 +64,24 @@ int	main(int argc, char **argv, char **envp)
 			expand_string_iter(token_list, sh_data->env_list, expand_string, free);
 			proc_list = parser(token_list);
 
-			//	FUNC
-			t_node	*proc_node = proc_list->head;
-			while (proc_node != NULL)
-			{
-				exec_builtin(sh_data, (t_proc *)proc_node->content);
-				proc_node = proc_node->next;
-			}
 
+			//	print_proc_list
 			ft_list_iter(proc_list, print_proc);
+
+			set_proc_sh_data(sh_data, proc_list);
+	
+			//	executor
+			executor(sh_data, proc_list);
+
+			// t_node	*proc_node = proc_list->head;
+			// while (proc_node != NULL)
+			// {
+			// 	exec_builtin(sh_data, (t_proc *)proc_node->content);
+			// 	proc_node = proc_node->next;
+			// }
+
+			clear_proc_sh_data(sh_data);
+
 			ft_list_clear(token_list, ft_del_token);
 			ft_list_clear(proc_list, ft_del_proc);
 		}

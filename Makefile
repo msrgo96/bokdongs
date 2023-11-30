@@ -9,7 +9,8 @@ LIBFT_H = libft.h
 BUILTINS_SRC = builtins/builtins.c builtins/builtins_util.c \
 builtins/echo_builtin.c builtins/cd_builtin.c builtins/pwd_builtin.c \
 builtins/env_builtin.c builtins/exit_builtin.c builtins/export_builtin.c builtins/unset_builtin.c
-SRC = main.c $(BUILTINS_SRC) \
+EXEC_SRC = exec/executor.c exec/sh_data.c
+SRC = main.c $(BUILTINS_SRC) $(EXEC_SRC) \
 convert_envp_to_env_list.c \
 generate_proc_list.c \
 expand_string.c \

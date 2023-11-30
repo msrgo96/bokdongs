@@ -31,6 +31,9 @@
 # define FT_QUOTE_ERROR_MSG "quote error!"
 # define FT_SYNTAX_ERROR_MSG "syntax error!"
 
+# define PIPE_READ 0
+# define PIPE_WRITE 1
+
 # pragma endregion
 
 # pragma region ENUMS
@@ -117,7 +120,19 @@ typedef struct s_env
 typedef struct s_sh_data
 {
 	t_list	*env_list;
+	int		proc_size;
+	int		**fd_pipe;
+	pid_t	*child_pid;
+	int		*exit_status;
 }			t_sh_data;
+
+# pragma endregion
+
+# pragma region ERR_MINISHELL
+
+# define SUCCESS 0
+# define ERR_MALLOC_FAILED 1
+# define ERR_PIPE_FAILED 2
 
 # pragma endregion
 
