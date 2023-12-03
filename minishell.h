@@ -122,7 +122,7 @@ typedef struct s_sh_data
 	t_list	*env_list;
 	int		proc_size;
 	int		**fd_pipe;
-	pid_t	*child_pid;
+	int		*child_pid;
 	int		*exit_status;
 }			t_sh_data;
 
@@ -131,8 +131,9 @@ typedef struct s_sh_data
 # pragma region ERR_MINISHELL
 
 # define SUCCESS 0
-# define ERR_MALLOC_FAILED 1
-# define ERR_PIPE_FAILED 2
+# define ERR_UNKNOWN 1
+# define ERR_MALLOC_FAILED 2
+# define ERR_PIPE_FAILED 3
 
 # pragma endregion
 
