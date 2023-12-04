@@ -135,6 +135,11 @@ typedef struct s_sh_data
 # define ERR_MALLOC_FAILED 2
 # define ERR_PIPE_FAILED 3
 # define ERR_CLOSE_FAILED 4
+# define ERR_FORK_FAILED 5
+# define ERR_OPEN_FAILED 6
+# define ERR_DUP2_FAILED 7
+# define ERR_FILE_NOT_EXIST 8
+# define ERR_PERM_DENIED 9
 
 # pragma endregion
 

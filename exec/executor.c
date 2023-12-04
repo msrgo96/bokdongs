@@ -12,6 +12,9 @@
 
 #include "../minishell.h"
 
+void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num);
+void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num);
+
 int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
 	int	cnt;
@@ -26,10 +29,12 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 			if (pipe(sh_data->fd_pipe[cnt]) == -1)
 				exit(ERR_PIPE_FAILED);
 		sh_data->child_pid[cnt] = fork();
+		if (sh_data->child_pid[cnt] == -1)
+			exit(ERR_FORK_FAILED);
 		if (0 < sh_data->child_pid[cnt])
-			exec_parent();
+			exec_parent(sh_data, proc_list, cnt);
 		else
-			exec_child();
+			exec_child(sh_data, proc_list, cnt);
 	}
 	//	remove_temp_heredoc_file();
 	// close_pipe(sh_data, -1, -1);	//	DEPRECATED

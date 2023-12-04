@@ -12,7 +12,8 @@
 
 #include "../minishell.h"
 
-void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num)
+//	If close failed: exit(ERR_CLOSE_FAILED)
+static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 {
 	int	read_pipe_idx;
 	int	write_pipe_idx;
@@ -25,5 +26,12 @@ void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	if (write_pipe_idx != sh_data->proc_size - 1)
 		if (close(sh_data->fd_pipe[write_pipe_idx][PIPE_WRITE]) == -1)
 			exit(ERR_CLOSE_FAILED);
-	
+	return ;
+}
+
+void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num)
+{
+	proc_list++;
+	close_unused_pipe(sh_data, proc_num);
+	return ;
 }
