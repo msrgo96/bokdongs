@@ -13,8 +13,9 @@
 #include "../minishell.h"
 
 void	open_and_dup2_redir(t_redir *redir);
+void	dup2_and_close(int fd1, int fd2);
 
-//	If close failed: exit(ERR_CLOSE_FAILED)
+//	If close failed: exit (ERR_CLOSE_FAILED)
 static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 {
 	int	read_pipe_idx;
@@ -26,22 +27,26 @@ static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 	return ;
 }
 
+//	If error, exit(ERR_OPEN_FAILED, ERR_CLOSE_FAILED, ERR_DUP2_FAILED, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED)
 static void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	t_proc	*proc;
 	t_node	*redir_node;
 	t_redir	*redir;
-	int		fd;
 
 	proc = (t_proc *)(ft_listget(proc_list, proc_num)->content);
-	redir_node = (t_redir *)(ft_listget(proc->redir_list, 0));
+	if (proc->default_fdtype[READ_FD] == FDTYPE_PIPE)
+		dup2_and_close(sh_data->fd_pipe[proc_num - 1][PIPE_READ], STDIN_FILENO);
+	if (proc->default_fdtype[WRITE_FD] == FDTYPE_PIPE)
+		dup2_and_close(sh_data->fd_pipe[proc_num][PIPE_WRITE], STDOUT_FILENO);
+	redir_node = ft_listget(proc->redir_list, 0);
 	while (redir_node != NULL)
 	{
 		redir = (t_redir *)(redir_node->content);
 		open_and_dup2_redir(redir);
-		//	If pipe, update STD I/O with proper pipe fd
 		redir_node = redir_node->next;
 	}
+	return ;
 }
 
 void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)

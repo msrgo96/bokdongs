@@ -47,7 +47,7 @@ static void	access_redir(char *path, int redir_type)
 
 //	If close failed: exit(ERR_CLOSE_FAILED)
 //	If dup2 failed: exit(ERR_DUP2_FAILED)
-static void	dup2_and_close(int fd1, int fd2)
+void	dup2_and_close(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
 		exit(ERR_DUP2_FAILED);

@@ -143,6 +143,8 @@ typedef struct s_sh_data
 
 # pragma endregion
 
+# pragma region PROTOTYPES
+
 t_token		*ft_new_token(void);
 void		ft_del_token(void *token);
 t_token		*wrap_in_token(void *content);
@@ -190,4 +192,7 @@ void		print_content(void *content);
 void		print_env(void *content);
 void		print_token(void *content);
 char		*get_type(int type);
+
+# pragma endregion
+
 #endif

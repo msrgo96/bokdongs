@@ -40,4 +40,5 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 	// close_pipe(sh_data, -1, -1);	//	DEPRECATED
 	//	wait all child
 	//	return (sh_data->exit_status[sh_data->proc_size - 1]);
+	return (0);
 }
