@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/29 00:44:37 by ahn              ###   ########.fr       */
+/*   Updated: 2023/12/05 14:41:54 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// void	leaks_test(void)
-// {
-// 	system("leaks -q minishell");
-// }
+void	leaks_test(void)
+{
+	system("leaks -q minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -24,12 +24,15 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*token_list;
 	t_list	*proc_list;
 
-	//atexit(leaks_test);
+	atexit(leaks_test);
+	signal(SIGINT, SIG_IGN);
 	(void)argc;
 	(void)argv;
 	while (1)
 	{
 		str = readline("$> ");
+		if (!str)
+			return (0);
 		if (ft_strncmp(str, "exit", 5) == 0)
 		{
 			free(str);
@@ -51,9 +54,9 @@ int	main(int argc, char **argv, char **envp)
 			proc_list = parser(token_list);
 			heredoc(proc_list);
 			ft_list_iter(proc_list, print_proc);
-			
-			//	FUNC
 
+			//	FUNC
+			heredoc_clear();
 			ft_list_clear(token_list, ft_del_token);
 			ft_list_clear(env_list, ft_del_env);
 			ft_list_clear(proc_list, ft_del_proc);

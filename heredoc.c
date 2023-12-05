@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/11/29 22:17:39 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/05 14:40:12 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,66 +15,70 @@
 
 static void	heredoc_input(t_list *redir_list);
 static void	heredoc_to_file(t_redir *redir);
-static char	*create_filename(void);
+static char	*create_filepath(void);
 
 void	heredoc(t_list *proc_list)
 {
 	t_node	*node;
 	t_list	*redir_list;
+	int		status;
+	int		pid;
 
-	node = proc_list->head;
-	while (node)
+	if (!proc_list)
+		return ;
+	pid = fork();
+	if (pid < 0)
+		exit(EXIT_FAILURE);
+	if (pid == 0)
 	{
-		redir_list = ((t_proc *)node->content)->redir_list;
-		heredoc_input(redir_list);
-		node = node->next;
+		signal(SIGINT, SIG_DFL);
+		node = proc_list->head;
+		while (node)
+		{
+			redir_list = ((t_proc *)node->content)->redir_list;
+			heredoc_input(redir_list);
+			node = node->next;
+		}
 	}
+	else
+		waitpid(pid, &status, 0);
 }
 
-void	heredoc_clear(t_list *proc_list)
+void	heredoc_clear(void)
 {
-	t_node	*node;
-	t_node	*node_redir;
-	t_list	*redir_list;
-	t_redir	*redir;
+	DIR				*dir;
+	struct dirent	*entry;
+	char			*filepath;
+	const char		*dirname = "tmp/heredoc";
 
-	node = proc_list->head;
-	while (node)
+	dir = opendir(dirname);
+	if (dir == NULL)
+		return ;
+	entry = readdir(dir);
+	while (entry)
 	{
-		redir_list = ((t_proc *)node->content)->redir_list;
-		node_redir = redir_list->head;
-		while (node_redir)
-		{
-			redir = ((t_redir *)node_redir->content);
-			if (redir->redir_type == HEREDOC)
-				unlink(redir->filename);
-			node_redir = node_redir->next;
-		}
-		node = node->next;
+		filepath = ft_strjoin(dirname, "/", ft_none, ft_none);
+		filepath = ft_strjoin(filepath, entry->d_name, free, ft_none);
+		unlink(filepath);
+		free(filepath);
+		entry = readdir(dir);
 	}
+	closedir(dir);
 }
 
 static void	heredoc_input(t_list *redir_list)
 {
-	int		status;
-	int		pid;
 	t_node	*node;
 	t_redir	*redir;
 
+	if (!redir_list)
+		return ;
 	node = redir_list->head;
 	while (node)
 	{
 		redir = ((t_redir *)node->content);
 		if (redir->redir_type == HEREDOC)
-		{
-			pid = fork();
-			if (pid < 0)
-				exit(EXIT_FAILURE);
-			if (pid == 0)
-				heredoc_to_file(redir);
-			else
-				waitpid(pid, &status, 0);
-		}
+			heredoc_to_file(redir);
 		node = node->next;
 	}
 }
@@ -83,12 +87,12 @@ static void	heredoc_to_file(t_redir *redir)
 {
 	int			fd;
 	char		*delimiter;
-	char		*filename;
+	char		*filepath;
 	char		*line;
 	const char	*heredoc_msg = "heredoc> ";
 
-	filename = create_filename();
-	fd = open(filename, O_WRONLY | O_CREAT, 0644);
+	filepath = create_filepath();
+	fd = open(filepath, O_WRONLY | O_CREAT, 0644);
 	if (fd < 0)
 		exit(EXIT_FAILURE);
 	delimiter = redir->filename;
@@ -102,21 +106,21 @@ static void	heredoc_to_file(t_redir *redir)
 	}
 	free(line);
 	free(redir->filename);
-	redir->filename = filename;
+	redir->filename = filepath;
 	close(fd);
 }
 
-static char	*create_filename(void)
+static char	*create_filepath(void)
 {
-	const char	*filename_form = ".tmp_";
+	const char	*dir = "tmp/heredoc/";
 	static int	cnt;
-	char		*filename;
+	char		*filepath;
 
-	filename = ft_strjoin(filename_form, ft_itoa(cnt++), ft_none, free);
-	while (access(filename, F_OK) != -1)
+	filepath = ft_strjoin(dir, ft_itoa(cnt++), ft_none, free);
+	while (access(filepath, F_OK) != -1)
 	{
-		free(filename);
-		filename = ft_strjoin(filename_form, ft_itoa(cnt++), ft_none, free);
+		free(filepath);
+		filepath = ft_strjoin(dir, ft_itoa(cnt++), ft_none, free);
 	}
-	return (filename);
+	return (filepath);
 }

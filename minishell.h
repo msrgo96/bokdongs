@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/28 22:58:36 by ahn              ###   ########.fr       */
+/*   Updated: 2023/12/05 14:07:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 # pragma region INCLUDES
 
 # include "libft.h"
-# include <readline/history.h>
-# include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <dirent.h>
+# include <sys/stat.h>
 
 # pragma endregion
 
@@ -161,6 +163,7 @@ void		ft_del_proc(void *content);
 t_list		*parser(t_list *token_list);
 
 void		heredoc(t_list *proc_list);
+void		heredoc_clear();
 
 void 		print_redir(void *content);
 void		print_proc(void *content);

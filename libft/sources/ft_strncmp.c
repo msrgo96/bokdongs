@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:56:59 by jooahn            #+#    #+#             */
-/*   Updated: 2023/03/21 03:41:38 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/05 14:17:10 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	idx;
 
+	if (!s1 || !s2)
+		return (-2);
 	idx = 0;
 	while (idx < n)
 	{
