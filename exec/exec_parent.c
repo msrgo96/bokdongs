@@ -29,6 +29,7 @@ static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 	return ;
 }
 
+//	If close failed: exit(ERR_CLOSE_FAILED)
 void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	proc_list++;

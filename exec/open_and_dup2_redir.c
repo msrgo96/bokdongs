@@ -56,7 +56,6 @@ void	dup2_and_close(int fd1, int fd2)
 	return ;
 }
 
-//	TODO: is absolute PATH? Where is pwd?
 //	open as redir, dup2 each STD I/O, and finally close fd when open
 //	If error, exit(ERR_OPEN_FAILED, ERR_DUP2_FAILED, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED)
 void	open_and_dup2_redir(t_redir *redir)

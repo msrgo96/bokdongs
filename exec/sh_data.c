@@ -53,6 +53,9 @@ int	set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list)
 	while (++cnt < sh_data->proc_size)
 		sh_data->child_pid[cnt] = 0;
 	sh_data->exit_status = (int *)malloc_exit_if_failed(sh_data->proc_size);
+	cnt = -1;
+	while (++cnt < sh_data->proc_size)
+		sh_data->exit_status[cnt] = 0;
 	return (SUCCESS);
 }
 

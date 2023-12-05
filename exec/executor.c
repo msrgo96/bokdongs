@@ -21,7 +21,6 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 
 	//	write_temp_heredoc_file();
 	//	modify_heredoc_redir_type();
-
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 	{
@@ -37,7 +36,6 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 			exec_child(sh_data, proc_list, cnt);
 	}
 	//	remove_temp_heredoc_file();
-	// close_pipe(sh_data, -1, -1);	//	DEPRECATED
 	//	wait all child
 	//	return (sh_data->exit_status[sh_data->proc_size - 1]);
 	return (0);
