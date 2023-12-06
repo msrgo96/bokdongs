@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/05 14:07:17 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/07 00:07:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <dirent.h>
-# include <sys/stat.h>
+# include <fcntl.h>
 
 # pragma endregion
 
@@ -119,6 +118,7 @@ typedef struct s_env
 typedef struct s_sh_data
 {
 	t_list	*env_list;
+	t_list	*hdfile_list;
 }			t_sh_data;
 
 # pragma endregion
@@ -162,10 +162,13 @@ void		ft_del_proc(void *content);
 
 t_list		*parser(t_list *token_list);
 
-void		heredoc(t_list *proc_list);
-void		heredoc_clear();
+int			set_hdfile_list(t_list *proc_list, t_list *hdfile_list);
 
-void 		print_redir(void *content);
+int			heredoc(t_list *proc_list, t_sh_data *sh_data);
+void		replace_filename(t_list *proc_list, t_list *hdfile_list);
+void		heredoc_clear(t_list *hdfile_list);
+
+void		print_redir(void *content);
 void		print_proc(void *content);
 char		*get_error_msg(int error_code);
 void		print_error(int error_code);

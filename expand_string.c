@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+extern int	g_exit_code;
+
 static void	init_data(int in_quote[2], char **expanded_str, int *i);
 static int	quote_need_remove(int in_quote[2], char c);
 static char	*expand_env(t_list *env_list, char *str, int *i);
@@ -19,6 +21,7 @@ static char	*expand_env(t_list *env_list, char *str, int *i);
 /*
 remove quote & expand env
 return : char *
+error : return NULL pointer
 */
 char	*expand_string(t_list *env_list, char *str)
 {
@@ -33,9 +36,9 @@ char	*expand_string(t_list *env_list, char *str)
 	{
 		if (quote_need_remove(in_quote, str[i]))
 			continue ;
-		if (*str == '$' && *(str + 1) && !in_quote[SINGLE])
+		if (str[i] == '$' && !ft_isspace(str[i + 1]) && !in_quote[SINGLE])
 			expanded_str = ft_strjoin(expanded_str, \
-			expand_env(env_list, str, &i), free, ft_none);
+			expand_env(env_list, str, &i), free, free);
 		else
 			expanded_str = ft_str_append(expanded_str, str[i], free);
 	}
@@ -94,6 +97,8 @@ static char	*expand_env(t_list *env_list, char *str, int *i)
 	if (!env_list || !str || !i || str[*i] != '$')
 		return (0);
 	start = ++(*i);
+	if (str[start] == '?')
+		return (ft_itoa(g_exit_code));
 	if (ft_isalnum(str[start]))
 		while (str[*i] && ft_isalnum(str[*i]))
 			(*i)++;
@@ -103,5 +108,5 @@ static char	*expand_env(t_list *env_list, char *str, int *i)
 	env_value = get_env_value(env_list, key);
 	free(key);
 	(*i)--;
-	return (env_value);
+	return (ft_strdup(env_value));
 }
