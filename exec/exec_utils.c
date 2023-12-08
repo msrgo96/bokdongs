@@ -37,7 +37,7 @@ static char	**get_path_split(t_sh_data *sh_data)
 
 //	Return string format of {str1} + 'c' + {str2} + '\0'
 //	If malloc error, exit (ERR_MALLOC_FAILED)
-static char	*str_join_three(char *str1, char c, char *str2)
+static char	*str_join_three(const char *str1, const char c, const char *str2)
 {
 	char	*res;
 	size_t	cnt;
@@ -94,44 +94,23 @@ char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
 //	If malloc error, exit (ERR_MALLOC_FAILED)
 char	**get_envp_origin(t_list *env_list)
 {
-	char	**envp_new;
+	char	**envp;
 	t_node	*node;
 	t_env	*env;
 	int		cnt;
 
-	envp_new = (char **)malloc(ft_listsize(env_list) + 1);
-	if (envp_new == NULL)
+	envp = (char **)malloc(sizeof(char *) * (ft_listsize(env_list) + 1));
+	if (envp == NULL)
 		exit (ERR_MALLOC_FAILED);
 	node = env_list->head;
 	cnt = 0;
-
-
-
-	ft_putendl_fd("********** ???? **********", STDERR_FILENO);
-
 	while (node != NULL)
 	{
 		env = (t_env *)(node->content);
-		envp_new[cnt] = str_join_three(env->key, '=', env->value);
-
-
-		ft_putendl_fd(envp_new[cnt], STDERR_FILENO);
-
-
+		envp[cnt] = str_join_three(env->key, '=', env->value);
 		node = node->next;
 		cnt++;
 	}
-	envp_new[cnt] = NULL;
-
-
-	ft_putstr_fd("\n\n\n\n", STDERR_FILENO);
-
-
-	ft_putendl_fd("********** BEFORE RETURN ENVP **********", STDERR_FILENO);
-	for (int i = 0; envp_new[i] != NULL; i++)
-		ft_putendl_fd(envp_new[i], STDERR_FILENO);
-	ft_putstr_fd("\n\n\n\n", STDERR_FILENO);
-
-
-	return (envp_new);
+	envp[cnt] = NULL;
+	return (envp);
 }

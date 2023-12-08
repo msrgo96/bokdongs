@@ -56,9 +56,6 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 	{
-
-		sleep(1);
-
 		if (cnt != sh_data->proc_size - 1)
 			if (pipe(sh_data->fd_pipe[cnt]) == -1)
 				exit(ERR_PIPE_FAILED);
@@ -72,8 +69,5 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 	}
 	//	remove_temp_heredoc_file();
 	wait_all_child(sh_data);	//	wait all child
-	for (int i = 0; i < sh_data->proc_size; i++)
-		ft_printf("child %d: exit with code %d\n", i, sh_data->exit_status[i]);
-	//	return (sh_data->exit_status[sh_data->proc_size - 1]);
-	return (0);
+	return (sh_data->exit_status[sh_data->proc_size - 1]);
 }
