@@ -55,26 +55,36 @@ static void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	return ;
 }
 
+
+#include <fcntl.h>
+
 //	If error, exit(ERR_OPEN_FAILED, ERR_CLOSE_FAILED, ERR_DUP2_FAILED, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED, ERR_CMD_NOT_FOUND, ERR_EXECVE_FAILED)
 void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	t_proc	*proc;
+	char	**envp;
 
 	proc = (t_proc *)(ft_listget(proc_list, proc_num)->content);
-
-	ft_putnbr_fd(proc_num, STDERR_FILENO);
-	
 	close_unused_pipe(sh_data, proc_num);
 	set_io_fd(sh_data, proc_list, proc_num);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
 
-	ft_putendl_fd(proc->absolute_path, STDERR_FILENO);	//	TEMP
+	ft_putstr_fd("child: ", STDERR_FILENO);
+	ft_putendl_fd(proc->absolute_path, STDERR_FILENO);
 
 	if (proc->absolute_path == NULL && exec_builtin(sh_data, proc) == -1)
 		exit(ERR_CMD_NOT_FOUND);
 	if (access(proc->absolute_path, X_OK) == -1)
 		exit(ERR_PERM_DENIED);
-	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
+	envp = get_envp_origin(sh_data->env_list);
+
+
+	ft_putendl_fd("********** AFTER GET ENVP **********", STDERR_FILENO);
+	for (int i = 0; envp[i] != NULL; i++)
+		ft_putendl_fd(envp[i], STDERR_FILENO);
+	ft_putstr_fd("\n\n\n\n", STDERR_FILENO);
+
+	if (execve(proc->absolute_path, proc->args, envp) == -1)
 		exit(ERR_EXECVE_FAILED);
 	return ;
 }
