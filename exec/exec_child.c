@@ -26,7 +26,10 @@ static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 	read_pipe_idx = proc_num;
 	if (read_pipe_idx != proc_num - 1)
 		if (close(sh_data->fd_pipe[read_pipe_idx][PIPE_READ]) == -1)
+		{
+			ft_printf("\nbad fd_pipe[%d][%d]: %d\n", read_pipe_idx, PIPE_READ, sh_data->fd_pipe[read_pipe_idx][PIPE_READ]);
 			exit(ERR_CLOSE_FAILED);
+		}
 	return ;
 }
 
@@ -58,9 +61,15 @@ void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	t_proc	*proc;
 
 	proc = (t_proc *)(ft_listget(proc_list, proc_num)->content);
+
+	ft_putnbr_fd(proc_num, STDERR_FILENO);
+	
 	close_unused_pipe(sh_data, proc_num);
 	set_io_fd(sh_data, proc_list, proc_num);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
+
+	ft_putendl_fd(proc->absolute_path, STDERR_FILENO);	//	TEMP
+
 	if (proc->absolute_path == NULL && exec_builtin(sh_data, proc) == -1)
 		exit(ERR_CMD_NOT_FOUND);
 	if (access(proc->absolute_path, X_OK) == -1)

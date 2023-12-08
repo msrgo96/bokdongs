@@ -66,7 +66,7 @@ int	main(int argc, char **argv, char **envp)
 
 
 			//	print_proc_list
-			ft_list_iter(proc_list, print_proc);
+			// ft_list_iter(proc_list, print_proc);
 
 			set_proc_sh_data(sh_data, proc_list);
 	
