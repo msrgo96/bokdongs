@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/11/23 21:00:30 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/10 17:25:27 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <fcntl.h>
 
 # pragma endregion
 
@@ -125,6 +126,7 @@ typedef struct s_sh_data
 	int		*child_pid;
 	int		*exit_status;
 	int		fd_std[3];
+	t_list	*hdfile_list;
 }			t_sh_data;
 
 # pragma endregion
@@ -170,11 +172,11 @@ void		add_sep_in_list(t_list *list, const char *sep, int *i);
 void		add_word_in_list(t_list *list, char *s, int i, int *start);
 
 int			check_quote(char *input);
-int			check_syntax(t_list	*token_list);
+int			check_syntax(t_list *token_list);
 
 char		*expand_string(t_list *env_list, char *str);
-void		expand_string_iter(t_list *token_list, t_list *env_list, \
-char *(*expand_string)(t_list *, char *), void (*del)(void *));
+void		expand_string_iter(t_list *token_list, t_list *env_list,
+				char *(*expand_string)(t_list *, char *), void (*del)(void *));
 
 t_redir		*ft_new_redir(void);
 t_redir		*ft_new_redir_init(char *filename, int redir_type);
@@ -186,6 +188,12 @@ t_proc		*ft_new_proc(void);
 void		ft_del_proc(void *content);
 
 t_list		*parser(t_list *token_list);
+
+int			set_hdfile_list(t_list *proc_list, t_list *hdfile_list);
+
+int			heredoc(t_list *proc_list, t_sh_data *sh_data);
+void		replace_filename(t_list *proc_list, t_list *hdfile_list);
+void		heredoc_clear(t_list *hdfile_list);
 
 void		print_redir(void *content);
 void		print_proc(void *content);

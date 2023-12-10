@@ -19,7 +19,9 @@ parser.c \
 split_str_to_list_util.c split_str_to_list.c \
 syntax_checker.c \
 t_env.c t_proc.c t_redir.c t_token.c \
-tokenizer.c
+tokenizer.c \
+heredoc.c \
+set_hdfile_list.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

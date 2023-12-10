@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: ahn <ahn@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 05:04:47 by moson             #+#    #+#             */
-/*   Updated: 2023/11/15 05:04:49 by moson            ###   ########.fr       */
+/*   Updated: 2023/11/28 23:00:05 by ahn              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	echo_builtin(t_sh_data *sh_data, t_proc *proc)
 	int	cnt;
 	int	is_option;
 
-	sh_data++;
+	(void)sh_data;
 	args_len = get_args_len(proc->args);
 	cnt = 1;
 	is_option = FT_FALSE;

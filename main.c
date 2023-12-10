@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/24 15:02:15 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/10 17:40:58 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int		executor(t_sh_data *sh_data, t_list *proc_list);
 
 #pragma endregion
 
-// void	leaks_test(void)
-// {
-// 	system("leaks -q minishell");
-// }
+int	g_exit_code = 1;
+
+void	leaks_test(void)
+{
+	system("leaks -q minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -50,7 +52,10 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
+		signal(SIGINT, SIG_IGN);
 		str = readline("$> ");
+		if (!str)
+			return (0);
 		if (str != NULL)
 		{
 			if (str[0] == '\0')
@@ -68,23 +73,8 @@ int	main(int argc, char **argv, char **envp)
 			token_list = tokenizer(str);
 			expand_string_iter(token_list, sh_data->env_list, expand_string, free);
 			proc_list = parser(token_list);
-
-
-			//	print_proc_list
-			// ft_list_iter(proc_list, print_proc);
-
 			set_proc_sh_data(sh_data, proc_list);
-	
-			//	executor
 			executor(sh_data, proc_list);
-
-			// t_node	*proc_node = proc_list->head;
-			// while (proc_node != NULL)
-			// {
-			// 	exec_builtin(sh_data, (t_proc *)proc_node->content);
-			// 	proc_node = proc_node->next;
-			// }
-
 			clear_proc_sh_data(sh_data);
 
 			ft_list_clear(token_list, ft_del_token);
