@@ -42,6 +42,11 @@ int	main(int argc, char **argv, char **envp)
 	if (sh_data == NULL)
 		return (1);
 	sh_data->env_list = convert_envp_to_env_list(envp);
+	sh_data->fd_std[STDIN_FILENO] = dup(STDIN_FILENO);
+	sh_data->fd_std[STDOUT_FILENO] = dup(STDOUT_FILENO);
+	sh_data->fd_std[STDERR_FILENO] = dup(STDERR_FILENO);
+
+
 
 	while (1)
 	{

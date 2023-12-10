@@ -34,14 +34,14 @@ static int	get_o_flag(int redir_type)
 static void	access_redir(char *path, int redir_type)
 {
 	int	access_mode;
-
-	if (access(path, F_OK) == -1)
-		exit(ERR_FILE_NOT_EXIST);
+	if (redir_type == I_REDIR)
+		if (access(path, F_OK) == -1)
+			exit(ERR_FILE_NOT_EXIST);
 	if (redir_type == I_REDIR)
 		access_mode = R_OK;
 	else
 		access_mode = W_OK;
-	if (access(path, access_mode) == -1)
+	if (access(path, F_OK) != -1 && access(path, access_mode) == -1)
 		exit(ERR_PERM_DENIED);
 }
 
@@ -50,9 +50,13 @@ static void	access_redir(char *path, int redir_type)
 void	dup2_and_close(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
+	{
 		exit(ERR_DUP2_FAILED);
+	}
 	if (close(fd1) == -1)
+	{
 		exit(ERR_CLOSE_FAILED);
+	}
 	return ;
 }
 

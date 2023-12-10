@@ -124,6 +124,7 @@ typedef struct s_sh_data
 	int		**fd_pipe;
 	int		*child_pid;
 	int		*exit_status;
+	int		fd_std[3];
 }			t_sh_data;
 
 # pragma endregion

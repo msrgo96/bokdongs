@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+void	dup2_and_close(int fd1, int fd2);
+
 //	If malloc error, return (NULL)
 //	If there is no PATH in env_list, return ( split = { "dummy_there_is_no_PATH", NULL } )
 static char	**get_path_split(t_sh_data *sh_data)
@@ -113,4 +115,12 @@ char	**get_envp_origin(t_list *env_list)
 	}
 	envp[cnt] = NULL;
 	return (envp);
+}
+
+void	restore_io_fd(t_sh_data *sh_data)
+{
+	dup2_and_close(sh_data->fd_std[STDIN_FILENO], STDIN_FILENO);
+	dup2_and_close(sh_data->fd_std[STDOUT_FILENO], STDOUT_FILENO);
+	dup2_and_close(sh_data->fd_std[STDERR_FILENO], STDERR_FILENO);
+	return ;
 }
