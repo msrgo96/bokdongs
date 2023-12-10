@@ -59,8 +59,11 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 	t_proc	*proc;
 
 	proc = (t_proc *)(ft_listget(proc_list, 0)->content);
-	//	write_temp_heredoc_file();
-	//	modify_heredoc_redir_type();
+	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
+	{
+		heredoc(proc_list, sh_data);
+		replace_filename(proc_list, sh_data->hdfile_list);
+	}
 	set_io_fd(sh_data, proc_list, 0);
 	sh_data->child_pid[0] = 0;
 	sh_data->exit_status[0] = exec_builtin(sh_data, proc);
@@ -70,7 +73,7 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 		if (sh_data->child_pid[0] == 0)
 			exec_single(sh_data, proc);
 	}
-	//	remove_temp_heredoc_file();
+	heredoc_clear(sh_data->hdfile_list);
 	wait_all_child(sh_data);
 	restore_io_fd(sh_data);
 	return (sh_data->exit_status[0]);
@@ -80,8 +83,11 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 {
 	int	cnt;
 
-	//	write_temp_heredoc_file();
-	//	modify_heredoc_redir_type();
+	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
+	{
+		heredoc(proc_list, sh_data);
+		replace_filename(proc_list, sh_data->hdfile_list);
+	}
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 	{
@@ -96,13 +102,14 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 		else
 			exec_child(sh_data, proc_list, cnt);
 	}
-	//	remove_temp_heredoc_file();
+	heredoc_clear(sh_data->hdfile_list);
 	wait_all_child(sh_data);
 	return (sh_data->exit_status[sh_data->proc_size - 1]);
 }
 
 int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
+	
 	if (sh_data->proc_size == 1)
 		return (single_cmd(sh_data, proc_list));
 	else
