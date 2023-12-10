@@ -72,7 +72,7 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 	}
 	//	remove_temp_heredoc_file();
 	wait_all_child(sh_data);
-	// restore_io_fd(sh_data);
+	restore_io_fd(sh_data);
 	return (sh_data->exit_status[0]);
 }
 
