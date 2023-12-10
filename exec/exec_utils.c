@@ -119,8 +119,16 @@ char	**get_envp_origin(t_list *env_list)
 
 void	restore_io_fd(t_sh_data *sh_data)
 {
-	dup2_and_close(sh_data->fd_std[STDIN_FILENO], STDIN_FILENO);
-	dup2_and_close(sh_data->fd_std[STDOUT_FILENO], STDOUT_FILENO);
-	dup2_and_close(sh_data->fd_std[STDERR_FILENO], STDERR_FILENO);
+	int	res;
+
+	res = dup2(sh_data->fd_std[STDIN_FILENO], STDIN_FILENO);
+	if (res == -1)
+		exit(ERR_DUP2_FAILED);
+	res = dup2(sh_data->fd_std[STDOUT_FILENO], STDOUT_FILENO);
+	if (res == -1)
+		exit(ERR_DUP2_FAILED);
+	res = dup2(sh_data->fd_std[STDERR_FILENO], STDERR_FILENO);
+	if (res == -1)
+		exit(ERR_DUP2_FAILED);
 	return ;
 }
