@@ -43,6 +43,7 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);
+	
 	return (status);
 }
 

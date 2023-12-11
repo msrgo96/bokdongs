@@ -63,11 +63,6 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 	int		set_io_res;
 
 	proc = (t_proc *)(ft_listget(proc_list, 0)->content);
-	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
-	{
-		heredoc(proc_list, sh_data);	//	TODO:	rl_replace_line
-		replace_filename(proc_list, sh_data->hdfile_list);
-	}
 	set_io_res = set_io_fd_single_cmd(sh_data, proc_list, 0);
 	if (set_io_res != SUCCESS)
 		return (set_io_res);
@@ -89,11 +84,6 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 {
 	int	cnt;
 
-	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
-	{
-		heredoc(proc_list, sh_data);
-		replace_filename(proc_list, sh_data->hdfile_list);
-	}
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 	{
@@ -115,6 +105,12 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 
 int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
+	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
+	{
+		printf("%d\n", heredoc(proc_list, sh_data));
+		
+		replace_filename(proc_list, sh_data->hdfile_list);
+	}
 	if (sh_data->proc_size == 1)
 		return (single_cmd(sh_data, proc_list));
 	else

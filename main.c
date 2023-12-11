@@ -21,7 +21,6 @@ int		executor(t_sh_data *sh_data, t_list *proc_list);
 
 #pragma endregion
 
-//	TODO:
 int	g_exit_code = 0;
 
 void	leaks_test(void)
@@ -49,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 	sh_data->fd_std[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	sh_data->fd_std[STDERR_FILENO] = dup(STDERR_FILENO);
 
-	signal(SIGINT, SIG_IGN);	//	TODO: $> cat	->	SIGINT	=	MUST BE " ^C \n $> "
+	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -140,9 +139,9 @@ void	print_error(int error_code)
 char	*get_error_msg(int error_code)
 {
 	if (error_code == QUOTE_ERROR)
-		return (FT_QUOTE_ERROR_MSG);
+		return ("FT_QUOTE_ERROR_MSG");
 	if (error_code == SYNTAX_ERROR)
-		return (FT_SYNTAX_ERROR_MSG);
+		return ("FT_SYNTAX_ERROR_MSG");
 	return (0);
 }
 

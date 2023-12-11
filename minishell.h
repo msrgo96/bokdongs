@@ -29,8 +29,6 @@
 
 # define FT_TRUE 1
 # define FT_FALSE 0
-# define FT_QUOTE_ERROR_MSG "quote error!"
-# define FT_SYNTAX_ERROR_MSG "syntax error!"
 
 # define PIPE_READ 0
 # define PIPE_WRITE 1
@@ -149,6 +147,9 @@ typedef struct s_sh_data
 # define ERR_EXECVE_FAILED 11
 # define ERR_HEREDOC 12
 
+# define ERR_SYNTAX 256
+# define ERR_QUOTE 257
+
 # pragma endregion
 
 # pragma region PROTOTYPES
@@ -206,6 +207,9 @@ void		print_content(void *content);
 void		print_env(void *content);
 void		print_token(void *content);
 char		*get_type(int type);
+
+void		exit_with_msg(int exit_code);
+void		prt_err_msg(int	exit_code);
 
 # pragma endregion
 
