@@ -57,6 +57,7 @@ int	set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list)
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 		sh_data->exit_status[cnt] = 0;
+	sh_data->hdfile_list = ft_new_list();
 	return (SUCCESS);
 }
 
@@ -74,5 +75,7 @@ void	clear_proc_sh_data(t_sh_data *sh_data)
 	ft_free((void *)&(sh_data->child_pid));
 	ft_free((void *)&(sh_data->exit_status));
 	sh_data->proc_size = -1;
+	ft_list_clear(sh_data->hdfile_list, ft_none);
+	sh_data->hdfile_list = NULL;
 	return ;
 }

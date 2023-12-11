@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*proc_list;
 	t_sh_data	*sh_data;
 
-	atexit(leaks_test);
+	//atexit(leaks_test);
 	(void)argc;
 	(void)argv;
 

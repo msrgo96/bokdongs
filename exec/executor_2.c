@@ -23,6 +23,7 @@ int	set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	t_proc	*proc;
 	t_node	*redir_node;
 	t_redir	*redir;
+	int		access_mode;
 
 	proc = (t_proc *)(ft_listget(proc_list, proc_num)->content);
 	if (proc->default_fdtype[READ_FD] == FDTYPE_PIPE)
@@ -35,7 +36,10 @@ int	set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 		redir = (t_redir *)(redir_node->content);
 		if (access(redir->filename, F_OK) == -1)
 			return (ERR_FILE_NOT_EXIST);
-		if (access(redir->filename, X_OK) == -1)
+		access_mode = W_OK;
+		if (redir->redir_type == I_REDIR)
+			access_mode = R_OK;
+		if (access(redir->filename, access_mode) == -1)
 			return (ERR_PERM_DENIED);
 		open_and_dup2_redir(redir);
 		redir_node = redir_node->next;

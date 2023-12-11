@@ -50,7 +50,7 @@ void	replace_filename(t_list *proc_list, t_list *hdfile_list)
 {
 	t_node	*node;
 	t_node	*redir_node;
-	t_redir	*redir;
+	t_redir	*rdr;
 	int		i;
 
 	if (!proc_list || !hdfile_list)
@@ -62,12 +62,12 @@ void	replace_filename(t_list *proc_list, t_list *hdfile_list)
 		redir_node = ((t_proc *)node->content)->redir_list->head;
 		while (redir_node)
 		{
-			redir = ((t_redir *)redir_node->content);
-			if (redir->redir_type == HEREDOC)
+			rdr = ((t_redir *)redir_node->content);
+			if (rdr->redir_type == HEREDOC)
 			{
-				free(redir->filename);
-				redir->filename = ((char *)ft_listget(hdfile_list, i)->content);
-				i++;
+				free(rdr->filename);
+				rdr->filename = ((char *)ft_listget(hdfile_list, i++)->content);
+				rdr->redir_type = I_REDIR;
 			}
 			redir_node = redir_node->next;
 		}
@@ -89,7 +89,6 @@ void	heredoc_clear(t_list *hdfile_list)
 		unlink(filepath);
 		node = node->next;
 	}
-	ft_list_clear(hdfile_list, ft_none);
 }
 
 static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
@@ -131,7 +130,7 @@ static void	heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd)
 	heredoc_msg = "heredoc> ";
 	delimiter = redir->filename;
 	line = readline(heredoc_msg);
-	while (!ft_str_is_same(line, delimiter))
+	while (line && !ft_str_is_same(line, delimiter))
 	{
 		expanded_line = expand_string(env_list, line);
 		free(line);

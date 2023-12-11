@@ -145,6 +145,7 @@ typedef struct s_sh_data
 # define ERR_PERM_DENIED 9
 # define ERR_CMD_NOT_FOUND 10
 # define ERR_EXECVE_FAILED 11
+# define ERR_HEREDOC 12
 
 # pragma endregion
 
