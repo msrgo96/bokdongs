@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 			expand_string_iter(token_list, sh_data->env_list, expand_string, free);
 			proc_list = parser(token_list);
 			set_proc_sh_data(sh_data, proc_list);
-			executor(sh_data, proc_list);
+			g_exit_code = executor(sh_data, proc_list);
 			clear_proc_sh_data(sh_data);
 
 			ft_list_clear(token_list, ft_del_token);
