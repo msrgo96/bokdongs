@@ -30,6 +30,7 @@ static int	get_list_size(t_list *list)
 static void	*malloc_exit_if_failed(size_t size)
 {
 	void	*res;
+
 	res = malloc(size);
 	if (res == NULL)
 		exit(ERR_MALLOC_FAILED);

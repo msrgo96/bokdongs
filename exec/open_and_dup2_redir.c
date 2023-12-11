@@ -34,6 +34,7 @@ static int	get_o_flag(int redir_type)
 static void	access_redir(char *path, int redir_type)
 {
 	int	access_mode;
+
 	if (redir_type == I_REDIR)
 		if (access(path, F_OK) == -1)
 			exit(ERR_FILE_NOT_EXIST);

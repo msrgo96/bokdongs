@@ -35,7 +35,7 @@ int	exit_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	int	exit_code;
 
-	if(proc->default_fdtype[0] == FDTYPE_STD && \
+	if (proc->default_fdtype[0] == FDTYPE_STD && \
 	proc->default_fdtype[1] == FDTYPE_STD)
 		ft_putstr_fd("exit\n", sh_data->fd_std[STDOUT_FILENO]);
 	if (proc->args == NULL || proc->args[0] == NULL \
