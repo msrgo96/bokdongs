@@ -35,6 +35,8 @@
 # define PIPE_READ 0
 # define PIPE_WRITE 1
 
+# define SIGNAL_OFFSET 128
+
 # pragma endregion
 
 # pragma region ENUMS

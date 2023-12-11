@@ -21,6 +21,7 @@ int		executor(t_sh_data *sh_data, t_list *proc_list);
 
 #pragma endregion
 
+//	TODO:
 int	g_exit_code = 0;
 
 void	leaks_test(void)

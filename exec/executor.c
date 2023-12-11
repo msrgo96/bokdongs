@@ -21,7 +21,6 @@ char	**get_envp_origin(t_list *env_list);
 void	restore_io_fd(t_sh_data *sh_data);
 int		set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 
-//	TODO: EXIT BY SIG or not?
 void	wait_all_child(t_sh_data *sh_data)
 {
 	int	pid;
@@ -29,26 +28,16 @@ void	wait_all_child(t_sh_data *sh_data)
 	int	cnt;
 
 	pid = wait(&status);
-	//	TODO: EXIT BY SIG or not?
-
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-
 	while (pid != -1)
 	{
-		
 		cnt = -1;
 		while (++cnt < sh_data->proc_size)
 			if (sh_data->child_pid[cnt] == pid)
 				break ;
 		sh_data->child_pid[cnt] = 0;
 		sh_data->exit_status[cnt] = WEXITSTATUS(status);
-
-		ft_putnbr_fd(pid, 2);
-		ft_putstr_fd(": exit code = ", 2);
-		ft_putnbr_fd(sh_data->exit_status[cnt], 2);
-		ft_putchar_fd('\n', 2);
-
+		if (WIFSIGNALED(status) != 0)
+			sh_data->exit_status[cnt] = SIGNAL_OFFSET + WTERMSIG(status);
 		pid = wait(&status);
 	}
 	return ;
