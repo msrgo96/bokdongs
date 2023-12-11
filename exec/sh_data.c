@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sh_data.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:15:07 by moson             #+#    #+#             */
-/*   Updated: 2023/11/30 13:15:08 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/11 22:01:51 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int	get_list_size(t_list *list)
-{
-	int		size;
-	t_node	*node;
-
-	size = 0;
-	node = list->head;
-	while (node != NULL)
-	{
-		size++;
-		node = node->next;
-	}
-	return (size);
-}
 
 static void	*malloc_exit_if_failed(size_t size)
 {
@@ -44,7 +29,7 @@ int	set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list)
 {
 	int	cnt;
 
-	sh_data->proc_size = get_list_size(proc_list);
+	sh_data->proc_size = ft_listsize(proc_list);
 	sh_data->fd_pipe = (int **)malloc_exit_if_failed(sizeof(int *) * sh_data->proc_size);
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)

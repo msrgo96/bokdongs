@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 21:48:52 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/11 23:25:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static t_list	*split_str_to_list(char *str, const char *separator);
 static void		insert_list_at_node(t_list *base, t_list *sub, t_node *node);
 static t_list	*wrap_in_token_list(t_list *string_list);
 
-/* 
+/*
 split str and wrap in token list
+free input
 return : token list
 */
 t_list	*tokenizer(char *input)

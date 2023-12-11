@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/10 17:25:27 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/11 22:48:46 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ enum		e_token_type
 {
 	PIPE = 4,
 	CMD = 5
-};
-
-//	error code
-enum		e_error_code
-{
-	VALID = 0,
-	QUOTE_ERROR = 1,
-	SYNTAX_ERROR = 2
 };
 
 enum		e_fd_rw

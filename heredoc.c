@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/07 00:23:11 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:51:16 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		return (status);
 	pid = fork();
 	if (pid < 0)
-		exit(EXIT_FAILURE);
+		exit_with_msg(ERR_FORK_FAILED);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -43,7 +43,6 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);
-	
 	return (status);
 }
 
@@ -95,7 +94,7 @@ void	heredoc_clear(t_list *hdfile_list)
 static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 {
 	int		fd;
-	char	*filepath;
+	char	*path;
 	t_node	*node;
 	t_redir	*redir;
 	int		i;
@@ -109,13 +108,13 @@ static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 		redir = ((t_redir *)node->content);
 		if (redir->redir_type == HEREDOC)
 		{
-			filepath = ((char *)(ft_listget(sh_data->hdfile_list, i)->content));
-			i++;
-			fd = open(filepath, O_WRONLY | O_CREAT, 0644);
+			path = ((char *)(ft_listget(sh_data->hdfile_list, i++)->content));
+			fd = open(path, O_WRONLY | O_CREAT, 0644);
 			if (fd < 0)
-				exit(EXIT_FAILURE);
+				exit_with_msg(ERR_OPEN_FAILED);
 			heredoc_input(sh_data->env_list, redir, fd);
-			close(fd);
+			if (close(fd) < 0)
+				exit_with_msg(ERR_CLOSE_FAILED);
 		}
 		node = node->next;
 	}

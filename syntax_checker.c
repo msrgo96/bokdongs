@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:35:30 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/21 20:07:15 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:56:53 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	get_node_type(t_node *node);
 
-/* 
+/*
 split str and wrap in token list
-return : VALID or QUOTE_ERROR
+return : SUCCESS or ERR_QUOTE
 */
 int	check_quote(char *input)
 {
@@ -35,13 +35,13 @@ int	check_quote(char *input)
 		i++;
 	}
 	if (in_quote[SINGLE] || in_quote[DOUBLE])
-		return (QUOTE_ERROR);
-	return (VALID);
+		return (ERR_QUOTE);
+	return (SUCCESS);
 }
 
-/* 
+/*
 check syntax like "pipe comes first or last"
-return : VALID or SYNTAX_ERROR 
+return : SUCCESS or ERR_SYNTAX
 */
 int	check_syntax(t_list	*token_list)
 {
@@ -49,24 +49,24 @@ int	check_syntax(t_list	*token_list)
 	t_node	*next;
 
 	if (ft_list_is_empty(token_list))
-		return (VALID);
+		return (SUCCESS);
 	if (get_node_type(token_list->head) == PIPE \
 	|| get_node_type(token_list->tail) != CMD)
-		return (SYNTAX_ERROR);
+		return (ERR_SYNTAX);
 	cur = token_list->head;
 	next = cur->next;
 	while (cur && next)
 	{
 		if (is_redirection(get_node_type(cur)) \
 		&& get_node_type(next) != CMD)
-			return (SYNTAX_ERROR);
+			return (ERR_SYNTAX);
 		else if (get_node_type(cur) == PIPE \
 		&& get_node_type(next) == PIPE)
-			return (SYNTAX_ERROR);
+			return (ERR_SYNTAX);
 		cur = next;
 		next = cur->next;
 	}
-	return (VALID);
+	return (SUCCESS);
 }
 
 static int	get_node_type(t_node *node)
