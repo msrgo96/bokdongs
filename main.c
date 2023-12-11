@@ -21,7 +21,7 @@ int		executor(t_sh_data *sh_data, t_list *proc_list);
 
 #pragma endregion
 
-int	g_exit_code = 1;
+int	g_exit_code = 0;
 
 void	leaks_test(void)
 {
@@ -55,7 +55,10 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, SIG_IGN);
 		str = readline("$> ");
 		if (!str)
+		{
+			ft_printf("exit\n");
 			exit(0);
+		}
 		if (str != NULL)
 		{
 			if (str[0] == '\0')

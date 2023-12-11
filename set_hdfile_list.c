@@ -29,7 +29,7 @@ int	set_hdfile_list(t_list *proc_list, t_list *hdfile_list)
 	while (node)
 	{
 		proc = ((t_proc *)node->content);
-		heredoc_cnt += set_hdfile_list_util(proc->redir_list, hdfile_list);
+		heredoc_cnt += set_hdfile_list_util(proc->redir_list, hdfile_list);	//	TODO:	SEGFAULT when cmd $> << EOF cat
 		node = node->next;
 	}
 	return (heredoc_cnt);
