@@ -19,6 +19,7 @@ void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 char	*get_absolute_path(t_sh_data *sh_data, char *cmd);
 char	**get_envp_origin(t_list *env_list);
 void	restore_io_fd(t_sh_data *sh_data);
+int		set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 
 //	TODO: EXIT BY SIG or not?
 void	wait_all_child(t_sh_data *sh_data)
@@ -57,6 +58,7 @@ static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 {
 	t_proc	*proc;
+	int		set_io_res;
 
 	proc = (t_proc *)(ft_listget(proc_list, 0)->content);
 	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
@@ -64,7 +66,9 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 		heredoc(proc_list, sh_data);
 		replace_filename(proc_list, sh_data->hdfile_list);
 	}
-	set_io_fd(sh_data, proc_list, 0);
+	set_io_res = set_io_fd_single_cmd(sh_data, proc_list, 0);
+	if (set_io_res != SUCCESS)
+		return (set_io_res);	//	TODO: $> < asdfasdf cat
 	sh_data->child_pid[0] = 0;
 	sh_data->exit_status[0] = exec_builtin(sh_data, proc);
 	if (sh_data->exit_status[0] == NOT_A_BUILTIN)
@@ -109,7 +113,6 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 
 int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
-	
 	if (sh_data->proc_size == 1)
 		return (single_cmd(sh_data, proc_list));
 	else
