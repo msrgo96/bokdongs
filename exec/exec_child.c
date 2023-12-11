@@ -57,6 +57,8 @@ void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	t_proc	*proc;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	proc = (t_proc *)(ft_listget(proc_list, proc_num)->content);
 	close_unused_pipe(sh_data, proc_num);
 	set_io_fd(sh_data, proc_list, proc_num);

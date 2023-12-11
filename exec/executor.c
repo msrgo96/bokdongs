@@ -30,14 +30,25 @@ void	wait_all_child(t_sh_data *sh_data)
 
 	pid = wait(&status);
 	//	TODO: EXIT BY SIG or not?
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+
 	while (pid != -1)
 	{
+		
 		cnt = -1;
 		while (++cnt < sh_data->proc_size)
 			if (sh_data->child_pid[cnt] == pid)
 				break ;
 		sh_data->child_pid[cnt] = 0;
 		sh_data->exit_status[cnt] = WEXITSTATUS(status);
+
+		ft_putnbr_fd(pid, 2);
+		ft_putstr_fd(": exit code = ", 2);
+		ft_putnbr_fd(sh_data->exit_status[cnt], 2);
+		ft_putchar_fd('\n', 2);
+
 		pid = wait(&status);
 	}
 	return ;
@@ -45,6 +56,8 @@ void	wait_all_child(t_sh_data *sh_data)
 
 static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 {
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
 	if (proc->absolute_path == NULL)
 		exit(ERR_CMD_NOT_FOUND);

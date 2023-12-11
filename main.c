@@ -48,11 +48,10 @@ int	main(int argc, char **argv, char **envp)
 	sh_data->fd_std[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	sh_data->fd_std[STDERR_FILENO] = dup(STDERR_FILENO);
 
-
-
+	signal(SIGINT, SIG_IGN);	//	TODO: $> cat	->	SIGINT	=	MUST BE " ^C \n $> "
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
-		signal(SIGINT, SIG_IGN);
 		str = readline("$> ");
 		if (!str)
 		{
