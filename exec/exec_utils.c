@@ -76,20 +76,45 @@ char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
 	int		cnt;
 	char	*res;
 
-	path_split = get_path_split(sh_data);
-	if (path_split == NULL)
-		exit(ERR_MALLOC_FAILED);
-	cnt = -1;
-	res = NULL;
-	while (path_split[++cnt] != NULL)
+	If access(cmd, F_OK) == 0 && is_a_dir(path) == FT_FALSE
 	{
-		res = str_join_three(path_split[cnt], '/', cmd);
-		if (access(res, F_OK) == 0)
-			break ;
-		ft_free((void **)&res);
+		set res -> strdup(cmd)
+		return res
 	}
-	ft_split_free(path_split);
-	return (res);
+	
+	path_split = get_path_split()
+	foreach (char *one in path_split)
+	{
+		path = str_join_three(one, /, cmd)
+		If access(path, F_OK) == 0 && is_a_dir(path) == FT_FALSE
+			break
+		ft_free((void **)&path)
+	}
+	ft_split_free(path_split)
+	return (res)
+
+
+	// if (access(cmd, F_OK) == 0)
+	// {
+	// 	res = ft_strdup(cmd);
+	// 	if (res == NULL)
+	// 		exit(ERR_MALLOC_FAILED);
+	// 	return (res);
+	// }
+	// path_split = get_path_split(sh_data);
+	// if (path_split == NULL)
+	// 	exit(ERR_MALLOC_FAILED);
+	// cnt = -1;
+	// res = NULL;
+	// while (path_split[++cnt] != NULL)
+	// {
+	// 	res = str_join_three(path_split[cnt], '/', cmd);
+	// 	if (access(res, F_OK) == 0)
+	// 		break ;
+	// 	ft_free((void **)&res);
+	// }
+	// ft_split_free(path_split);
+	// return (res);
 }
 
 //	Return new **envp for execve()
