@@ -13,6 +13,7 @@
 		"vector": "c",
 		"libft.h": "c",
 		"__functional_03": "c",
-		"functional": "c"
+		"functional": "c",
+		"ostream": "c"
 	}
 }

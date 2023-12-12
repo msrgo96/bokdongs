@@ -6,11 +6,13 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/11 23:25:17 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 23:47:34 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+extern int g_exit_code;
 
 static void		split_list_by_separator(t_list *base_list,
 					const char *separator);
@@ -30,7 +32,10 @@ t_list	*tokenizer(char *input)
 	const char	*separators[7] = {" ", "|", "<<", ">>", "<", ">", 0};
 
 	if (!input)
+	{
+		g_exit_code = 0;
 		return (0);
+	}
 	i = 0;
 	string_list = ft_new_list();
 	ft_list_append(string_list, ft_new_node(input));

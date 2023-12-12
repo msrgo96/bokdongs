@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/11 23:27:04 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 01:08:54 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_list		*proc_list;
 	t_sh_data	*sh_data;
 
-	atexit(leaks_test);
+	//atexit(leaks_test);
 	(void)argc;
 	(void)argv;
 
@@ -48,21 +48,22 @@ int	main(int argc, char **argv, char **envp)
 	sh_data->fd_std[STDOUT_FILENO] = dup(STDOUT_FILENO);
 	sh_data->fd_std[STDERR_FILENO] = dup(STDERR_FILENO);
 
-	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		signal(SIGINT, display_new_prompt);
 		str = readline("$> ");
 		if (!str)
 		{
 			ft_printf("exit\n");
-			exit(0);
+			break ;
 		}
 		if (str != NULL)
 		{
 			if (str[0] == '\0')
 			{
 				ft_free((void *)&str);
+				g_exit_code = 0;
 				continue ;
 			}
 			add_history(str);
@@ -82,6 +83,8 @@ int	main(int argc, char **argv, char **envp)
 			{
 				set_proc_sh_data(sh_data, proc_list);
 				g_exit_code = executor(sh_data, proc_list);
+				if (g_exit_code == SIGNAL_OFFSET + SIGINT)
+					write(1, "\n", 1); // 자식프로세스가 인터럽트로 꺼졌을 시 프롬프트 깨끗하게 해주는 부분
 				clear_proc_sh_data(sh_data);
 				ft_list_clear(proc_list, ft_del_proc);
 			}
@@ -92,6 +95,11 @@ int	main(int argc, char **argv, char **envp)
 	ft_free((void **)&sh_data);
 	return (0);
 }
+
+/* TO DO
+'<< a' 입력 시 echo $? : 11(EXECVE FAILED) 나옴. "" 입력시에도 마찬가지
+실행부에서 fork 하기 전에 부모 프로세스 signal(SIGINT, SIG_IGN)하기 -> 안꺼주면 자식에서 인터럽트 받았을 때 부모도 받아서 프롬프트 2번 띄움
+*/
 
 // void	print_proc(void *content)
 // {

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 21:03:28 by jooahn            #+#    #+#             */
-/*   Updated: 2023/10/20 23:55:55 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:21:20 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_itoa(int n)
 	len = ft_intlen(n);
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
-		return (0);
+		ft_exit_with_msg(ERR_MALLOC);
 	str[len] = 0;
 	i = 0;
 	if (n < 0)

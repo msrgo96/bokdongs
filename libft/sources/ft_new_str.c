@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 19:48:13 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/20 20:00:55 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:26:20 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_new_str(int size)
 
 	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (!str)
-		exit(EXIT_FAILURE);
+		ft_exit_with_msg(ERR_MALLOC);
 	str[size] = 0;
 	return (str);
 }

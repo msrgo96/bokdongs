@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 05:02:10 by jooahn            #+#    #+#             */
-/*   Updated: 2023/03/21 03:37:09 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:23:19 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strdup(const char *s1)
 	len = ft_strlen(s1);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dup)
-		return (0);
+		ft_exit_with_msg(ERR_MALLOC);
 	idx = 0;
 	while (idx < len)
 	{

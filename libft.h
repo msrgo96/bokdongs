@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/23 18:15:23 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:46:44 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 # define FT_INT_MAX 2147483647
 
 # define FT_HEX "0123456789abcdef"
+
+enum	e_error_code
+{
+	ERR_MALLOC = 2
+};
 
 typedef struct s_node
 {
@@ -143,5 +148,9 @@ void	two_d_free(void **p);
 void	ft_free(void **ptr);
 
 void	ft_none(void *p);
+
+void	ft_exit_with_msg(int exit_code);
+void	ft_print_err_msg(int error_code);
+char	*get_err_msg(int error_code);
 
 #endif

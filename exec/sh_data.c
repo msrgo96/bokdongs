@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:15:07 by moson             #+#    #+#             */
-/*   Updated: 2023/12/11 22:01:51 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 00:20:38 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ int	set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list)
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 		sh_data->fd_pipe[cnt] = (int *)malloc_exit_if_failed(sizeof(int) * 2);
-	sh_data->child_pid = (int *)malloc_exit_if_failed(sh_data->proc_size);
+	sh_data->child_pid = (int *)malloc_exit_if_failed(sizeof(int) * sh_data->proc_size); // 수정
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 		sh_data->child_pid[cnt] = 0;
-	sh_data->exit_status = (int *)malloc_exit_if_failed(sh_data->proc_size);
+	sh_data->exit_status = (int *)malloc_exit_if_failed(sizeof(int) * sh_data->proc_size); // 수정
 	cnt = -1;
 	while (++cnt < sh_data->proc_size)
 		sh_data->exit_status[cnt] = 0;

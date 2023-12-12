@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_node.c                                      :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/17 16:04:45 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/12 22:20:15 by jooahn           ###   ########.fr       */
+/*   Created: 2023/12/12 23:14:14 by jooahn            #+#    #+#             */
+/*   Updated: 2023/12/13 00:46:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
+#include "minishell.h"
 
-t_node	*ft_new_node(void *content)
+void	display_new_prompt(int signum)
 {
-	t_node	*node;
-
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
-		ft_exit_with_msg(ERR_MALLOC);
-	node->content = content;
-	node->next = 0;
-	node->prv = 0;
-	return (node);
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

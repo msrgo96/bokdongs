@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:39:48 by jooahn            #+#    #+#             */
-/*   Updated: 2023/09/01 19:54:09 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/12 22:25:24 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_strcat(char *s, char *buffer, ssize_t size)
 	{
 		if (s)
 			free(s);
-		return (0);
+		ft_exit_with_msg(ERR_MALLOC);
 	}
 	p = result;
 	i = 0;
@@ -64,15 +64,3 @@ ssize_t	ft_strchr_idx(char *s, char c, size_t offset)
 		return (i);
 	return (-1);
 }
-
-// size_t	ft_strlen(char *s)
-// {
-// 	size_t	len;
-
-// 	if (!s)
-// 		return (0);
-// 	len = 0;
-// 	while (*s++)
-// 		len++;
-// 	return (len);
-// }

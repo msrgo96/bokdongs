@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/11 22:48:46 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 00:08:13 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,9 @@ char		*get_type(int type);
 
 void		exit_with_msg(int exit_code);
 void		prt_err_msg(int	exit_code);
+
+void		display_new_prompt(int signum);
+void		heredoc_handler(int signum);
 
 # pragma endregion
 

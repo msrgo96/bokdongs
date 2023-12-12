@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/11 21:51:16 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 01:05:03 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data);
 static void	heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd);
 
-// return : status
+// return : 자식 프로세스의 exit code
 // error : proc_list가 null pointer일 시 0 반환
 int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 {
 	t_node	*node;
 	t_list	*redir_list;
-	int		status;
+	int		status = 0;
 	pid_t	pid;
 
-	status = 0;
 	if (!proc_list)
-		return (status);
+		return (0);
 	pid = fork();
 	if (pid < 0)
 		exit_with_msg(ERR_FORK_FAILED);
@@ -125,9 +124,8 @@ static void	heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd)
 	char		*delimiter;
 	char		*line;
 	char		*expanded_line;
-	const char	*heredoc_msg;
+	const char	*heredoc_msg = "heredoc> ";
 
-	heredoc_msg = "heredoc> ";
 	delimiter = redir->filename;
 	line = readline(heredoc_msg);
 	while (line && !ft_str_is_same(line, delimiter))
