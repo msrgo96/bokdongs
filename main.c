@@ -97,8 +97,8 @@ int	main(int argc, char **argv, char **envp)
 }
 
 /* TO DO
-'<< a' 입력 시 echo $? : 11(EXECVE FAILED) 나옴. "" 입력시에도 마찬가지
-실행부에서 fork 하기 전에 부모 프로세스 signal(SIGINT, SIG_IGN)하기 -> 안꺼주면 자식에서 인터럽트 받았을 때 부모도 받아서 프롬프트 2번 띄움
+'<< a' 입력 후 echo $? -> 11(EXECVE FAILED) 나옴. "" 입력시에도 마찬가지
+sanitizer로 하면 위 상황에서 세그폴트 나옴
 */
 
 // void	print_proc(void *content)
