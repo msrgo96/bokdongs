@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 18:45:19 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/12 22:23:02 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**ft_split(char const *s, char c)
 	word_cnt = get_word_cnt(s, c);
 	result = (char **)malloc(sizeof(char *) * (word_cnt + 1));
 	if (!result)
-		ft_exit_with_msg(ERR_MALLOC);
+		exit(ERR_MALLOC);
 	i = 0;
 	while (i < word_cnt)
 	{
@@ -69,7 +69,7 @@ static char	*get_word(char const *s, char c)
 	len = i;
 	word = (char *)malloc(sizeof(char) * (len + 1));
 	if (!word)
-		ft_exit_with_msg(ERR_MALLOC);
+		exit(ERR_MALLOC);
 	i = 0;
 	while (i < len)
 	{

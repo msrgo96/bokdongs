@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 21:45:36 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/12 22:24:00 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	{
 		substr = (char *)malloc(sizeof(char));
 		if (!substr)
-			ft_exit_with_msg(ERR_MALLOC);
+			exit(ERR_MALLOC);
 		*substr = 0;
 		return (substr);
 	}
 	sub_len = min(s_len - start, len);
 	substr = (char *)malloc(sizeof(char) * (sub_len + 1));
 	if (!substr)
-		ft_exit_with_msg(ERR_MALLOC);
+		exit(ERR_MALLOC);
 	substr[sub_len] = 0;
 	while (sub_len-- > 0)
 		substr[sub_len] = s[(size_t)start + sub_len];

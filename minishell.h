@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/13 00:08:13 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:22:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,20 +191,16 @@ int			heredoc(t_list *proc_list, t_sh_data *sh_data);
 void		replace_filename(t_list *proc_list, t_list *hdfile_list);
 void		heredoc_clear(t_list *hdfile_list);
 
-void		print_redir(void *content);
-void		print_proc(void *content);
-char		*get_error_msg(int error_code);
-void		print_error(int error_code);
-void		print_content(void *content);
-void		print_env(void *content);
-void		print_token(void *content);
-char		*get_type(int type);
-
-void		exit_with_msg(int exit_code);
-void		prt_err_msg(int	exit_code);
+// void		print_redir(void *content);
+// void		print_proc(void *content);
+// char		*get_error_msg(int error_code);
+// void		print_error(int error_code);
+// void		print_content(void *content);
+// void		print_env(void *content);
+// void		print_token(void *content);
+// char		*get_type(int type);
 
 void		display_new_prompt(int signum);
-void		heredoc_handler(int signum);
 
 # pragma endregion
 

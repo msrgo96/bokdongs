@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/12 22:46:44 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:23:31 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,5 @@ void	two_d_free(void **p);
 void	ft_free(void **ptr);
 
 void	ft_none(void *p);
-
-void	ft_exit_with_msg(int exit_code);
-void	ft_print_err_msg(int error_code);
-char	*get_err_msg(int error_code);
 
 #endif

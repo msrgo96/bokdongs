@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/13 01:05:03 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		return (0);
 	pid = fork();
 	if (pid < 0)
-		exit_with_msg(ERR_FORK_FAILED);
+		exit(ERR_FORK_FAILED);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -110,10 +110,10 @@ static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 			path = ((char *)(ft_listget(sh_data->hdfile_list, i++)->content));
 			fd = open(path, O_WRONLY | O_CREAT, 0644);
 			if (fd < 0)
-				exit_with_msg(ERR_OPEN_FAILED);
+				exit(ERR_OPEN_FAILED);
 			heredoc_input(sh_data->env_list, redir, fd);
 			if (close(fd) < 0)
-				exit_with_msg(ERR_CLOSE_FAILED);
+				exit(ERR_CLOSE_FAILED);
 		}
 		node = node->next;
 	}

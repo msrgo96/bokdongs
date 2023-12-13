@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_err.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 16:39:08 by moson             #+#    #+#             */
-/*   Updated: 2023/12/11 16:39:09 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	prt_err_msg(int	exit_code)
 	return ;
 }
 
-void	exit_with_msg(int exit_code)
+void	exit(int exit_code)
 {
 	prt_err_msg(exit_code);
 	exit(exit_code);

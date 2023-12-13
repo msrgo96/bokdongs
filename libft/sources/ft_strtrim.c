@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 01:07:22 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/12 22:23:51 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		end--;
 	result = (char *)malloc(sizeof(char) * (end - begin + 1));
 	if (!result)
-		ft_exit_with_msg(ERR_MALLOC);
+		exit(ERR_MALLOC);
 	i = 0;
 	while (i + begin < end)
 	{
