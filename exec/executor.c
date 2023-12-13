@@ -56,7 +56,7 @@ static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 	if (access(proc->absolute_path, X_OK) == -1)
 		exit_wrapper(ERR_PERM_DENIED, proc->args[0]);
 	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
-		exit_wrapper(ERR_EXECVE_FAILED, proc->args[0]);
+		exit_wrapper(ERR_EXECVE_FAILED, NULL);
 	return ;
 }
 

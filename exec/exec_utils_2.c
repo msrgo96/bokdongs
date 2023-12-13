@@ -13,8 +13,8 @@
 #include "../minishell.h"
 
 //	If malloc error, return (NULL)
-//	If there is no PATH in env_list, return ( split = { "dummy_there_is_no_PATH", NULL } )
-static char	**get_path_split(t_sh_data *sh_data)
+//	If there is no PATH in env_list, return ( split = { NULL } )
+char	**get_path_split(t_sh_data *sh_data)
 {
 	t_node	*path_node;
 	t_env	*env;
@@ -31,7 +31,10 @@ static char	**get_path_split(t_sh_data *sh_data)
 		}
 		path_node = path_node->next;
 	}
-	split = ft_split("dummy_there_is_no_PATH", ':');
+	split = (char **)malloc(sizeof(char *) * 1);
+	if (split == NULL)
+		return (NULL);
+	split[0] = NULL;
 	return (split);
 }
 
@@ -67,7 +70,7 @@ char	*str_join_three(const char *str1, const char c, const char *str2)
 
 //	If error, exit (ERR_STAT_FAILED)
 //	Return the path is directory or not
-static int	is_a_dir(char *path)
+int	is_a_dir(char *path)
 {
 	struct stat	sb;
 
@@ -76,37 +79,4 @@ static int	is_a_dir(char *path)
 	if ((sb.st_mode & S_IFMT) == S_IFDIR)
 		return (FT_TRUE);
 	return (FT_FALSE);
-}
-
-//	If F_OK, return (ABSOLUTE_PATH)
-//	If NOT found, return (NULL)
-//	If malloc error, exit (ERR_MALLOC_FAILED)
-char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
-{
-	char	**path_split;
-	int		cnt;
-	char	*path;
-
-	if (access(cmd, F_OK) == 0 && is_a_dir(cmd) == FT_FALSE)
-	{
-		path = ft_strdup(cmd);
-		if (path == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		return (path);
-	}
-	path_split = get_path_split(sh_data);
-	if (path_split == NULL)
-		exit_wrapper(ERR_MALLOC_FAILED, NULL);
-	cnt = -1;
-	while (path_split[++cnt] != NULL)
-	{
-		path = str_join_three(path_split[cnt], '/', cmd);
-		if (path == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		if (access(path, F_OK) == 0 && is_a_dir(path) == FT_FALSE)
-			break ;
-		ft_free((void **)&path);
-	}
-	ft_split_free(path_split);
-	return (path);
 }

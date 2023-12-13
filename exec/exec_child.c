@@ -63,6 +63,7 @@ void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	close_unused_pipe(sh_data, proc_num);
 	set_io_fd(sh_data, proc_list, proc_num);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
+	//	TODO: MUST CHECK is_builtin
 	if (proc->absolute_path == NULL && exec_builtin(sh_data, proc) == NOT_A_BUILTIN)
 		exit_wrapper(ERR_CMD_NOT_FOUND, proc->args[0]);
 	if (access(proc->absolute_path, X_OK) == -1)

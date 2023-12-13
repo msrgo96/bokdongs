@@ -10,7 +10,7 @@ BUILTINS_SRC = builtins/builtins.c builtins/builtins_util.c \
 builtins/echo_builtin.c builtins/cd_builtin.c builtins/pwd_builtin.c \
 builtins/env_builtin.c builtins/exit_builtin.c builtins/export_builtin.c builtins/unset_builtin.c
 EXEC_SRC = exec/executor.c exec/executor_2.c exec/sh_data.c exec/exec_parent.c exec/exec_child.c \
-exec/open_and_dup2_redir.c exec/exec_utils.c exec/exec_utils_2.c
+exec/open_and_dup2_redir.c exec/exec_utils.c exec/exec_utils_2.c exec/get_absolute_path.c
 SRC = main.c $(BUILTINS_SRC) $(EXEC_SRC) \
 convert_envp_to_env_list.c \
 generate_proc_list.c \

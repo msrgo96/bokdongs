@@ -49,6 +49,8 @@ static void	prt_err_sub1(int exit_code)
 		ft_putstr_fd(MSG_HEREDOC, STDERR_FILENO);
 	else if (exit_code == ERR_STAT_FAILED)
 		ft_putstr_fd(MSG_STAT_FAILED, STDERR_FILENO);
+	else if (exit_code == ERR_EXEC_DIR)
+		ft_putstr_fd(MSG_EXEC_DIR, STDERR_FILENO);
 	else if (exit_code == ERR_SYNTAX)
 		ft_putstr_fd(MSG_SYNTAX, STDERR_FILENO);
 	else if (exit_code == ERR_QUOTE)
