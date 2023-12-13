@@ -25,7 +25,7 @@ char	**get_envp_origin(t_list *env_list)
 
 	envp = (char **)malloc(sizeof(char *) * (ft_listsize(env_list) + 1));
 	if (envp == NULL)
-		exit (ERR_MALLOC_FAILED);
+		exit(ERR_MALLOC_FAILED);
 	node = env_list->head;
 	cnt = 0;
 	while (node != NULL)
@@ -53,4 +53,9 @@ void	restore_io_fd(t_sh_data *sh_data)
 	if (res == -1)
 		exit(ERR_DUP2_FAILED);
 	return ;
+}
+
+void	prt_err(int exit_code, char *cmd)
+{
+	
 }

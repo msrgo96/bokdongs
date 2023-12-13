@@ -21,11 +21,12 @@ char	**get_envp_origin(t_list *env_list);
 void	restore_io_fd(t_sh_data *sh_data);
 int		set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 
-void	wait_all_child(t_sh_data *sh_data)
+void	wait_all_child(t_sh_data *sh_data, t_list *proc_list)
 {
-	int	pid;
-	int	status;
-	int	cnt;
+	int		pid;
+	int		status;
+	int		cnt;
+	t_proc	*proc;
 
 	pid = wait(&status);
 	while (pid != -1)
@@ -38,6 +39,8 @@ void	wait_all_child(t_sh_data *sh_data)
 		sh_data->exit_status[cnt] = WEXITSTATUS(status);
 		if (WIFSIGNALED(status) != 0)
 			sh_data->exit_status[cnt] = SIGNAL_OFFSET + WTERMSIG(status);
+		proc = (t_proc *)(ft_listget(proc_list, cnt)->content);
+		prt_err(sh_data->exit_status[cnt], proc->args[0]);
 		pid = wait(&status);
 	}
 	return ;
@@ -74,8 +77,10 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 		if (sh_data->child_pid[0] == 0)
 			exec_single(sh_data, proc);
 	}
+	else
+		prt_err(sh_data->exit_status[0], proc->args[0]);
 	heredoc_clear(sh_data->hdfile_list);
-	wait_all_child(sh_data);
+	wait_all_child(sh_data, proc_list);
 	restore_io_fd(sh_data);
 	return (sh_data->exit_status[0]);
 }
@@ -99,7 +104,7 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 			exec_child(sh_data, proc_list, cnt);
 	}
 	heredoc_clear(sh_data->hdfile_list);
-	wait_all_child(sh_data);
+	wait_all_child(sh_data, proc_list);
 	return (sh_data->exit_status[sh_data->proc_size - 1]);
 }
 

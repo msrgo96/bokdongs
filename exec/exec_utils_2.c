@@ -65,12 +65,17 @@ char	*str_join_three(const char *str1, const char c, const char *str2)
 	return (res);
 }
 
+//	If error, exit (ERR_STAT_FAILED)
+//	Return the path is directory or not
 static int	is_a_dir(char *path)
 {
 	struct stat	sb;
 
 	if (stat(path, &sb) == -1)
-		
+		exit(ERR_STAT_FAILED);
+	if ((sb.st_mode & S_IFMT) == S_IFDIR)
+		return (FT_TRUE);
+	return (FT_FALSE);
 }
 
 //	If F_OK, return (ABSOLUTE_PATH)

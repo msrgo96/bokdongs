@@ -152,6 +152,7 @@ typedef struct s_sh_data
 # define ERR_CMD_NOT_FOUND 10
 # define ERR_EXECVE_FAILED 11
 # define ERR_HEREDOC 12
+# define ERR_STAT_FAILED 13
 
 # define ERR_SYNTAX 256
 # define ERR_QUOTE 257
@@ -214,8 +215,7 @@ void		print_env(void *content);
 void		print_token(void *content);
 char		*get_type(int type);
 
-void		exit_with_msg(int exit_code);
-void		prt_err_msg(int	exit_code);
+void	prt_err(int exit_code, char *cmd);
 
 # pragma endregion
 
