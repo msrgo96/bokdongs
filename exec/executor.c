@@ -13,6 +13,8 @@
 #include "../minishell.h"
 #include "../builtins/builtins.h"
 
+void	*get_builtin_ptr(t_proc *proc);
+
 void	exec_parent(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
@@ -26,8 +28,8 @@ void	wait_all_child(t_sh_data *sh_data, t_list *proc_list)
 	int		pid;
 	int		status;
 	int		cnt;
-	t_proc	*proc;
 
+	proc_list++;
 	pid = wait(&status);
 	while (pid != -1)
 	{
@@ -39,8 +41,6 @@ void	wait_all_child(t_sh_data *sh_data, t_list *proc_list)
 		sh_data->exit_status[cnt] = WEXITSTATUS(status);
 		if (WIFSIGNALED(status) != 0)
 			sh_data->exit_status[cnt] = SIGNAL_OFFSET + WTERMSIG(status);
-		proc = (t_proc *)(ft_listget(proc_list, cnt)->content);
-		prt_err(sh_data->exit_status[cnt], proc->args[0]);
 		pid = wait(&status);
 	}
 	return ;
@@ -77,8 +77,6 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 		if (sh_data->child_pid[0] == 0)
 			exec_single(sh_data, proc);
 	}
-	else
-		prt_err(sh_data->exit_status[0], proc->args[0]);
 	heredoc_clear(sh_data->hdfile_list);
 	wait_all_child(sh_data, proc_list);
 	restore_io_fd(sh_data);
@@ -112,7 +110,7 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
 	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
 	{
-		printf("%d\n", heredoc(proc_list, sh_data));
+		heredoc(proc_list, sh_data);
 		
 		replace_filename(proc_list, sh_data->hdfile_list);
 	}

@@ -55,7 +55,38 @@ void	restore_io_fd(t_sh_data *sh_data)
 	return ;
 }
 
-void	prt_err(int exit_code, char *cmd)
+// SUCCESS 0
+// ERR_UNKNOWN 1
+// ERR_MALLOC_FAILED 2
+// ERR_PIPE_FAILED 3
+// ERR_CLOSE_FAILED 4
+// ERR_FORK_FAILED 5
+// ERR_OPEN_FAILED 6
+// ERR_DUP2_FAILED 7
+// ERR_FILE_NOT_EXIST 8
+// ERR_PERM_DENIED 9
+// ERR_CMD_NOT_FOUND 10
+// ERR_EXECVE_FAILED 11
+// ERR_HEREDOC 12
+// ERR_STAT_FAILED 13
+void	prt_err(int exit_code, char *target)
 {
-	
+	if (exit_code != SUCCESS)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		if (target != NULL)
+		{
+			ft_putstr_fd(target, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+		}
+		ft_putstr_fd("ERROR with exit code ", STDERR_FILENO);
+		ft_putnbr_fd(exit_code, STDERR_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
+	}
+}
+
+void	exit_wrapper(int exit_code, char *target)
+{
+	prt_err(exit_code, target);
+	exit(exit_code);
 }

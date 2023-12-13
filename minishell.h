@@ -215,7 +215,8 @@ void		print_env(void *content);
 void		print_token(void *content);
 char		*get_type(int type);
 
-void	prt_err(int exit_code, char *cmd);
+void		prt_err(int exit_code, char *target);
+void		exit_wrapper(int exit_code, char *target);
 
 # pragma endregion
 

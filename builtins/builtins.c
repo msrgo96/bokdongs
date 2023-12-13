@@ -16,7 +16,7 @@
 //	Check proc->args[0] and specify builtin-function
 //	If error return NULL
 //	Returns builtin-function pointer
-static void	*get_builtin_ptr(t_proc *proc)
+void	*get_builtin_ptr(t_proc *proc)
 {
 	if (ft_strncmp("echo", proc->args[0], 5) == 0)
 		return (echo_builtin);
