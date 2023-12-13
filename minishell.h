@@ -22,6 +22,12 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <signal.h>
+
+# include <sys/wait.h>
+
 
 # pragma endregion
 
