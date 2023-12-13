@@ -145,9 +145,28 @@ typedef struct s_sh_data
 # define ERR_EXECVE_FAILED 11
 # define ERR_HEREDOC 12
 # define ERR_STAT_FAILED 13
-
 # define ERR_SYNTAX 256
 # define ERR_QUOTE 257
+
+# pragma endregion
+
+# pragma region MSG_MINISHELL
+# define MSG_UNKNOWN "unknown error"
+# define MSG_MALLOC_FAILED "malloc failed"
+# define MSG_PIPE_FAILED "pipe failed"
+# define MSG_CLOSE_FAILED "close failed"
+# define MSG_FORK_FAILED "fork failed"
+# define MSG_OPEN_FAILED "open failed"
+# define MSG_DUP2_FAILED "dup2 failed"
+# define MSG_FILE_NOT_EXIST "no such file or directory"
+# define MSG_PERM_DENIED "permission denied"
+# define MSG_CMD_NOT_FOUND "command not found"
+# define MSG_EXECVE_FAILED "execve failed"
+# define MSG_HEREDOC "heredoc failed"
+# define MSG_STAT_FAILED "stat failed"
+# define MSG_SYNTAX "syntax error"
+# define MSG_QUOTE "quote error"
+# define MSG_UNDEFINED "undefined error"
 
 # pragma endregion
 

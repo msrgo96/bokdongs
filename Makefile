@@ -22,7 +22,8 @@ t_env.c t_proc.c t_redir.c t_token.c \
 tokenizer.c \
 heredoc.c \
 set_hdfile_list.c \
-signal_handler.c
+signal_handler.c \
+prt_err.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)
