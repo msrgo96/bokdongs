@@ -52,11 +52,11 @@ static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 	signal(SIGQUIT, SIG_DFL);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
 	if (proc->absolute_path == NULL)
-		exit(ERR_CMD_NOT_FOUND);
+		exit_wrapper(ERR_CMD_NOT_FOUND, proc->args[0]);
 	if (access(proc->absolute_path, X_OK) == -1)
-		exit(ERR_PERM_DENIED);
+		exit_wrapper(ERR_PERM_DENIED, proc->args[0]);
 	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
-		exit(ERR_EXECVE_FAILED);
+		exit_wrapper(ERR_EXECVE_FAILED, proc->args[0]);
 	return ;
 }
 
@@ -92,10 +92,10 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 	{
 		if (cnt != sh_data->proc_size - 1)
 			if (pipe(sh_data->fd_pipe[cnt]) == -1)
-				exit(ERR_PIPE_FAILED);
+				exit_wrapper(ERR_PIPE_FAILED, NULL);
 		sh_data->child_pid[cnt] = fork();
 		if (sh_data->child_pid[cnt] == -1)
-			exit(ERR_FORK_FAILED);
+			exit_wrapper(ERR_FORK_FAILED, NULL);
 		if (0 < sh_data->child_pid[cnt])
 			exec_parent(sh_data, proc_list, cnt);
 		else

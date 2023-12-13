@@ -22,10 +22,10 @@ static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 	write_pipe_idx = proc_num;
 	if (read_pipe_idx != -1)
 		if (close(sh_data->fd_pipe[read_pipe_idx][PIPE_READ]) == -1)
-			exit(ERR_CLOSE_FAILED);
+			exit_wrapper(ERR_CLOSE_FAILED, NULL);
 	if (write_pipe_idx != sh_data->proc_size - 1)
 		if (close(sh_data->fd_pipe[write_pipe_idx][PIPE_WRITE]) == -1)
-			exit(ERR_CLOSE_FAILED);
+			exit_wrapper(ERR_CLOSE_FAILED, NULL);
 	return ;
 }
 

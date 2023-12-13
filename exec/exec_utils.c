@@ -25,7 +25,7 @@ char	**get_envp_origin(t_list *env_list)
 
 	envp = (char **)malloc(sizeof(char *) * (ft_listsize(env_list) + 1));
 	if (envp == NULL)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	node = env_list->head;
 	cnt = 0;
 	while (node != NULL)
@@ -45,13 +45,13 @@ void	restore_io_fd(t_sh_data *sh_data)
 
 	res = dup2(sh_data->fd_std[STDIN_FILENO], STDIN_FILENO);
 	if (res == -1)
-		exit(ERR_DUP2_FAILED);
+		exit_wrapper(ERR_DUP2_FAILED, NULL);
 	res = dup2(sh_data->fd_std[STDOUT_FILENO], STDOUT_FILENO);
 	if (res == -1)
-		exit(ERR_DUP2_FAILED);
+		exit_wrapper(ERR_DUP2_FAILED, NULL);
 	res = dup2(sh_data->fd_std[STDERR_FILENO], STDERR_FILENO);
 	if (res == -1)
-		exit(ERR_DUP2_FAILED);
+		exit_wrapper(ERR_DUP2_FAILED, NULL);
 	return ;
 }
 
@@ -73,7 +73,7 @@ void	prt_err(int exit_code, char *target)
 {
 	if (exit_code != SUCCESS)
 	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd("minish: ", STDERR_FILENO);
 		if (target != NULL)
 		{
 			ft_putstr_fd(target, STDERR_FILENO);

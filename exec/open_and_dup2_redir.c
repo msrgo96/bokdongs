@@ -37,13 +37,13 @@ static void	access_redir(char *path, int redir_type)
 
 	if (redir_type == I_REDIR)
 		if (access(path, F_OK) == -1)
-			exit(ERR_FILE_NOT_EXIST);
+			exit_wrapper(ERR_FILE_NOT_EXIST, path);
 	if (redir_type == I_REDIR)
 		access_mode = R_OK;
 	else
 		access_mode = W_OK;
 	if (access(path, F_OK) != -1 && access(path, access_mode) == -1)
-		exit(ERR_PERM_DENIED);
+		exit_wrapper(ERR_PERM_DENIED, path);
 }
 
 //	If close failed: exit(ERR_CLOSE_FAILED)
@@ -52,11 +52,11 @@ void	dup2_and_close(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
 	{
-		exit(ERR_DUP2_FAILED);
+		exit_wrapper(ERR_DUP2_FAILED, NULL);
 	}
 	if (close(fd1) == -1)
 	{
-		exit(ERR_CLOSE_FAILED);
+		exit_wrapper(ERR_CLOSE_FAILED, NULL);
 	}
 	return ;
 }
@@ -74,14 +74,14 @@ void	open_and_dup2_redir(t_redir *redir)
 	{
 		fd = open(redir->filename, redir_type);
 		if (fd == -1)
-			exit(ERR_OPEN_FAILED);
+			exit_wrapper(ERR_OPEN_FAILED, NULL);
 		dup2_and_close(fd, STDIN_FILENO);
 	}
 	else
 	{
 		fd = open(redir->filename, redir_type, 0644);
 		if (fd == -1)
-			exit(ERR_OPEN_FAILED);
+			exit_wrapper(ERR_OPEN_FAILED, NULL);
 		dup2_and_close(fd, STDOUT_FILENO);
 	}
 	return ;

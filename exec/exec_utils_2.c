@@ -45,7 +45,7 @@ char	*str_join_three(const char *str1, const char c, const char *str2)
 
 	res = (char *)malloc(ft_strlen(str1) + 1 + ft_strlen(str2) + 1);
 	if (res == NULL)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	idx = 0;
 	while (idx < ft_strlen(str1))
 	{
@@ -72,7 +72,7 @@ static int	is_a_dir(char *path)
 	struct stat	sb;
 
 	if (stat(path, &sb) == -1)
-		exit(ERR_STAT_FAILED);
+		exit_wrapper(ERR_STAT_FAILED, NULL);
 	if ((sb.st_mode & S_IFMT) == S_IFDIR)
 		return (FT_TRUE);
 	return (FT_FALSE);
@@ -91,18 +91,18 @@ char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
 	{
 		path = ft_strdup(cmd);
 		if (path == NULL)
-			exit(ERR_MALLOC_FAILED);
+			exit_wrapper(ERR_MALLOC_FAILED, NULL);
 		return (path);
 	}
 	path_split = get_path_split(sh_data);
 	if (path_split == NULL)
-		exit(ERR_MALLOC_FAILED);	
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	cnt = -1;
 	while (path_split[++cnt] != NULL)
 	{
 		path = str_join_three(path_split[cnt], '/', cmd);
 		if (path == NULL)
-			exit(ERR_MALLOC_FAILED);
+			exit_wrapper(ERR_MALLOC_FAILED, NULL);
 		if (access(path, F_OK) == 0 && is_a_dir(path) == FT_FALSE)
 			break ;
 		ft_free((void **)&path);
