@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 19:31:19 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/22 21:26:47 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_redir	*ft_new_redir(void)
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
-		exit(EXIT_FAILURE);
+		exit(ERR_MALLOC_FAILED);
 	redir->filename = 0;
 	redir->redir_type = 0;
 	return (redir);
@@ -30,7 +30,7 @@ t_redir	*ft_new_redir_init(char *filename, int redir_type)
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
-		exit(EXIT_FAILURE);
+		exit(ERR_MALLOC_FAILED);
 	redir->filename = filename;
 	redir->redir_type = redir_type;
 	return (redir);

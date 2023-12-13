@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_str.c                                       :+:      :+:    :+:   */
+/*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 19:48:13 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
+/*   Created: 2023/12/12 23:14:14 by jooahn            #+#    #+#             */
+/*   Updated: 2023/12/13 00:46:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_new_str(int size)
+void	display_new_prompt(int signum)
 {
-	char	*str;
-
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	if (!str)
-		exit(ERR_MALLOC);
-	str[size] = 0;
-	return (str);
+	if (signum == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }

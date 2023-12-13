@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:04:45 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 16:04:47 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_node	*ft_new_node(void *content)
 
 	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
-		exit(EXIT_FAILURE);
+		exit(ERR_MALLOC);
 	node->content = content;
 	node->next = 0;
 	node->prv = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:00:42 by moson             #+#    #+#             */
-/*   Updated: 2023/11/30 13:00:43 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/13 01:07:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,16 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 
 int	executor(t_sh_data *sh_data, t_list *proc_list)
 {
+	int	heredoc_status;
+
+	signal(SIGINT, SIG_IGN);
 	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
 	{
-		heredoc(proc_list, sh_data);
-		
+		heredoc_status = heredoc(proc_list, sh_data);
+		if (WIFSIGNALED(heredoc_status))
+			return (SIGNAL_OFFSET + WTERMSIG(heredoc_status));
+		if (WIFEXITED(heredoc_status) && WEXITSTATUS(heredoc_status) != SUCCESS)
+			return (WEXITSTATUS(heredoc_status));
 		replace_filename(proc_list, sh_data->hdfile_list);
 	}
 	if (sh_data->proc_size == 1)

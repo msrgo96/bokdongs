@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 21:32:06 by jooahn            #+#    #+#             */
-/*   Updated: 2023/03/21 03:41:11 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	len = ft_strlen(s);
 	result = (char *)malloc(sizeof(char) * (len + 1));
 	if (!result)
-		return (0);
+		exit(ERR_MALLOC);
 	result[len] = 0;
 	i = 0;
 	while (i < len)

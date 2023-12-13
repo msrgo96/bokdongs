@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/07 00:23:11 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,20 @@
 static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data);
 static void	heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd);
 
-// return : status
+// return : 자식 프로세스의 exit code
 // error : proc_list가 null pointer일 시 0 반환
 int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 {
 	t_node	*node;
 	t_list	*redir_list;
-	int		status;
+	int		status = 0;
 	pid_t	pid;
 
-	status = 0;
 	if (!proc_list)
-		return (status);
+		return (0);
 	pid = fork();
 	if (pid < 0)
-		exit(EXIT_FAILURE);
+		exit(ERR_FORK_FAILED);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -43,7 +42,6 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);
-	
 	return (status);
 }
 
@@ -95,7 +93,7 @@ void	heredoc_clear(t_list *hdfile_list)
 static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 {
 	int		fd;
-	char	*filepath;
+	char	*path;
 	t_node	*node;
 	t_redir	*redir;
 	int		i;
@@ -109,13 +107,13 @@ static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 		redir = ((t_redir *)node->content);
 		if (redir->redir_type == HEREDOC)
 		{
-			filepath = ((char *)(ft_listget(sh_data->hdfile_list, i)->content));
-			i++;
-			fd = open(filepath, O_WRONLY | O_CREAT, 0644);
+			path = ((char *)(ft_listget(sh_data->hdfile_list, i++)->content));
+			fd = open(path, O_WRONLY | O_CREAT, 0644);
 			if (fd < 0)
-				exit(EXIT_FAILURE);
+				exit(ERR_OPEN_FAILED);
 			heredoc_input(sh_data->env_list, redir, fd);
-			close(fd);
+			if (close(fd) < 0)
+				exit(ERR_CLOSE_FAILED);
 		}
 		node = node->next;
 	}
@@ -126,9 +124,8 @@ static void	heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd)
 	char		*delimiter;
 	char		*line;
 	char		*expanded_line;
-	const char	*heredoc_msg;
+	const char	*heredoc_msg = "heredoc> ";
 
-	heredoc_msg = "heredoc> ";
 	delimiter = redir->filename;
 	line = readline(heredoc_msg);
 	while (line && !ft_str_is_same(line, delimiter))

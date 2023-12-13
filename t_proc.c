@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:54:35 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/24 15:02:24 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_proc	*ft_new_proc(void)
 
 	proc = (t_proc *)malloc(sizeof(t_proc));
 	if (!proc)
-		exit(EXIT_FAILURE);
+		exit(ERR_MALLOC_FAILED);
 	proc->default_fdtype[READ_FD] = FDTYPE_STD;
 	proc->default_fdtype[WRITE_FD] = FDTYPE_STD;
 	proc->absolute_path = 0;

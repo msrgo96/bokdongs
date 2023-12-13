@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/23 18:15:23 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:23:31 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@
 # define FT_INT_MAX 2147483647
 
 # define FT_HEX "0123456789abcdef"
+
+enum	e_error_code
+{
+	ERR_MALLOC = 2
+};
 
 typedef struct s_node
 {

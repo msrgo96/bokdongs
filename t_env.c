@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 23:45:41 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/20 20:38:03 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env	*ft_new_env(void)
 
 	env = (t_env *)malloc(sizeof(t_env));
 	if (!env)
-		exit(EXIT_FAILURE);
+		exit(ERR_MALLOC_FAILED);
 	env->key = 0;
 	env->value = 0;
 	return (env);

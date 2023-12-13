@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:38:21 by jooahn            #+#    #+#             */
-/*   Updated: 2023/09/01 19:54:53 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	load(char **data, char **saved_data)
 	{
 		free(*saved_data);
 		*saved_data = 0;
-		return (0);
+		exit(ERR_MALLOC);
 	}
 	(*data)[len] = 0;
 	i = 0;
@@ -128,7 +128,7 @@ static char	*get_line(char *data, ssize_t nl_idx, char **saved_data)
 		free_and_return(*saved_data);
 		*saved_data = 0;
 		free_and_return(data);
-		return (0);
+		exit(ERR_MALLOC);
 	}
 	line[nl_idx] = 0;
 	i = 0;

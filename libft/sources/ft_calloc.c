@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jooahn <jooahn@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 05:00:33 by jooahn            #+#    #+#             */
-/*   Updated: 2023/03/22 16:56:24 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:24:05 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*ft_calloc(size_t count, size_t size)
 		return (0);
 	pointer = (void *)malloc(count * size);
 	if (!pointer)
-		return (0);
+		exit(ERR_MALLOC);
 	ft_bzero(pointer, count * size);
 	return (pointer);
 }

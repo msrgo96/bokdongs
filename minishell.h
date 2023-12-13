@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/10 17:25:27 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/13 16:22:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,6 @@ enum		e_token_type
 {
 	PIPE = 4,
 	CMD = 5
-};
-
-//	error code
-enum		e_error_code
-{
-	VALID = 0,
-	QUOTE_ERROR = 1,
-	SYNTAX_ERROR = 2
 };
 
 enum		e_fd_rw
@@ -206,15 +198,16 @@ int			heredoc(t_list *proc_list, t_sh_data *sh_data);
 void		replace_filename(t_list *proc_list, t_list *hdfile_list);
 void		heredoc_clear(t_list *hdfile_list);
 
-void		print_redir(void *content);
-void		print_proc(void *content);
-char		*get_error_msg(int error_code);
-void		print_error(int error_code);
-void		print_content(void *content);
-void		print_env(void *content);
-void		print_token(void *content);
-char		*get_type(int type);
+// void		print_redir(void *content);
+// void		print_proc(void *content);
+// char		*get_error_msg(int error_code);
+// void		print_error(int error_code);
+// void		print_content(void *content);
+// void		print_env(void *content);
+// void		print_token(void *content);
+// char		*get_type(int type);
 
+void		display_new_prompt(int signum);
 void		prt_err(int exit_code, char *target);
 void		exit_wrapper(int exit_code, char *target);
 
