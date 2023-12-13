@@ -70,8 +70,8 @@ int	main(int argc, char **argv, char **envp)
 			if (check_quote(str) != SUCCESS)
 			{
 				g_exit_code = ERR_QUOTE;
-				prt_err_msg(ERR_QUOTE);
-				free(str);
+				prt_err(ERR_QUOTE, NULL);
+				ft_free((void *)&str);
 				continue ;
 			}
 			token_list = tokenizer(str);
@@ -83,8 +83,17 @@ int	main(int argc, char **argv, char **envp)
 			{
 				set_proc_sh_data(sh_data, proc_list);
 				g_exit_code = executor(sh_data, proc_list);
-				if (g_exit_code == SIGNAL_OFFSET + SIGINT)
-					write(1, "\n", 1); // 자식프로세스가 인터럽트로 꺼졌을 시 프롬프트 깨끗하게 해주는 부분
+
+				// if (g_exit_code == SIGNAL_OFFSET + SIGINT)
+				// 	write(1, "\n", 1); // 자식프로세스가 인터럽트로 꺼졌을 시 프롬프트 깨끗하게 해주는 부분
+
+				for (int i = 0; i < sh_data->proc_size; i++)
+					if (sh_data->exit_status[i] == SIGNAL_OFFSET + SIGINT)
+					{
+						write(1, "\n", 1); // 자식프로세스가 인터럽트로 꺼졌을 시 프롬프트 깨끗하게 해주는 부분
+						break ;
+					}
+
 				clear_proc_sh_data(sh_data);
 				ft_list_clear(proc_list, ft_del_proc);
 			}

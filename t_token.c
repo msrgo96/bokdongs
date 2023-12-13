@@ -18,7 +18,7 @@ t_token	*ft_new_token(void)
 
 	token = (t_token *)malloc(sizeof(t_token));
 	if (!token)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	token->value = 0;
 	token->type = -1;
 	return (token);

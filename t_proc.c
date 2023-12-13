@@ -18,7 +18,7 @@ t_proc	*ft_new_proc(void)
 
 	proc = (t_proc *)malloc(sizeof(t_proc));
 	if (!proc)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	proc->default_fdtype[READ_FD] = FDTYPE_STD;
 	proc->default_fdtype[WRITE_FD] = FDTYPE_STD;
 	proc->absolute_path = 0;

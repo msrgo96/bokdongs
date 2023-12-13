@@ -28,7 +28,7 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 		return (0);
 	pid = fork();
 	if (pid < 0)
-		exit(ERR_FORK_FAILED);
+		exit_wrapper(ERR_FORK_FAILED, NULL);
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
@@ -110,10 +110,10 @@ static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
 			path = ((char *)(ft_listget(sh_data->hdfile_list, i++)->content));
 			fd = open(path, O_WRONLY | O_CREAT, 0644);
 			if (fd < 0)
-				exit(ERR_OPEN_FAILED);
+				exit_wrapper(ERR_OPEN_FAILED, NULL);
 			heredoc_input(sh_data->env_list, redir, fd);
 			if (close(fd) < 0)
-				exit(ERR_CLOSE_FAILED);
+				exit_wrapper(ERR_CLOSE_FAILED, NULL);
 		}
 		node = node->next;
 	}

@@ -18,7 +18,7 @@ t_env	*ft_new_env(void)
 
 	env = (t_env *)malloc(sizeof(t_env));
 	if (!env)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	env->key = 0;
 	env->value = 0;
 	return (env);

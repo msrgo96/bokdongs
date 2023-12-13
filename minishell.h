@@ -208,7 +208,7 @@ void		heredoc_clear(t_list *hdfile_list);
 // char		*get_type(int type);
 
 void		display_new_prompt(int signum);
-void		prt_err(int exit_code, char *target);
+int			prt_err(int exit_code, char *target);
 void		exit_wrapper(int exit_code, char *target);
 
 # pragma endregion

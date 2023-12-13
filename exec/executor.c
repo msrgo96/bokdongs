@@ -115,7 +115,10 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 	{
 		heredoc_status = heredoc(proc_list, sh_data);
 		if (WIFSIGNALED(heredoc_status))
+		{
+			write(1, "\n", 1);
 			return (SIGNAL_OFFSET + WTERMSIG(heredoc_status));
+		}
 		if (WIFEXITED(heredoc_status) && WEXITSTATUS(heredoc_status) != SUCCESS)
 			return (WEXITSTATUS(heredoc_status));
 		replace_filename(proc_list, sh_data->hdfile_list);

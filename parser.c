@@ -28,7 +28,7 @@ t_list	*parser(t_list *token_list)
 	if (check_syntax(token_list) != SUCCESS)
 	{
 		g_exit_code = ERR_SYNTAX;
-		prt_err_msg(ERR_SYNTAX);
+		prt_err(ERR_SYNTAX, NULL);
 		return (0);
 	}
 	return (generate_proc_list(token_list));

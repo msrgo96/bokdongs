@@ -18,7 +18,7 @@ t_redir	*ft_new_redir(void)
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	redir->filename = 0;
 	redir->redir_type = 0;
 	return (redir);
@@ -30,7 +30,7 @@ t_redir	*ft_new_redir_init(char *filename, int redir_type)
 
 	redir = (t_redir *)malloc(sizeof(t_redir));
 	if (!redir)
-		exit(ERR_MALLOC_FAILED);
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
 	redir->filename = filename;
 	redir->redir_type = redir_type;
 	return (redir);

@@ -18,6 +18,7 @@ void	open_and_dup2_redir(t_redir *redir);
 
 //	If error, exit(ERR_OPEN_FAILED, ERR_CLOSE_FAILED, ERR_DUP2_FAILED)
 //	return SUCCESS, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED
+//	**** WARNING: PRINT_ERROR WITH RETURN MUST BE HANDLED ****
 int	set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	t_proc	*proc;
@@ -35,12 +36,12 @@ int	set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	{
 		redir = (t_redir *)(redir_node->content);
 		if (access(redir->filename, F_OK) == -1)
-			return (ERR_FILE_NOT_EXIST);
+			return (prt_err(ERR_FILE_NOT_EXIST, redir->filename));
 		access_mode = W_OK;
 		if (redir->redir_type == I_REDIR)
 			access_mode = R_OK;
 		if (access(redir->filename, access_mode) == -1)
-			return (ERR_PERM_DENIED);
+			return (prt_err(ERR_PERM_DENIED, redir->filename));
 		open_and_dup2_redir(redir);
 		redir_node = redir_node->next;
 	}

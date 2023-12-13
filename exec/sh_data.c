@@ -19,8 +19,7 @@ static void	*malloc_exit_if_failed(size_t size)
 	res = malloc(size);
 	if (res == NULL)
 		exit_wrapper(ERR_MALLOC_FAILED, NULL);
-	else
-		return (res);
+	return (res);
 }
 
 //	If malloc failed: exit(ERR_MALLOC_FAILED)

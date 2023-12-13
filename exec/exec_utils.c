@@ -69,7 +69,7 @@ void	restore_io_fd(t_sh_data *sh_data)
 // ERR_EXECVE_FAILED 11
 // ERR_HEREDOC 12
 // ERR_STAT_FAILED 13
-void	prt_err(int exit_code, char *target)
+int	prt_err(int exit_code, char *target)
 {
 	if (exit_code != SUCCESS)
 	{
@@ -83,6 +83,7 @@ void	prt_err(int exit_code, char *target)
 		ft_putnbr_fd(exit_code, STDERR_FILENO);
 		ft_putchar_fd('\n', STDERR_FILENO);
 	}
+	return (exit_code);
 }
 
 void	exit_wrapper(int exit_code, char *target)
