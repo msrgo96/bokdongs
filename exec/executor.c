@@ -51,10 +51,6 @@ static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
-	if (proc->absolute_path == NULL)
-		exit_wrapper(ERR_CMD_NOT_FOUND, proc->args[0]);
-	if (access(proc->absolute_path, X_OK) == -1)
-		exit_wrapper(ERR_PERM_DENIED, proc->args[0]);
 	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
 		exit_wrapper(ERR_EXECVE_FAILED, NULL);
 	return ;

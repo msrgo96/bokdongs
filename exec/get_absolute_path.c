@@ -17,76 +17,47 @@ int		is_a_dir(char *path);
 char	**get_path_split(t_sh_data *sh_data);
 char	*str_join_three(const char *str1, const char c, const char *str2);
 
-//	TODO: can cmd be NULL?
 static int	is_path(char *cmd)
 {
 	int	cnt;
+	int	len;
 
-	if (cmd == NULL)
-		exit_wrapper(ERR_UNKNOWN, "(TODO)cmd is null");
 	cnt = -1;
-	while (++cnt < ft_strlen(cmd))
+	len = ft_strlen(cmd);
+	while (++cnt < len)
 		if (cmd[cnt] == '/')
 			return (FT_TRUE);
 	return (FT_FALSE);
 }
 
-char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
+//	return ABS_PATH or exit
+//	exit with (ERR_FILE_NOT_EXIST, ERR_PERM_DENIED, ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
+static char	*get_absolute_path_binary(char *path)
 {
-	char	*path;
+	char	*res;
 
-	if (is_path(cmd))
-	{
-		if (access(cmd, F_OK) != 0 && errno == 13)
-			exit_wrapper(ERR_PERM_DENIED, cmd);
-		if (is_a_dir(cmd) == FT_TRUE)
-			exit_wrapper(ERR_EXEC_DIR, cmd);
-		if (access(cmd, F_OK) != 0)
-			return (NULL);
-		path = ft_strdup(cmd);
-		if (path == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		return (path);
-	}
-	else
-	{
-		char	**path_split;
-		int		cnt;
-
-		path_split = get_path_split(sh_data);
-		if (path_split == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		cnt = 0;
-		while (path_split[cnt++] != NULL)
-		{
-			path = str_join_three(path_split[cnt], '/', cmd);
-
-
-
-			ft_free((void **)&path);
-		}
-		ft_split_free(path_split);
-		return (path);
-	}
+	if (access(path, F_OK) != 0 && errno == 13)
+		exit_wrapper(ERR_PERM_DENIED, path);
+	if (is_a_dir(path) == FT_TRUE)
+		exit_wrapper(ERR_EXEC_DIR, path);
+	if (access(path, F_OK) != 0)
+		exit_wrapper(ERR_FILE_NOT_EXIST, path);
+	if (access(path, X_OK) != 0)
+		exit_wrapper(ERR_PERM_DENIED, path);
+	res = ft_strdup(path);
+	if (res == NULL)
+		exit_wrapper(ERR_MALLOC_FAILED, NULL);
+	return (res);
 }
 
-//	If F_OK, return (ABSOLUTE_PATH)
-//	If NOT found, return (NULL)
-//	If malloc error, exit (ERR_MALLOC_FAILED)
-
-char	*get_absolute_path_deprecated(t_sh_data *sh_data, char *cmd)
+//	return ABS_PATH or exit
+//	exit with (ERR_MALLOC_FAILED, ERR_STAT_FAILED, ERR_CMD_NOT_FOUND)
+static char	*get_absolute_path_cmd(t_sh_data *sh_data, char *cmd)
 {
+	char	*path;
 	char	**path_split;
 	int		cnt;
-	char	*path;
 
-	if (access(cmd, F_OK) == 0 && is_a_dir(cmd) == FT_FALSE)
-	{
-		path = ft_strdup(cmd);
-		if (path == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		return (path);
-	}
 	path_split = get_path_split(sh_data);
 	if (path_split == NULL)
 		exit_wrapper(ERR_MALLOC_FAILED, NULL);
@@ -94,12 +65,24 @@ char	*get_absolute_path_deprecated(t_sh_data *sh_data, char *cmd)
 	while (path_split[++cnt] != NULL)
 	{
 		path = str_join_three(path_split[cnt], '/', cmd);
-		if (path == NULL)
-			exit_wrapper(ERR_MALLOC_FAILED, NULL);
-		if (access(path, F_OK) == 0 && is_a_dir(path) == FT_FALSE)
-			break ;
+		if (access(path, X_OK) == 0 && !is_a_dir(path))
+		{
+			ft_split_free(path_split);
+			return (path);
+		}
 		ft_free((void **)&path);
 	}
 	ft_split_free(path_split);
-	return (path);
+	exit_wrapper(ERR_CMD_NOT_FOUND, cmd);
+	return (NULL);
+}
+
+//	return ABS_PATH or exit
+//	exit with (ERR_FILE_NOT_EXIST, ERR_CMD_NOT_FOUND, ERR_PERM_DENIED, ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
+char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
+{
+	if (is_path(cmd))
+		return (get_absolute_path_binary(cmd));
+	else
+		return (get_absolute_path_cmd(sh_data, cmd));
 }
