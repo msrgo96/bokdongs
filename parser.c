@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 18:15:32 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/14 23:20:25 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 00:08:01 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,6 @@ extern int	g_exit_code;
 static int	print_error(int error_code);
 static int	is_empty_string(char *str);
 static void	remove_empty_token(t_list *token_list);
-
-char	*get_type(int type)
-{
-	const char *types[7] = {"in redirection", "out redirection",
-		"add redirection", "heredoc", "pipe", "cmd", 0};
-	if (type < 0 || type > 6)
-		return (0);
-	return ((char *)types[type]);
-}
-
-void	print_token(void *content)
-{
-	if (!content)
-		printf("(null)");
-	else
-	{
-		printf("token's value : %s, ", ((t_token *)content)->value);
-		printf("type : %s\n", get_type(((t_token *)content)->type));
-	}
-}
 
 /*
 문법 체크(quote, syntax) && 토큰화 후 proc_list로 만들어 반환

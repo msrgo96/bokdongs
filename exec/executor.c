@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:00:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/14 23:23:20 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:10:33 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 	int	heredoc_status;
 
 	signal(SIGINT, SIG_IGN);
+	set_proc_sh_data(sh_data, proc_list);
 	if (set_hdfile_list(proc_list, sh_data->hdfile_list) > 0)
 	{
 		heredoc_status = heredoc(proc_list, sh_data);
@@ -121,7 +122,7 @@ int	executor(t_sh_data *sh_data, t_list *proc_list)
 		}
 		if (WIFEXITED(heredoc_status) && WEXITSTATUS(heredoc_status) != SUCCESS)
 			return (WEXITSTATUS(heredoc_status));
-		replace_filename(proc_list, sh_data->hdfile_list);
+		replace_hdfilename(proc_list, sh_data->hdfile_list);
 	}
 	if (sh_data->proc_size == 1)
 		return (single_cmd(sh_data, proc_list));

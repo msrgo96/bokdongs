@@ -6,13 +6,20 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:53:56 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/14 23:10:37 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:18:14 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_if_signaled(t_sh_data *sh_data)
+void	init_shell(char **argv, char **envp, t_sh_data **sh_data)
+{
+	(void)argv;
+	*sh_data = ft_new_sh_data(envp);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	print_newline_if_signaled(t_sh_data *sh_data)
 {
 	int	i;
 
