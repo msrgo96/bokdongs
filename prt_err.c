@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prt_err.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 00:30:57 by moson             #+#    #+#             */
-/*   Updated: 2023/12/14 00:30:58 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:54:38 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	prt_err_entrance(int exit_code)
 		ft_putstr_fd(MSG_EXECVE_FAILED, STDERR_FILENO);
 	else
 		prt_err_sub1(exit_code);
-	return ;	
+	return ;
 }
 
 static void	prt_err_sub1(int exit_code)

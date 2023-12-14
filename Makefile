@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Wno-unknown-pragmas -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -Wno-unknown-pragmas
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h builtins/builtins.h
@@ -23,7 +23,9 @@ tokenizer.c \
 heredoc.c \
 set_hdfile_list.c \
 signal_handler.c \
-prt_err.c
+prt_err.c \
+t_sh_data.c \
+minishell_utils.c
 OBJ = $(SRC:%.c=%.o)
 
 all : $(NAME)

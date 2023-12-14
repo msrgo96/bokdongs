@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:35:30 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/11 21:56:53 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/14 16:40:45 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static int	get_node_type(t_node *node);
 
 /*
 split str and wrap in token list
-return : SUCCESS or ERR_QUOTE
+return : 따옴표 짝 맞으면 return SUCCESS,
+짝 안맞으면 return ERR_QUOTE
 */
 int	check_quote(char *input)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_absolute_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 00:57:09 by moson             #+#    #+#             */
-/*   Updated: 2023/12/14 00:57:13 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/14 16:39:06 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ char	*str_join_three(const char *str1, const char c, const char *str2);
 //	TODO: can cmd be NULL?
 static int	is_path(char *cmd)
 {
-	int	cnt;
+	//int	cnt;
 
 	if (cmd == NULL)
 		exit_wrapper(ERR_UNKNOWN, "(TODO)cmd is null");
-	cnt = -1;
-	while (++cnt < ft_strlen(cmd))
-		if (cmd[cnt] == '/')
-			return (FT_TRUE);
-	return (FT_FALSE);
+	//cnt = -1;
+	return (ft_str_find_chr(cmd, '/') != -1);
+	// while (++cnt < ft_strlen(cmd))
+	// 	if (cmd[cnt] == '/')
+	// 		return (FT_TRUE);
+	// return (FT_FALSE);
 }
 
 char	*get_absolute_path(t_sh_data *sh_data, char *cmd)

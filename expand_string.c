@@ -19,7 +19,7 @@ static int	quote_need_remove(int in_quote[2], char c);
 static char	*expand_env(t_list *env_list, char *str, int *i);
 
 /*
-remove quote & expand env
+입력 문자열에서 짝 맞는 바깥쪽 따옴표 제거 및 env_list 기준으로 환경변수 확장
 return : char *
 error : return NULL pointer
 */
@@ -29,14 +29,15 @@ char	*expand_string(t_list *env_list, char *str)
 	char	*expanded_str;
 	int		i;
 
-	if (!env_list || !str)
+	if (!str)
 		return (0);
 	init_data(in_quote, &expanded_str, &i);
 	while (str[++i])
 	{
 		if (quote_need_remove(in_quote, str[i]))
 			continue ;
-		if (str[i] == '$' && !ft_isspace(str[i + 1]) && !in_quote[SINGLE])
+		if (str[i] == '$' && str[i + 1] && \
+		!ft_isspace(str[i + 1]) && !in_quote[SINGLE])
 			expanded_str = ft_strjoin(expanded_str, \
 			expand_env(env_list, str, &i), free, free);
 		else
@@ -45,6 +46,7 @@ char	*expand_string(t_list *env_list, char *str)
 	return (expanded_str);
 }
 
+// token list 돌면서 각 토큰마다 expand_string() 함수 적용
 void	expand_string_iter(t_list *token_list, t_list *env_list, \
 char *(*expand_string)(t_list *, char *), void (*del)(void *))
 {
@@ -94,7 +96,9 @@ static char	*expand_env(t_list *env_list, char *str, int *i)
 	char	*key;
 	int		start;
 
-	if (!env_list || !str || !i || str[*i] != '$')
+	if (!env_list)
+		return (str);
+	if (!str || !i || str[*i] != '$')
 		return (0);
 	start = ++(*i);
 	if (str[start] == '?')

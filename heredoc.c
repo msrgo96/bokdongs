@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/13 16:24:15 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/14 23:34:38 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	replace_filename(t_list *proc_list, t_list *hdfile_list)
 			if (rdr->redir_type == HEREDOC)
 			{
 				free(rdr->filename);
-				rdr->filename = ((char *)ft_listget(hdfile_list, i++)->content);
+				rdr->filename = ft_strdup(((char *)ft_listget(hdfile_list, i++)->content));
 				rdr->redir_type = I_REDIR;
 			}
 			redir_node = redir_node->next;
