@@ -14,6 +14,7 @@
 #include "builtins.h"
 
 int	search_env_content(t_list *env_list, char *key, t_node	**res);
+int	env_builtin(t_sh_data *sh_data, t_proc *proc);
 
 static int	print_export_err(const int errno_export)
 {
@@ -47,10 +48,15 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 
 	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_export_err(EXPORT_NULPTR));
-	env = ft_new_env();
+	if (proc->args[1] == NULL)
+	{
+		env_builtin(sh_data, proc);
+		return (SUCCESS);
+	}
 	separator_idx = ft_str_find_chr(proc->args[1], '=');
 	if (separator_idx < 0)
 		return (print_export_err(EXPORT_FORMAT));
+	env = ft_new_env();
 	value_len = ft_strlen(proc->args[1]) - (separator_idx + 1);
 	env->key = ft_substr(proc->args[1], 0, separator_idx);
 	env->value = ft_substr(proc->args[1], separator_idx + 1, value_len);
