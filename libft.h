@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/14 20:43:35 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 22:22:10 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isinteger(const char *str);
 int		ft_isprint(int c);
+int		ft_isspecific(char c);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);

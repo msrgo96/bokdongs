@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:21:52 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 19:31:36 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 21:22:40 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	get_o_flag(int redir_type)
 	else if (redir_type == O_REDIR)
 		res = O_WRONLY | O_TRUNC | O_CREAT;
 	else
-		res = O_APPEND | O_CREAT;
+		res = O_WRONLY | O_APPEND | O_CREAT;
 	return (res);
 }
 

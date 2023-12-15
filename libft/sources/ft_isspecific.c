@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   ft_isspecific.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/12 23:14:14 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/15 20:51:33 by jooahn           ###   ########.fr       */
+/*   Created: 2023/12/15 22:12:56 by jooahn            #+#    #+#             */
+/*   Updated: 2023/12/15 22:21:31 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-extern int	g_exit_code;
-
-// SIGINT 받을 시 새 프롬프트 라인 띄우는 함수
-void	display_new_prompt(int signum)
+int	ft_isspecific(char c)
 {
-	if (signum == SIGINT)
-	{
-		g_exit_code = SIGNAL_OFFSET + SIGINT;
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	if (c == '!' || c == '@' || c == '#' \
+	|| c == '$' || c == '*' || c == '-' \
+	|| c == '_' || c == '?')
+		return (1);
+	return (0);
 }
