@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 22:35:19 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:35:56 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,74 +42,3 @@ int	main(int argc, char **argv, char **envp)
 	clear_shell(sh_data);
 	return (0);
 }
-
-// void	print_proc(void *content)
-// {
-// 	t_proc	*proc;
-// 	char	**args;
-// 	int		i = 0;
-
-// 	proc = ((t_proc *)content);
-// 	if (!content)
-// 		printf("content is empty\n");
-// 	else
-// 	{
-// 		printf("\n--- process --- \n");
-// 		printf("read_fd : %d\n", proc->default_fdtype[READ_FD]);
-// 		printf("write_fd : %d\n", proc->default_fdtype[WRITE_FD]);
-// 		printf("args : ");
-// 		args = proc->args;
-// 		if (!args)
-// 			printf("(null)");
-// 		else
-// 		{
-// 			while (args[i])
-// 			{
-// 				printf("[%s], ", args[i]);
-// 				i++;
-// 			}
-// 		}
-// 		printf("\n");
-// 		printf("redir_list : ");
-// 		if (!(proc->redir_list))
-// 			printf("(null)");
-// 		if (ft_list_is_empty(proc->redir_list))
-// 			printf("empty");
-// 		ft_list_iter(proc->redir_list, print_redir);
-// 		printf("\n");
-// 		printf("--- ------- --- \n");
-// 	}
-// }
-
-// void	print_redir(void *content)
-// {
-// 	t_redir	*redir;
-
-// 	if (!content)
-// 	{
-// 		printf("(null)");
-// 		return ;
-// 	}
-// 	redir = ((t_redir *)content);
-// 	printf("(type : %d, ", redir->redir_type);
-// 	printf("file name : %s), ", redir->filename);
-// }
-
-// void	print_content(void *content)
-// {
-// 	if (!content)
-// 		printf("content is empty\n");
-// 	else
-// 		printf("content : %s$\n", (char *)content);
-// }
-
-// void	print_env(void *content)
-// {
-// 	if (!content)
-// 		printf("content is empty\n");
-// 	else
-// 	{
-// 		printf("env's key : %s, ", ((t_env *)content)->key);
-// 		printf("value : %s\n", ((t_env *)content)->value);
-// 	}
-// }

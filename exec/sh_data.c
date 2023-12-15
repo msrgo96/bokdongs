@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:15:07 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 19:30:48 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:25:41 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	clear_proc_sh_data(t_sh_data *sh_data)
 	ft_free((void *)&(sh_data->child_pid));
 	ft_free((void *)&(sh_data->exit_status));
 	sh_data->proc_size = -1;
+	heredoc_clear(sh_data->hdfile_list);
 	ft_list_clear(sh_data->hdfile_list, free);
 	sh_data->hdfile_list = NULL;
 	return ;

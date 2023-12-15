@@ -6,12 +6,12 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 00:57:09 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 19:32:28 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:51:18 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include "errno.h"
+#include "errno.h" // TO DO : 이거 모임
 
 int		is_a_dir(char *path);
 char	**get_path_split(t_sh_data *sh_data);

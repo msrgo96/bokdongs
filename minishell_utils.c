@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:53:56 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/15 01:18:14 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:58:11 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	print_newline_if_signaled(t_sh_data *sh_data)
 	i = 0;
 	while (i < sh_data->proc_size)
 	{
-		if (sh_data->exit_status[i] == SIGNAL_OFFSET + SIGINT)
+		if (sh_data->exit_status[i] == SIGNAL_OFFSET + SIGINT \
+		|| sh_data->exit_status[i] == SIGNAL_OFFSET + SIGQUIT)
 		{
 			write(1, "\n", 1);
 			return ;

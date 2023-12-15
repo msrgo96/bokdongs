@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 01:21:17 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:48:55 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "libft.h"
 # include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <fcntl.h>
@@ -192,15 +190,6 @@ int			set_hdfile_list(t_list *proc_list, t_list *hdfile_list);
 int			heredoc(t_list *proc_list, t_sh_data *sh_data);
 void		replace_hdfilename(t_list *proc_list, t_list *hdfile_list);
 void		heredoc_clear(t_list *hdfile_list);
-
-// void		print_redir(void *content);
-// void		print_proc(void *content);
-// char		*get_error_msg(int error_code);
-// void		print_error(int error_code);
-// void		print_content(void *content);
-// void		print_env(void *content);
-// void		print_token(void *content);
-// char		*get_type(int type);
 
 void		display_new_prompt(int signum);
 int			prt_err(int exit_code, char *target);

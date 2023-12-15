@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:00:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 19:33:51 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 00:25:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 	set_io_res = set_io_fd_single_cmd(sh_data, proc_list, 0);
 	if (set_io_res != SUCCESS)
 	{
-		heredoc_clear(sh_data->hdfile_list);
 		restore_io_fd(sh_data);
 		return (set_io_res);
 	}
@@ -79,7 +78,6 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 		if (sh_data->child_pid[0] == 0)
 			exec_single(sh_data, proc);
 	}
-	heredoc_clear(sh_data->hdfile_list);
 	wait_all_child(sh_data, proc_list);
 	restore_io_fd(sh_data);
 	return (sh_data->exit_status[0]);
@@ -103,7 +101,6 @@ static int	multi_cmds(t_sh_data *sh_data, t_list *proc_list)
 		else
 			exec_child(sh_data, proc_list, cnt);
 	}
-	heredoc_clear(sh_data->hdfile_list);
 	wait_all_child(sh_data, proc_list);
 	return (sh_data->exit_status[sh_data->proc_size - 1]);
 }
