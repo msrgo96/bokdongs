@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 11:16:14 by moson             #+#    #+#             */
-/*   Updated: 2023/12/03 11:16:15 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/15 19:34:23 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
 	return ;
 }
 
-//	If error, exit(ERR_OPEN_FAILED, ERR_CLOSE_FAILED, ERR_DUP2_FAILED, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED)
+//	If error, exit(ERR_OPEN_FAILED, ERR_CLOSE_FAILED,
+//		ERR_DUP2_FAILED, ERR_FILE_NOT_EXIST, ERR_PERM_DENIED)
 void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 {
 	t_proc	*proc;
@@ -62,8 +63,10 @@ void	exec_child(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	close_unused_pipe(sh_data, proc_num);
 	set_io_fd(sh_data, proc_list, proc_num);
 	exec_builtin(sh_data, proc);
-	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
-	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
+	proc->absolute_path = \
+	get_absolute_path(sh_data, proc->args[0]);
+	if (execve(proc->absolute_path, proc->args, \
+	get_envp_origin(sh_data->env_list)) == -1)
 		exit_wrapper(ERR_EXECVE_FAILED, NULL);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 00:57:09 by moson             #+#    #+#             */
-/*   Updated: 2023/12/14 16:39:06 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 19:32:28 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static int	is_path(char *cmd)
 }
 
 //	return ABS_PATH or exit
-//	exit with (ERR_FILE_NOT_EXIST, ERR_PERM_DENIED, ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
+//	exit with (ERR_FILE_NOT_EXIST, ERR_PERM_DENIED,
+//		ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
 static char	*get_absolute_path_binary(char *path)
 {
 	char	*res;
@@ -78,7 +79,8 @@ static char	*get_absolute_path_cmd(t_sh_data *sh_data, char *cmd)
 }
 
 //	return ABS_PATH or exit
-//	exit with (ERR_FILE_NOT_EXIST, ERR_CMD_NOT_FOUND, ERR_PERM_DENIED, ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
+//	exit with (ERR_FILE_NOT_EXIST, ERR_CMD_NOT_FOUND, ERR_PERM_DENIED,
+//		ERR_STAT_FAILED, ERR_EXEC_DIR, ERR_MALLOC_FAILED)
 char	*get_absolute_path(t_sh_data *sh_data, char *cmd)
 {
 	if (is_path(cmd))

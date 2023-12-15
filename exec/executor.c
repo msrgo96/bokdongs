@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 13:00:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/15 01:10:33 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 19:33:51 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
 char	*get_absolute_path(t_sh_data *sh_data, char *cmd);
 char	**get_envp_origin(t_list *env_list);
 void	restore_io_fd(t_sh_data *sh_data);
-int		set_io_fd_single_cmd(t_sh_data *sh_data, t_list *proc_list, int proc_num);
+int		set_io_fd_single_cmd(t_sh_data *sh_data, \
+t_list *proc_list, int proc_num);
 
 void	wait_all_child(t_sh_data *sh_data, t_list *proc_list)
 {
@@ -51,7 +52,8 @@ static void	exec_single(t_sh_data *sh_data, t_proc *proc)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	proc->absolute_path = get_absolute_path(sh_data, proc->args[0]);
-	if (execve(proc->absolute_path, proc->args, get_envp_origin(sh_data->env_list)) == -1)
+	if (execve(proc->absolute_path, proc->args, \
+	get_envp_origin(sh_data->env_list)) == -1)
 		exit_wrapper(ERR_EXECVE_FAILED, NULL);
 	return ;
 }

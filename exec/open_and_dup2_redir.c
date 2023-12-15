@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_and_dup2_redir.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: moson <moson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:21:52 by moson             #+#    #+#             */
-/*   Updated: 2023/12/04 17:21:54 by moson            ###   ########.fr       */
+/*   Updated: 2023/12/15 19:31:36 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ static int	get_o_flag(int redir_type)
 	return (res);
 }
 
-
 static int	access_redir(char *path, int redir_type)
 {
 	if (access(path, F_OK) == -1 && errno == 13)
-		return(ERR_PERM_DENIED);
+		return (ERR_PERM_DENIED);
 	if (redir_type == I_REDIR)
 	{
 		if (access(path, F_OK) == -1)
