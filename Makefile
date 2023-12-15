@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Wno-unknown-pragmas
+CFLAGS = -Wall -Wextra -Werror
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h builtins/builtins.h

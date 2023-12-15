@@ -13,8 +13,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# pragma region INCLUDES
-
 # include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,13 +22,8 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <signal.h>
-
 # include <sys/wait.h>
-
-# pragma endregion
-
-# pragma region MACROS
+# include <signal.h>
 
 # define FT_TRUE 1
 # define FT_FALSE 0
@@ -39,10 +32,6 @@
 # define PIPE_WRITE 1
 
 # define SIGNAL_OFFSET 128
-
-# pragma endregion
-
-# pragma region ENUMS
 
 enum		e_quote_type
 {
@@ -76,10 +65,6 @@ enum		e_fd_type
 	FDTYPE_STD = 0,
 	FDTYPE_PIPE = 1
 };
-
-# pragma endregion
-
-# pragma region STRUCTS
 
 //	(void *)list->content
 //	type = e_token_type
@@ -126,10 +111,6 @@ typedef struct s_sh_data
 	t_list	*hdfile_list;
 }			t_sh_data;
 
-# pragma endregion
-
-# pragma region ERR_MINISHELL
-
 # define SUCCESS 0
 # define ERR_UNKNOWN 1
 # define ERR_MALLOC_FAILED 2
@@ -147,10 +128,6 @@ typedef struct s_sh_data
 # define ERR_EXEC_DIR 14
 # define ERR_SYNTAX 256
 # define ERR_QUOTE 257
-
-# pragma endregion
-
-# pragma region MSG_MINISHELL
 
 # define MSG_UNKNOWN "unknown error"
 # define MSG_MALLOC_FAILED "malloc failed"
@@ -170,10 +147,6 @@ typedef struct s_sh_data
 # define MSG_QUOTE "quote error"
 
 # define MSG_UNDEFINED "undefined error"
-
-# pragma endregion
-
-# pragma region PROTOTYPES
 
 t_token		*ft_new_token(void);
 void		ft_del_token(void *token);
@@ -245,7 +218,5 @@ void		init_shell(char **argv, char **envp, t_sh_data **sh_data);
 void		print_newline_if_signaled(t_sh_data *sh_data);
 void		clear_after_input(char *str, t_sh_data *sh_data, t_list *proc_list);
 void		clear_shell(t_sh_data *sh_data);
-
-# pragma endregion
 
 #endif
