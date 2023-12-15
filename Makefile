@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror
 LIBREADLINEFLAGS = -lreadline
 NAME = minishell
 NAME_H = minishell.h builtins/builtins.h

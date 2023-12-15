@@ -6,13 +6,15 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 19:58:52 by ahn               #+#    #+#             */
-/*   Updated: 2023/12/15 00:41:27 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 23:37:36 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data);
+static void	heredoc_process(t_list *proc_list, t_sh_data *sh_data);
+static void	heredoc_to_file(t_list *redir_list, \
+t_sh_data *sh_data, t_node **hdfile);
 static void	create_hdfile(t_list *env_list, char *path, t_redir *redir);
 static void	get_heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd);
 
@@ -20,8 +22,6 @@ static void	get_heredoc_input(t_list *env_list, t_redir *redir, int heredoc_fd);
 // error : proc_list가 null pointer일 시 0 반환
 int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 {
-	t_node	*node;
-	t_list	*redir_list;
 	int		status;
 	pid_t	pid;
 
@@ -31,38 +31,45 @@ int	heredoc(t_list *proc_list, t_sh_data *sh_data)
 	if (pid < 0)
 		exit_wrapper(ERR_FORK_FAILED, NULL);
 	else if (pid == 0)
-	{
-		signal(SIGINT, SIG_DFL);
-		node = proc_list->head;
-		while (node)
-		{
-			redir_list = ((t_proc *)node->content)->redir_list;
-			heredoc_to_file(redir_list, sh_data);
-			node = node->next;
-		}
-		exit(EXIT_SUCCESS);
-	}
+		heredoc_process(proc_list, sh_data);
 	waitpid(pid, &status, 0);
 	return (status);
 }
 
-static void	heredoc_to_file(t_list *redir_list, t_sh_data *sh_data)
+static void	heredoc_process(t_list *proc_list, t_sh_data *sh_data)
+{
+	t_node	*node;
+	t_list	*redir_list;
+	t_node	*hdfile;
+
+	signal(SIGINT, SIG_DFL);
+	node = proc_list->head;
+	hdfile = sh_data->hdfile_list->head;
+	while (node)
+	{
+		redir_list = ((t_proc *)node->content)->redir_list;
+		heredoc_to_file(redir_list, sh_data, &hdfile);
+		node = node->next;
+	}
+	exit(EXIT_SUCCESS);
+}
+
+static void	heredoc_to_file(t_list *redir_list, \
+t_sh_data *sh_data, t_node **hdfile)
 {
 	t_node	*node;
 	t_redir	*redir;
-	t_node	*hdfile;
 
 	if (!redir_list)
 		return ;
 	node = redir_list->head;
-	hdfile = sh_data->hdfile_list->head;
 	while (node)
 	{
 		redir = ((t_redir *)node->content);
 		if (redir->redir_type == HEREDOC)
 		{
-			create_hdfile(sh_data->env_list, hdfile->content, redir);
-			hdfile = hdfile->next;
+			create_hdfile(sh_data->env_list, (*hdfile)->content, redir);
+			(*hdfile) = (*hdfile)->next;
 		}
 		node = node->next;
 	}
