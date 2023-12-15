@@ -15,18 +15,12 @@
 
 int	g_exit_code = 0;
 
-void	leaks_test(void)
-{
-	system("leaks -q minishell");
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
 	t_list		*proc_list;
 	t_sh_data	*sh_data;
 
-	atexit(leaks_test);
 	if (argc != 1)
 		return (0);
 	init_shell(argv, envp, &sh_data);

@@ -44,13 +44,13 @@ t_list	*parser(char *input, t_list *env_list)
 		ft_list_clear(token_list, ft_del_token);
 		return (0);
 	}
-	expand_string_iter(token_list, env_list, expand_string, free);
 	remove_empty_token(token_list);
+	expand_string_iter(token_list, env_list, expand_string, free);
 	proc_list = generate_proc_list(token_list);
 	ft_list_clear(token_list, ft_del_token);
 	return (proc_list);
 }
-
+           
 static void	remove_empty_token(t_list *token_list)
 {
 	t_token	*token;
