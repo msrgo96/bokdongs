@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/13 16:22:14 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/15 01:21:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <signal.h>
 
 # include <sys/wait.h>
-
 
 # pragma endregion
 
@@ -213,12 +212,12 @@ int			is_redirection(int type);
 t_proc		*ft_new_proc(void);
 void		ft_del_proc(void *content);
 
-t_list		*parser(t_list *token_list);
+t_list		*parser(char *input, t_list *env_list);
 
 int			set_hdfile_list(t_list *proc_list, t_list *hdfile_list);
 
 int			heredoc(t_list *proc_list, t_sh_data *sh_data);
-void		replace_filename(t_list *proc_list, t_list *hdfile_list);
+void		replace_hdfilename(t_list *proc_list, t_list *hdfile_list);
 void		heredoc_clear(t_list *hdfile_list);
 
 // void		print_redir(void *content);
@@ -233,6 +232,19 @@ void		heredoc_clear(t_list *hdfile_list);
 void		display_new_prompt(int signum);
 int			prt_err(int exit_code, char *target);
 void		exit_wrapper(int exit_code, char *target);
+
+void		prt_err_entrance(int exit_code);
+
+int			set_proc_sh_data(t_sh_data *sh_data, t_list *proc_list);
+void		clear_proc_sh_data(t_sh_data *sh_data);
+int			executor(t_sh_data *sh_data, t_list *proc_list);
+
+t_sh_data	*ft_new_sh_data(char **envp);
+
+void		init_shell(char **argv, char **envp, t_sh_data **sh_data);
+void		print_newline_if_signaled(t_sh_data *sh_data);
+void		clear_after_input(char *str, t_sh_data *sh_data, t_list *proc_list);
+void		clear_shell(t_sh_data *sh_data);
 
 # pragma endregion
 

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 15:59:31 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/13 16:23:31 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/14 20:43:35 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int		ft_ullen(size_t n, int base);
 char	*ft_tohex(size_t n, int is_upper);
 
 t_list	*ft_new_list(void);
+t_list	*ft_new_list_init(void *content);
 t_node	*ft_new_node(void *content);
 int		ft_listsize(t_list *list);
 t_node	*ft_listlast(t_list *list);

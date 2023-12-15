@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:05:08 by jooahn            #+#    #+#             */
-/*   Updated: 2023/11/17 16:05:10 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/14 23:19:36 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_del_node_and_link(t_list *list, t_node *target, void (*del)(void *))
 {
 	t_node	*node;
 
-	if (!list)
+	if (!list || !target)
 		return ;
 	node = list->head;
 	while (node)
