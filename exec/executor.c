@@ -64,7 +64,11 @@ static int	single_cmd(t_sh_data *sh_data, t_list *proc_list)
 	proc = (t_proc *)(ft_listget(proc_list, 0)->content);
 	set_io_res = set_io_fd_single_cmd(sh_data, proc_list, 0);
 	if (set_io_res != SUCCESS)
+	{
+		heredoc_clear(sh_data->hdfile_list);
+		restore_io_fd(sh_data);
 		return (set_io_res);
+	}
 	sh_data->child_pid[0] = 0;
 	sh_data->exit_status[0] = exec_builtin(sh_data, proc);
 	if (sh_data->exit_status[0] == NOT_A_BUILTIN)

@@ -13,10 +13,10 @@
 #include "../minishell.h"
 #include "../builtins/builtins.h"
 
-void	open_and_dup2_redir(t_redir *redir);
 void	dup2_and_close(int fd1, int fd2);
 char	*get_absolute_path(t_sh_data *sh_data, char *cmd);
 char	**get_envp_origin(t_list *env_list);
+void	open_and_dup2_redir_exit(t_redir *redir);
 
 //	If close failed: exit (ERR_CLOSE_FAILED)
 static void	close_unused_pipe(t_sh_data *sh_data, int proc_num)
@@ -46,7 +46,7 @@ void	set_io_fd(t_sh_data *sh_data, t_list *proc_list, int proc_num)
 	while (redir_node != NULL)
 	{
 		redir = (t_redir *)(redir_node->content);
-		open_and_dup2_redir(redir);
+		open_and_dup2_redir_exit(redir);
 		redir_node = redir_node->next;
 	}
 	return ;
