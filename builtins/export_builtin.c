@@ -93,7 +93,10 @@ static int	export_for_an_item(t_sh_data *sh_data, t_env *env)
 	if (node != NULL)
 	{
 		if (((t_env *)node->content)->value != NULL && env->value == NULL)
+		{
+			ft_del_env(env);
 			return (SUCCESS);
+		}
 		ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
 	}
 	ft_list_append(sh_data->env_list, ft_new_node(env));
