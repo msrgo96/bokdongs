@@ -43,6 +43,29 @@ static t_env	*set_env(t_proc *proc, int idx, int len)
 	return (env);
 }
 
+static int	export_no_args(t_sh_data *sh_data, t_proc *proc)
+{
+	t_node	*node;
+	t_env	*content;
+
+	if (sh_data == NULL || sh_data->env_list == NULL)
+		return (print_export_err(EXPORT_NULPTR));
+	node = sh_data->env_list->head;
+	while (node != NULL)
+	{
+		content = (t_env *)node->content;
+		if (content == NULL || content->key == NULL)
+			return (print_export_err(EXPORT_NULPTR));
+		ft_printf("declare -x ");
+		if (content->value == NULL)
+			ft_printf("%s\n", content->key);
+		else
+			ft_printf("%s=\"%s\"\n", content->key, content->value);
+		node = node->next;
+	}
+	return (SUCCESS);
+}
+
 //	Return exit code one of below:
 //	SUCCESS
 //	EXPORT_NULPTR
@@ -59,7 +82,7 @@ int	export_builtin(t_sh_data *sh_data, t_proc *proc)
 	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_export_err(EXPORT_NULPTR));
 	if (proc->args[1] == NULL)
-		return (env_builtin(sh_data, proc));
+		return (export_no_args(sh_data, proc));
 	idx = ft_str_find_chr(proc->args[1], '=');
 	if (idx < 0)
 		return (print_export_err(EXPORT_FORMAT));
