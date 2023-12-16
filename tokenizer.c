@@ -6,13 +6,11 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 12:23:03 by jooahn            #+#    #+#             */
-/*   Updated: 2023/12/15 00:07:34 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:12:47 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern int	g_exit_code;
 
 static void		split_list_by_separator(t_list *base_list,
 					const char *separator);

@@ -6,7 +6,7 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:34:10 by moson             #+#    #+#             */
-/*   Updated: 2023/12/16 00:48:55 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:11:17 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,45 @@
 # define PIPE_WRITE 1
 
 # define SIGNAL_OFFSET 128
+
+// Exit Status
+# define SUCCESS 0
+# define ERR_UNKNOWN 1
+# define ERR_MALLOC_FAILED 2
+# define ERR_PIPE_FAILED 3
+# define ERR_CLOSE_FAILED 4
+# define ERR_FORK_FAILED 5
+# define ERR_OPEN_FAILED 6
+# define ERR_DUP2_FAILED 7
+# define ERR_FILE_NOT_EXIST 8
+# define ERR_PERM_DENIED 9
+# define ERR_CMD_NOT_FOUND 10
+# define ERR_EXECVE_FAILED 11
+# define ERR_HEREDOC 12
+# define ERR_STAT_FAILED 13
+# define ERR_EXEC_DIR 14
+# define ERR_SYNTAX 256
+# define ERR_QUOTE 257
+
+// Error Message
+# define MSG_UNKNOWN "unknown error"
+# define MSG_MALLOC_FAILED "malloc failed"
+# define MSG_PIPE_FAILED "pipe failed"
+# define MSG_CLOSE_FAILED "close failed"
+# define MSG_FORK_FAILED "fork failed"
+# define MSG_OPEN_FAILED "open failed"
+# define MSG_DUP2_FAILED "dup2 failed"
+# define MSG_FILE_NOT_EXIST "no such file or directory"
+# define MSG_PERM_DENIED "permission denied"
+# define MSG_CMD_NOT_FOUND "command not found"
+# define MSG_EXECVE_FAILED "execve failed"
+# define MSG_HEREDOC "heredoc failed"
+# define MSG_STAT_FAILED "stat failed"
+# define MSG_EXEC_DIR "is a directory"
+# define MSG_SYNTAX "syntax error"
+# define MSG_QUOTE "quote error"
+
+# define MSG_UNDEFINED "undefined error"
 
 enum		e_quote_type
 {
@@ -108,43 +147,6 @@ typedef struct s_sh_data
 	int		fd_std[3];
 	t_list	*hdfile_list;
 }			t_sh_data;
-
-# define SUCCESS 0
-# define ERR_UNKNOWN 1
-# define ERR_MALLOC_FAILED 2
-# define ERR_PIPE_FAILED 3
-# define ERR_CLOSE_FAILED 4
-# define ERR_FORK_FAILED 5
-# define ERR_OPEN_FAILED 6
-# define ERR_DUP2_FAILED 7
-# define ERR_FILE_NOT_EXIST 8
-# define ERR_PERM_DENIED 9
-# define ERR_CMD_NOT_FOUND 10
-# define ERR_EXECVE_FAILED 11
-# define ERR_HEREDOC 12
-# define ERR_STAT_FAILED 13
-# define ERR_EXEC_DIR 14
-# define ERR_SYNTAX 256
-# define ERR_QUOTE 257
-
-# define MSG_UNKNOWN "unknown error"
-# define MSG_MALLOC_FAILED "malloc failed"
-# define MSG_PIPE_FAILED "pipe failed"
-# define MSG_CLOSE_FAILED "close failed"
-# define MSG_FORK_FAILED "fork failed"
-# define MSG_OPEN_FAILED "open failed"
-# define MSG_DUP2_FAILED "dup2 failed"
-# define MSG_FILE_NOT_EXIST "no such file or directory"
-# define MSG_PERM_DENIED "permission denied"
-# define MSG_CMD_NOT_FOUND "command not found"
-# define MSG_EXECVE_FAILED "execve failed"
-# define MSG_HEREDOC "heredoc failed"
-# define MSG_STAT_FAILED "stat failed"
-# define MSG_EXEC_DIR "is a directory"
-# define MSG_SYNTAX "syntax error"
-# define MSG_QUOTE "quote error"
-
-# define MSG_UNDEFINED "undefined error"
 
 t_token		*ft_new_token(void);
 void		ft_del_token(void *token);

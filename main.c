@@ -6,12 +6,11 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:38:42 by moson             #+#    #+#             */
-/*   Updated: 2023/12/16 00:35:56 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:09:21 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "builtins/builtins.h"
 
 int	g_exit_code = 0;
 

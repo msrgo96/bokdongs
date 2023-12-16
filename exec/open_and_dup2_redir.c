@@ -6,12 +6,11 @@
 /*   By: jooahn <jooahn@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 17:21:52 by moson             #+#    #+#             */
-/*   Updated: 2023/12/16 00:52:08 by jooahn           ###   ########.fr       */
+/*   Updated: 2023/12/16 23:07:46 by jooahn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-#include <fcntl.h> // TO DO : minishell에 있음
 #include <errno.h>
 
 int	is_a_dir(char *path);
