@@ -31,22 +31,27 @@ static int	print_unset_err(const int errno_unset)
 }
 
 //	Return exit code one of below:
-//	SUCCESS
-//	UNSET_NOTEXIST
+//	SUCCESS = UNSET_NOTEXIST
 //	UNSET_NULPTR
 //	UNSET_UNKNOWN
 int	unset_builtin(t_sh_data *sh_data, t_proc *proc)
 {
 	t_node	*node;
 	int		search_res;
+	int		cnt;
 
 	if (sh_data == NULL || sh_data->env_list == NULL)
 		return (print_unset_err(UNSET_NULPTR));
-	search_res = search_env_content(sh_data->env_list, proc->args[1], &node);
-	if (search_res == FT_FALSE)
-		return (print_unset_err(UNSET_UNKNOWN));
-	if (node == NULL)
-		return (UNSET_NOTEXIST);
-	ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
+	cnt = 0;
+	while (proc->args[++cnt] != NULL)
+	{
+		search_res = search_env_content \
+		(sh_data->env_list, proc->args[cnt], &node);
+		if (search_res == FT_FALSE)
+			return (print_unset_err(UNSET_UNKNOWN));
+		if (node == NULL)
+			return (UNSET_NOTEXIST);
+		ft_del_node_and_link(sh_data->env_list, node, ft_del_env);
+	}
 	return (SUCCESS);
 }

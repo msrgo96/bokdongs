@@ -20,8 +20,12 @@
 # define SUCCESS 0
 # define UNKNOWN_MSG "unknown error"
 
-# define ENV_NULPTR 1
-# define ENV_NULPTR_MSG "null pointer exception"
+# define ENV_NULL_KEY 1
+# define ENV_NULL_KEY_MSG "key is null"
+# define ENV_INVAL_ARG 2
+# define ENV_INVAL_ARG_MSG "env only with no args"
+# define ENV_NULPTR 3
+# define ENV_NULPTR_MSG "mull pointer exception"
 
 # define UNSET_NOTEXIST 0
 # define UNSET_NULPTR 1

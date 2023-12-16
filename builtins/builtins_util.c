@@ -55,3 +55,16 @@ int	search_env_content(t_list *env_list, char *key, t_node	**res)
 	*res = NULL;
 	return (FT_TRUE);
 }
+
+int	ft_has_forbidden_keyname(char *str)
+{
+	int	cnt;
+
+	cnt = -1;
+	while (str[++cnt] != '\0')
+	{
+		if (!(ft_isalnum(str[cnt]) || str[cnt] == '_'))
+			return (1);
+	}
+	return (0);
+}
