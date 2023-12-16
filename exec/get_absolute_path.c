@@ -39,7 +39,7 @@ static char	*get_absolute_path_binary(char *path)
 
 	if (access(path, F_OK) != 0 && errno == 13)
 		exit_wrapper(ERR_PERM_DENIED, path);
-	if (is_a_dir(path) == FT_TRUE)
+	if (access(path, F_OK) == 0 && is_a_dir(path) == FT_TRUE)
 		exit_wrapper(ERR_EXEC_DIR, path);
 	if (access(path, F_OK) != 0)
 		exit_wrapper(ERR_FILE_NOT_EXIST, path);
